@@ -34,6 +34,10 @@
     <splash src="www/res/screen/android/drawable-port-xhdpi-screen.png" density="port-xhdpi"/>
     <splash src="www/res/screen/android/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
     <splash src="www/res/screen/android/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
+    <preference name="android-targetSdkVersion" value="26" />
+    <plugin name="cordova-android-support-gradle-release" source="npm">
+    <variable name="ANDROID_SUPPORT_VERSION" value="28.0.0"/>
+    </plugin>
   </platform>
   <platform name="ios">
     <icon src="www/res/icon/ios/icon.png" platform="ios" width="57" height="57"/>
