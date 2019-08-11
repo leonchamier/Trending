@@ -70,17 +70,12 @@
 .demo-swiper {
   margin: 0px 0 35px;
   font-size: 18px;
-  height: 120px;
+  height: 50%/*120px;*/
 }
 .demo-swiper.demo-swiper-auto .swiper-slide {
   width: 85%;
 }
-.demo-swiper.demo-swiper-auto .swiper-slide:nth-child(2n) {
-  width: 70%;
-}
-.demo-swiper.demo-swiper-auto .swiper-slide:nth-child(3n) {
-  width: 30%;
-}
+
     </style>
 
 </head>
@@ -172,7 +167,16 @@
 
     <script type="text/javascript">
         app.initialize();
-
+        $('.demo-swiper').on('click', function () {
+            $(this).css({
+    height: '100%'
+});
+});
+$('.link').on('click', function () {
+            $('.demo-swiper').css({
+    height: '50%'
+});
+});
     </script>
 </body>
 
