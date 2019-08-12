@@ -215,6 +215,7 @@
 
             // listen to events...
             mc.on("panup pandown", function (ev) {
+                ev.gesture.preventDefault();
                 if (ev.type == 'panup') {
                     $('.demo-swiper').css({
                         height: '50%'
