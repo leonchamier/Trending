@@ -80,6 +80,12 @@
         .demo-swiper.demo-swiper-auto .swiper-slide {
             width: 85%;
         }
+
+        .swiper-zoom-container {
+            background-image: url("img/e_background.jpg");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
     </style>
 
 </head>
@@ -197,10 +203,10 @@
             $("#test").swipe({ fingers: 2 });
         });
 
-var hammertime = new Hammer(document.body);
+        var hammertime = new Hammer(document.body);
 
-hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+        hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
         $('.swiper-slide').each(function () {
             var mc = new Hammer(this);
