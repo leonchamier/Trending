@@ -198,11 +198,11 @@
         });
 
 
-        $('.demo-swiper').each(function () {
+        $('.swiper-slide').each(function () {
             var mc = new Hammer(this);
 
             // listen to events...
-            mc.on("panup pandown press", function (ev) {
+            mc.on("panup pandown", function (ev) {
                 if (ev.type == 'panup') {
                     $('.demo-swiper').css({
                         height: '50%'
