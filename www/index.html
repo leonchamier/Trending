@@ -203,13 +203,15 @@
             $("#test").swipe({ fingers: 2 });
         });
 
-        var hammertime = new Hammer(document.body);
 
-        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-        hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
         $('.swiper-slide').each(function () {
-            var mc = new Hammer(this);
+
+            var options = {
+                preventDefault: true
+            };
+
+            var mc = new Hammer(this, options);
 
             // listen to events...
             mc.on("panup pandown", function (ev) {
