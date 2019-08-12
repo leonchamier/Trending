@@ -51,31 +51,35 @@
 
     <title>Hello World</title>
 
-<style>
-    /* A bit of demo styles */;
-.demo-swiper .swiper-slide {
-  font-size: 25px;
-  font-weight: 300;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-  color: #000;
-}
-.demo-swiper .swiper-slide {
-  box-sizing: border-box;
-  border: 1px solid #ddd;
-  background: #fff;
-}
-.demo-swiper {
-  margin: 0px 0 35px;
-  font-size: 18px;
-  height: 50%/*120px;*/
-}
-.demo-swiper.demo-swiper-auto .swiper-slide {
-  width: 85%;
-}
+    <style>
+        /* A bit of demo styles */
 
+        ;
+        .demo-swiper .swiper-slide {
+            font-size: 25px;
+            font-weight: 300;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            color: #000;
+        }
+
+        .demo-swiper .swiper-slide {
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .demo-swiper {
+            margin: 0px 0 35px;
+            font-size: 18px;
+            height: 50%/*120px;*/
+        }
+
+        .demo-swiper.demo-swiper-auto .swiper-slide {
+            width: 85%;
+        }
     </style>
 
 </head>
@@ -121,9 +125,10 @@
                     </div>
                 </div>
                 <div class="page-content">
-                    <div  data-autoplay=2500 data-zoom='{"enabled": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}' class="swiper-container swiper-init demo-swiper">
+                    <div data-autoplay=2500 data-zoom='{"enabled": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
+                        class="swiper-container swiper-init demo-swiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
+                            <div id="slide1" class="swiper-slide">
                                 <div class="swiper-zoom-container">
                                     <img src="e_img/e01.png" />
                                 </div>
@@ -139,15 +144,15 @@
                                 </div>
                             </div>
                             <div class="swiper-slide">
-                                    <div class="swiper-zoom-container">
-                                        <img src="e_img/e04.png" />
-                                    </div>
+                                <div class="swiper-zoom-container">
+                                    <img src="e_img/e04.png" />
                                 </div>
-                                <div class="swiper-slide">
-                                        <div class="swiper-zoom-container">
-                                            <img src="e_img/e05.png" />
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-zoom-container">
+                                    <img src="e_img/e05.png" />
+                                </div>
+                            </div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
@@ -157,7 +162,7 @@
             </div>
         </div>
     </div>
- 
+    <script src="js/hammer.js"></script>
     <script src="js/framework7.bundle.min.js"></script>
     <script src="js/routes.js"></script>
     <script src="js/app.js"></script>
@@ -169,17 +174,43 @@
         app.initialize();
         $('.demo-swiper').on('click', function () {
             $(this).css({
-    height: '100%'
-});
-});
-$('.link').on('click', function () {
+                height: '100%'
+            });
+        });
+        $('.link').on('click', function () {
             $('.demo-swiper').css({
-    height: '50%'
-});
-});
+                height: '50%'
+            });
+        });
 
-$('.demo-swiper').on('swipeup',function(){alert("swipeup..");} );
-$('.demo-swiper').on('swipedown',function(){alert("swipedown..");} );
+        $('.demo-swiper').on('swipeup', function () { alert("swipeup.."); });
+        $('.demo-swiper').on('swipedown', function () { alert("swipedown.."); });
+        $(function () {
+            $(".demo-swiper").swipe({
+                //Generic swipe handler for all directions
+                swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+                    $(this).text("You swiped " + direction);
+                }
+            });
+
+            //Set some options later
+            $("#test").swipe({ fingers: 2 });
+        });
+
+
+        $('.demo-swiper').each(function () {
+            var mc = new Hammer(this);
+
+            // listen to events...
+            mc.on("panup pandown press", function (ev) {
+                if (ev.type == 'panup') {
+                    $('.demo-swiper').css({
+                        height: '50%'
+                    });
+                    console.log(" reduce size");
+                }
+            });
+        });
 
     </script>
 </body>
