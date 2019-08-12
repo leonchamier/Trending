@@ -197,6 +197,10 @@
             $("#test").swipe({ fingers: 2 });
         });
 
+var hammertime = new Hammer(document.body);
+
+hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
         $('.swiper-slide').each(function () {
             var mc = new Hammer(this);
