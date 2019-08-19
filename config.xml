@@ -17,6 +17,7 @@
   <plugin name="cordova-plugin-vibration" source="npm" spec="~2.1.5"/>
   <icon src="icon.png" />
   <allow-intent href="http://*/*" launch-external="yes"/>
+<allow-intent href="https://*/*" launch-external="yes"/>
   <platform name="android">
     <icon src="www/res/icon/android/drawable-ldpi-icon.png" density="ldpi"/>
     <icon src="www/res/icon/android/drawable-mdpi-icon.png" density="mdpi"/>
