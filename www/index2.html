@@ -1,127 +1,116 @@
-<!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+<!doctype html>
+<html lang="en">
+   <head>
+        <title>jQuery mobile with Google maps</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmhafiO8RzbH7gt5HErKgqQTUbg2pKsM4&libraries=places&callback=initAutocomplete"></script>
+        <script type="text/javascript">
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+            var map,
+                currentPosition,
+                directionsDisplay, 
+                directionsService;
 
-    http://www.apache.org/licenses/LICENSE-2.0
+            function initialize(lat, lon)
+            {
+                directionsDisplay = new google.maps.DirectionsRenderer(); 
+                directionsService = new google.maps.DirectionsService();
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
+                currentPosition = new google.maps.LatLng(lat, lon);
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *"
-    />
-    <!-- Good default declaration:
-    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-        * Enable inline JS: add 'unsafe-inline' to default-src
-        * Enable eval(): add 'unsafe-eval' to default-src
-    * Create your own at http://cspisawesome.com
-    -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+                map = new google.maps.Map(document.getElementById('map_canvas'), {
+                   zoom: 15,
+                   center: currentPosition,
+                   mapTypeId: google.maps.MapTypeId.ROADMAP
+                 });
 
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <link rel="stylesheet" href="css/framework7.bundle.min.css">
-    <link rel="stylesheet" href="css/app.css">
+                directionsDisplay.setMap(map);
 
-    <title>Hello World</title>
+                 var currentPositionMarker = new google.maps.Marker({
+                    position: currentPosition,
+                    map: map,
+                    title: "Current position"
+                });
 
+                var infowindow = new google.maps.InfoWindow();
+                google.maps.event.addListener(currentPositionMarker, 'click', function() {
+                    infowindow.setContent("Current position: latitude: " + lat +" longitude: " + lon);
+                    infowindow.open(map, currentPositionMarker);
+                });
+            }
 
+            function locError(error) {
+                // initialize map with a static predefined latitude, longitude
+               initialize(59.3426606750, 18.0736160278);
+            }
 
-</head>
+            function locSuccess(position) {
+                initialize(position.coords.latitude, position.coords.longitude);
+            }
 
-<body>
-    <div id="app">
-        <div class="view view-main view-init">
-            <div class="page">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="left">
-                            <a href="#" class="link icon-only panel-open" data-panel="left">
-                                <i class="icon f7-icons if-not-md">menu</i>
-                                <i class="icon material-icons md-only">menu</i>
-                            </a>
-                        </div>
-                        <div class=" title small middle"> <i class="icon f7-icons ">search</i>Trendingxx</div>
-                        <div class="right">
-                            <a class="link icon-only searchbar-enable" data-searchbar=".searchbar-components">
-                                <i class="icon f7-icons if-not-md">search</i>
-                                <i class="icon material-icons md-only">search</i>
-                            </a>
-                        </div>
+            function calculateRoute() {
+                var targetDestination = $("#target-dest").val();
+                if (currentPosition && currentPosition != '' && targetDestination && targetDestination != '') {
+                    var request = {
+                        origin:currentPosition, 
+                        destination:targetDestination,
+                        travelMode: google.maps.DirectionsTravelMode["DRIVING"]
+                    };
 
-                        <form data-search-container=".components-list" data-search-in="a" class="searchbar searchbar-expandable searchbar-components searchbar-init">
-                            <div class="searchbar-inner">
-                                <div class="searchbar-input-wrap">
-                                    <input type="search" placeholder="Search components" />
-                                    <i class="searchbar-icon"></i>
-                                    <span class="input-clear-button"></span>
-                                </div>
-                                <span class="searchbar-disable-button if-not-aurora">Cancel</span>
-                            </div>
-                        </form>
-                    </div>
+                    directionsService.route(request, function(response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            directionsDisplay.setPanel(document.getElementById("directions"));
+                            directionsDisplay.setDirections(response); 
+
+                            /*
+                                var myRoute = response.routes[0].legs[0];
+                                for (var i = 0; i < myRoute.steps.length; i++) {
+                                    alert(myRoute.steps[i].instructions);
+                                }
+                            */
+                            $("#results").show();
+                        }
+                        else {
+                            $("#results").hide();
+                        }
+                    });
+                }
+                else {
+                    $("#results").hide();
+                }
+            }
+
+            $(document).live("pagebeforeshow", "#map_page", function() {
+                navigator.geolocation.getCurrentPosition(locSuccess, locError);
+            });
+
+            $(document).on('click', '#directions-button', function(e){
+                e.preventDefault();
+                calculateRoute();
+            });
+
+        </script>
+    </head>
+    <body>
+        <div id="basic-map" data-role="page">
+            <div data-role="header">
+                <h1><a data-ajax="false" href="/">jQuery mobile with Google maps v3</a></h1>
+            </div>
+            <div data-role="content">   
+                <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
+                    <div id="map_canvas" style="height:350px;"></div>
                 </div>
-                <!-- Bottom Toolbar -->
-                <div class="toolbar toolbar-bottom">
-                    <div class="toolbar-inner">
-                        <!-- Toolbar links -->
-                        <a href="#" class="link">Link 1</a>
-                        <a href="#" class="link">Link 2</a>
-                    </div>
+                <div data-role="fieldcontain">
+                    <label for="target-dest">Target Destination:</label>
+                    <input type="text" name="target-dest" id="target-dest" value=""  />
                 </div>
-                <div class="page-content">
-                    <div class="block-title">Default</div>
-                    <div class="swiper-container swiper-init demo-swiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">Slide 1</div>
-                            <div class="swiper-slide">Slide 2</div>
-                            <div class="swiper-slide">Slide 3</div>
-                            <div class="swiper-slide">Slide 4</div>
-                            <div class="swiper-slide">Slide 5</div>
-                            <div class="swiper-slide">Slide 6</div>
-                            <div class="swiper-slide">Slide 7</div>
-                            <div class="swiper-slide">Slide 8</div>
-                            <div class="swiper-slide">Slide 9</div>
-                            <div class="swiper-slide">Slide 10</div>
-                        </div>
-                    </div>
-
+                <a href="#" id="directions-button" data-role="button" data-inline="true" data-mini="true">Get Directions</a>
+                <div id="results" style="display:none;">
+                    <div id="directions"></div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <script src="js/framework7.bundle.min.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="js/app.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-
-
-    <script type="text/javascript">
-        app.initialize();
-
-    </script>
-</body>
-
+        </div>      
+    </body>
 </html>
