@@ -1,0 +1,25 @@
+<template>
+        <ul>
+          {{#each items}}
+          <li key="{{this.id}}">...</li>
+          {{/each}}
+        </ul>
+      </template>
+      <script>
+        return {
+          data: function () {
+            return {
+              items: [
+                {
+                  id: 1,
+                  title: 'Item A'
+                },
+                {
+                  id: 2,
+                  title: 'Item B'
+                },
+              ]
+            }
+          }
+        }
+      </script>
