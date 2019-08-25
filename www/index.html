@@ -5,23 +5,27 @@
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
 
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
+    <meta http-equiv="Content-Security-Policy" content=" 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
     />
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2196f3">
+    <title>Trending</title>
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" href="css/framework7.bundle.min.css">
     <link rel="stylesheet" href="css/framework7-icons.css">
     <link rel="stylesheet" href="css/app.css">
-
-    <title>Trending</title>
-
+    <link rel="icon" href="icon.png">
     <style>
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
         /* A bit of demo styles */
 
         ;
@@ -63,7 +67,8 @@
             /*--f7-theme-color: rgb(8, 210, 250);*/
             /*--f7-theme-color: rgba(46,102,119);*/
             /*--f7-theme-color: rgba(50,149,151);  rgb(90, 200, 250) pannel=:#35b7ef*/
-            --f7-theme-color:black;
+            /* dark=#2c3e50 (44, 62, 80) green =#6ebcac  (110,188,172)*/
+            --f7-theme-color:#6ebcac ;
             --f7-message-sent-bg-color: #cddc39;
         }
 
@@ -95,263 +100,146 @@
             --f7-button-text-color: #fff;
             --f7-button-pressed-bg-color: rgba(255, 255, 255, 0.1);
         }
-        .opy {
-            background-color:rgba(0, 0, 0, 0.3);
-    }
-  
 
+        .opy {
+            background-color: rgba(44, 62, 80, 0.3);
+        }
     </style>
 
 </head>
 
 <body>
     <div id="app">
-            <div class="panel panel-left panel-cover panel-resizable opy"  >
-                    <div class="page opy" >
-                      <div class="page-content opy">
-                            <div class="navbar-inner sliding opy">
-                                <div class="row">
-                                    <div class="left col-50">
-                                      <a href="#" class="link back panel-close">
-                                        <i class="icon icon-back color-white"></i>                                       
-                                      </a>
-                                    </div>
-                                    <div class="title-small col-50">
-                                      <div class=" title-mediun-text text-color-white ">Categories</div>
-                                    </div>
-                                    </div>
-                                  </div>
-                        <div class="block-title"></div>
-                        <div class="opy list simple-list " style="font-size:12px;">
-                          <ul style="background-color:gray">
-                            <li>
-                              <a href="/accordionx/"  class="panel-close color-white"><i class="fa fa-music" style="width:20px;font-size:20px;margin-right:10px"></i> <b>  Events</b></a>
-                            </li>
-                            <li>
-                              <a href="/action-sheetx/" class="panel-close color-white"><i class="f7-icons " style="font-size:20px;;margin-right:10px;">film</i> <b>Theatre</b></a>
-                            </li>
-                            <li>
-                                <a href="/action-sheetx/" class="panel-close color-white"><i class="fa fa-building-o " style="font-size:20px;;margin-right:10px;"></i> <b>Hotel</b></a>
-                              </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-        <div class="view view-main view-init ">
-            <div class="page">
-                <div class="navbar ">
-                    <div class="navbar-inner">
-                        <div class="left">
-                            <a href="#" class="link icon-only panel-open" data-panel="left">
-                                <i class="icon f7-icons if-not-md">menu</i>
-                                <i class="icon material-icons md-only">menu</i>
-                            </a>
-                        </div>
-                        <div class=" title small middle">Events</div>
-                        <div class="right">
-                                <a href="#" class="link icon-only"><i class="fa fa-sliders"></i>
-                            <a class="link icon-only searchbar-enable" data-searchbar=".searchbar-components">
-                                <i class="icon f7-icons if-not-md">search</i>
-                                <i class="icon material-icons md-only">search</i>
-                            </a>
-                        </div>
-                        <form data-search-container=".swiper-wrapper" data-search-in="a" class="searchbar searchbar-expandable searchbar-components searchbar-init">
-                            <div class="searchbar-inner">
-                                <div class="searchbar-input-wrap">
-                                    <input type="search" placeholder="Search components" />
-                                    <i class="searchbar-icon"></i>
-                                    <span class="input-clear-button"></span>
-                                </div>
-                                <span class="searchbar-disable-button if-not-aurora">Cancel</span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- Bottom Toolbar -->
-                <div class="toolbar toolbar-bottom bg-color-white">
-                    <div class="toolbar-inner">
-                        <img height="100%" width="100%" src="e_img/ad02.png" />
-                    </div>
-                </div>
-                <div class="page-content">
-                    <div data-autoplay=2500 data-zoom='{"enabled": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
-                        class="swiper-container swiper-init demo-swiper">
-                        <div class="swiper-wrapper">
-                            <div id="slide1" class="swiper-slide">
-                                <div class="card demo-facebook-card" style="width:100%; height:100%">
-
-                                    <div class="card-content " style="  display: flex;
-                                    align-items: center;height:90%;">
-                                        <div class="swiper-zoom-container" >
-                                            <img src="e_img/e01.png"  style=" display: block; 
-                                            margin: auto;"/>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" style="font-size:24px;;;;width:100%; position: absolute; bottom: 0;">
-                                        <a href="https://www.google.com/maps/dir/18.023095725674477,-76.84769209811583/18.0041225,-76.7926586"  class="link external"><i class="fa fa-thumbs-o-up"></i></a>
-                                        <a href="http://www.yahoo.com" class="link external"><i class="fa fa-map-marker"></i></a>
-                                        <a href="#" onclick='window.open("geo:0,0?q=18.0041225,-76.7926586" , "_system")'><i class="fa fa-comments-o"></i></a>
-                                        
-                                        <a href="geo:0,0?q=18.0041225,-76.7926586" ><i class="fa fa-calendar"></i></a> 
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="slide1" class="swiper-slide">
-                                <div class="card demo-facebook-card" style="width:100%; height:100%">
-
-                                    <div class="card-content " style="  display: flex;
-                                    align-items: center;height:90%;">
-                                        <div class="swiper-zoom-container" >
-                                            <img src="e_img/e02.png"  style=" display: block; 
-                                            margin: auto;"/>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" style="font-size:24px;;;;width:100%; position: absolute; bottom: 0;">
-                                        <a href="#" class="link"><i class="fa fa-thumbs-o-up"></i></a>
-                                        <a href="#" class="link"><i class="fa fa-map-marker"></i></a>
-                                        <a href="#" class="link"><i class="fa fa-comments-o"></i></a>
-                                        
-                                        <a href="#" class="link"><i class="fa fa-calendar"></i></a> 
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="slide1" class="swiper-slide">
-                                <div class="card demo-facebook-card" style="width:100%; height:100%">
-
-                                    <div class="card-content " style="  display: flex;
-                                    align-items: center;height:90%;">
-                                        <div class="swiper-zoom-container" >
-                                            <img src="e_img/e03.png"  style=" display: block; 
-                                            margin: auto;"/>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" style="font-size:24px;;;;width:100%; position: absolute; bottom: 0;">
-                                        <a href="#" class="link"><i class="fa fa-thumbs-o-up"></i></a>
-                                        <a href="#" class="link"><i class="fa fa-map-marker"></i></a>
-                                        <a href="#" class="link"><i class="fa fa-comments-o"></i></a>
-                                        
-                                        <a href="#" class="link"><i class="fa fa-calendar"></i></a> 
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="slide1" class="swiper-slide">
-                                <div class="card demo-facebook-card" style="width:100%; height:100%">
-
-                                    <div class="card-content " style="  display: flex;
-                                    align-items: center;height:90%;">
-                                        <div class="swiper-zoom-container" >
-                                            <img src="e_img/e04.png"  style=" display: block; 
-                                            margin: auto;"/>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" style="font-size:24px;;;;width:100%; position: absolute; bottom: 0;">
-                                        <a href="#" class="link"><i class="fa fa-thumbs-o-up"></i></a>
-                                        <a href="#" class="link"><i class="fa fa-map-marker"></i></a>
-                                        <a href="#" class="link"><i class="fa fa-comments-o"></i></a>
-                                        
-                                        <a href="#" class="link"><i class="fa fa-calendar"></i></a>  
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div id="slide1" class="swiper-slide">
-                                <div class="card demo-facebook-card" style="width:100%; height:100%">
-
-                                    <div class="card-content " style="  display: flex;
-                                    align-items: center;height:90%;">
-                                        <div class="swiper-zoom-container" >
-                                            <img src="e_img/e05.png"  style=" display: block; 
-                                            margin: auto;"/>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" style="font-size:24px;;;;width:100%; position: absolute; bottom: 0;">
-                                        <a href="#" class="link"><i class="fa fa-thumbs-o-up"></i></a>
-                                        <a href="#" class="link"><i class="fa fa-map-marker"></i></a>
-                                        <a href="#" class="link"><i class="fa fa-comments-o"></i></a>
-                                        
-                                        <a href="#" class="link"><i class="fa fa-calendar"></i></a> 
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <div class="view view-main"> </div>
     </div>
+
     <script src="js/hammer.js"></script>
     <script src="js/framework7.bundle.min.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/routesx.js"></script>
+    <script src="js/appx.js"></script>
+    <script src="js/location.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-<script>
-    $.getScript('/path/to/imported/script.js', function()
-{
-    // script is now loaded and executed.
-    // put your dependent JS here.
-});
-</script>
-    <script>var theme = 'md';
-        if (location.href.indexOf('theme=md') >= 0) theme = 'md';
-        if (location.href.indexOf('theme=aurora') >= 0) theme = 'aurora';
-        var plugin = {
-            params: {
-                theme: theme,
-                root: '#app',
-            }
-        };
-        if (Framework7.use) Framework7.use(plugin);
-        else if (Framework7.Class && Framework7.Class.use) Framework7.Class.use(plugin);
-    </script>
-    <script type="text/javascript">
-        app.initialize();
-        $('.demo-swiper').on('click', function () {
-            $(this).css({
-                height: '100%'
-            });
-        });
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmhafiO8RzbH7gt5HErKgqQTUbg2pKsM4&libraries=places&callback=initAutocomplete"></script>
+    <script>
+        event_location = [];
+        testx = "oniel c";
+        event_location[0] = { lat: 18.0041225, long: -76.7926586 };
+        event_location[1] = { lat: 18.0023225, long: -76.7926586 };
 
 
+        // Dom7
+        var $ = Dom7;
+        var app = new Framework7({
+            // App root element
+            root: '#app',
+            // App Name
+            name: 'My App',
+            // App id
+            id: 'com.myapp.test',
+            // Enable swipe panel
+            panel: {
+                swipe: 'left',
+            },
+            data: function () {
+                return {
+                    user: {
+                        firstName: 'John',
+                        lastName: 'Doe',
+                    },
+                };
+            },
+            // App root methods
+            methods: {
+                helloWorld: function () {
+                    app.dialog.alert('Hello World!');
+                },
+            },
+            // Add default routes
+            routes: [
+                {
+                    path: '/template/',
+                    url: './about.html',
+                },
+                {
+                    path: '/',
+                    async: function (routeTo, routeFrom, resolve, reject) {
+                        // Router instance
+                        var router = this;
 
-        $('.swiper-slide').each(function () {
+                        // App instance
+                        var app = router.app;
 
-            var mc = new Hammer(this);
-            //enable all directions
-            mc.get('swipe').set({
-                direction: Hammer.DIRECTION_ALL,
-                threshold: 1,
-                velocity: 0.1
-            });
+                        // Show Preloader
+                        app.preloader.show();
 
-            // listen to events...
-            mc.on("swipeup swipedown", function (ev) {
+                        // User ID from request
+                        var userId = routeTo.params.userId;
 
-                if (ev.type == 'swipeup') {
-                    $('.demo-swiper').css({
-                        height: '50%'
-                    });
-                    console.log(" reduce size");
+                        // Simulate Ajax Request
+                        setTimeout(function () {
+                            // We got user data from request
+                            var user = {
+                                firstName: 'Vladimir',
+                                lastName: 'Kharlampidi',
+                                about: 'Hello, i am creator of Framework7! Hope you like it!',
+                                links: [
+                                    {
+                                        title: 'Framework7 Website',
+                                        url: 'http://framework7.io',
+                                    },
+                                    {
+                                        title: 'Framework7 Forum',
+                                        url: 'http://forum.framework7.io',  
+                                    },
+                                ]
+                            };
+                            e_slides=[];
+                            var lat=18.0041225; var long=-76.7926586;
+                            for(var i=1;i<6; i++){
+                                var obj={};
+                                obj.src='e_img/e0'+i+'.png';
+                                obj.index=i;                  
+                                obj.geo={lat:lat+getRandom(.0001,.0009,7),long:(long-getRandom(-.0926586,-.0001,7))};
+                                obj.comments= getRandom(0,157,0);
+                                obj.likes= getRandom(0,15700,0);
+                                //obj.geo={lat:lat,long:long};
+                                e_slides.push(obj);
+                            }
+                            // Hide Preloader
+                            app.preloader.hide();
+
+                            // Resolve route to load page
+                            resolve(
+                                {
+                                    componentUrl: './pages/events.html',
+                                },
+                                {
+                                    context: {
+                                        user: user,
+                                    }
+                                }
+                            );
+                        }, 1000);
+                    },
                 }
-                if (ev.type == 'swipedown') {
-                    $('.demo-swiper').css({
-                        height: '100%'
-                    });
-                    console.log(" increase size");
-                }
-            });
+            ],
+            // ... other parameters
         });
-
+        // Init/Create main view
+        var mainView = app.views.create('.view-main', {
+            url: '/'
+        });
     </script>
+    <script>
+        function getRandom(min,max,fix){
+            if (!fix) {var fix=0;}
+                var num=  Math.random() * (+max - +min) + +min;                 
+                var rand=Number(num.toFixed(fix));
+                return rand;
+        }
+    </script>
+
 </body>
 
 </html>
