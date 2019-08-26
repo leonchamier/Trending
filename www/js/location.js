@@ -31,8 +31,7 @@ function initMap2(latitude, longitude) {
         center: centerOfMap, //Set center.
         zoom: 16 //The zoom value.
     };
-    document.getElementById('map').innerHTML='hello';
-    alert('hello 00122');
+    
     //Create the map object.
     map = new google.maps.Map(document.getElementById('map'), options);
     
