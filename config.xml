@@ -6,7 +6,6 @@
   <preference name="DisallowOverscroll" value="true"/>
   
   <preference name="phonegap-version" value="cli-8.1.1" />
-    <preference name="android-minSdkVersion" value="19" />
   <plugin name="cordova-plugin-googlemaps" spec="2.3.6">
     <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAmhafiO8RzbH7gt5HErKgqQTUbg2pKsM4" />
     <variable name="API_KEY_FOR_IOS" value="AIzaSyAmhafiO8RzbH7gt5HErKgqQTUbg2pKsM4" />

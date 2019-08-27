@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "cordova-plugin-googlemaps": "^2.6.2"
+  }
+}
