@@ -27,8 +27,10 @@
     <preference name="android-minSdkVersion" value="19" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
-    <plugin name="cordova-plugin-googlemaps" spec="2.3.6">
-    <engine name="ios" spec="^5.0.0" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
+    <engine name="ios" spec="^5.0.1" />
     <engine name="android" spec="^8.0.0" />
     <engine name="browser" spec="~5.0.4" />
 </widget>
+
+ 
