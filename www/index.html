@@ -10,6 +10,11 @@
       var div = document.getElementById("map_canvas");
       var map = plugin.google.maps.Map.getMap(div);
 
+     map.addEventListener(plugin.google.maps.event.MAP_READY, function (){
+      map.clear();
+        map.getMyLocation(onSuccess, onError);
+     });
+
       var onSuccess = function (location) {
         var msg = ["Current your location:\n",
           "latitude:" + location.latLng.lat,
@@ -21,6 +26,7 @@
 
         var marker = map.addMarker({
           'position': location.latLng,
+          'draggable': true,
           'title': msg
         });
         map.animateCamera({
