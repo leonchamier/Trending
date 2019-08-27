@@ -15,10 +15,11 @@
         map.getMyLocation(onSuccess, onError);
       });
       map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
-
+        map.clear();
         map.addMarker({
           position: latLng,
           title: latLng,
+          'draggable': true,
           animation: plugin.google.maps.Animation.DROP
         });
       });
