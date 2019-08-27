@@ -5,15 +5,23 @@
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript">
-  
+
     document.addEventListener("deviceready", function () {
       var div = document.getElementById("map_canvas");
       var map = plugin.google.maps.Map.getMap(div);
 
-     map.addEventListener(plugin.google.maps.event.MAP_READY, function (){
-      map.clear();
+      map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
+        map.clear();
         map.getMyLocation(onSuccess, onError);
-     });
+      });
+      map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
+
+        map.addMarker({
+          position: latLng,
+          title: latLng,
+          animation: plugin.google.maps.Animation.DROP
+        });
+      });
 
       var onSuccess = function (location) {
         var msg = ["Current your location:\n",
@@ -31,7 +39,8 @@
         });
         map.animateCamera({
           target: location.latLng,
-          zoom: 16
+          zoom: 16,
+          duration: 2000
         }, function () {
           marker.showInfoWindow();
         });
