@@ -1,0 +1,46 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "cordova.google.maps"
+        }
+    }
+}

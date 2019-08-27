@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+
+    <meta http-equiv="Content-Security-Policy" content=" 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
+    />
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2196f3">
+    <title>Trending</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" href="css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="icon" href="icon.png">
+    <style>
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* A bit of demo styles */
+
+        ;
+        .demo-swiper .swiper-slide {
+            font-size: 25px;
+            font-weight: 300;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            color: #000;
+        }
+
+        .demo-swiper .swiper-slide {
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .demo-swiper {
+            margin: 0px 0 35px;
+            font-size: 18px;
+            height: 100%/*120px;*/
+        }
+
+        .demo-swiper.demo-swiper-auto .swiper-slide {
+            width: 85%;
+        }
+
+        .swiper-zoom-container {
+            /*  background-image: url("img/e_background.jpg");
+            background-repeat: no-repeat;
+            background-size: 100% 100%; */
+        }
+
+        /* Invert navigation bars to fill style */
+
+        :root {
+            /*--f7-theme-color: rgb(8, 210, 250);*/
+            /*--f7-theme-color: rgba(46,102,119);*/
+            /*--f7-theme-color: rgba(50,149,151);  rgb(90, 200, 250) pannel=:#35b7ef*/
+            /* dark=#2c3e50 (44, 62, 80) green =#6ebcac  (110,188,172)*/
+            --f7-theme-color:#6ebcac ;
+            --f7-message-sent-bg-color: #cddc39;
+        }
+
+        :root,
+        :root.theme-dark,
+        :root .theme-dark {
+            --f7-bars-bg-color: var(--f7-theme-color);
+            --f7-bars-text-color: #fff;
+            --f7-bars-link-color: #fff;
+            --f7-navbar-subtitle-text-color: rgba(255, 255, 255, 0.85);
+            --f7-bars-border-color: transparent;
+            --f7-tabbar-link-active-color: #fff;
+            --f7-tabbar-link-inactive-color: rgba(255, 255, 255, 0.54);
+            --f7-searchbar-bg-color: var(--f7-bars-bg-color);
+            --f7-searchbar-input-bg-color: #fff;
+            --f7-searchbar-input-text-color: #000;
+            --f7-sheet-border-color: transparent;
+            --f7-tabbar-link-active-border-color: #fff;
+        }
+
+        .appbar,
+        .navbar,
+        .toolbar,
+        .subnavbar,
+        .calendar-header,
+        .calendar-footer {
+            --f7-touch-ripple-color: var(--f7-touch-ripple-white);
+            --f7-link-highlight-color: var(--f7-link-highlight-white);
+            --f7-button-text-color: #fff;
+            --f7-button-pressed-bg-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .opy {
+            background-color: rgba(44, 62, 80, 0.3);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="view view-main"> </div>
+    </div>
+
+    <script src="js/hammer.js"></script>
+    <script src="js/framework7.bundle.min.js"></script>
+    <script src="js/routesx.js"></script>
+    <script src="js/appx.js"></script>
+    <script src="js/location.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmhafiO8RzbH7gt5HErKgqQTUbg2pKsM4&libraries=places&callback=initAutocomplete"></script>
+    <script>
+        event_location = [];
+        testx = "oniel c";
+        event_location[0] = { lat: 18.0041225, long: -76.7926586 };
+        event_location[1] = { lat: 18.0023225, long: -76.7926586 };
+
+
+        // Dom7
+        var $ = Dom7;
+        var app = new Framework7({
+            // App root element
+            root: '#app',
+            // App Name
+            name: 'My App',
+            // App id
+            id: 'com.myapp.test',
+            // Enable swipe panel
+            panel: {
+                swipe: 'left',
+            },
+            data: function () {
+                return {
+                    user: {
+                        firstName: 'John',
+                        lastName: 'Doe',
+                    },
+                };
+            },
+            // App root methods
+            methods: {
+                helloWorld: function () {
+                    app.dialog.alert('Hello World!');
+                },
+            },
+            // Add default routes
+            routes: [ 
+                { 
+                    path: '/location/:index/',
+                    componentUrl: './pages/location.html',
+                },
+                {
+                    path: '/',
+                    async: function (routeTo, routeFrom, resolve, reject) {
+                        // Router instance
+                        var router = this;
+
+                        // App instance
+                        var app = router.app;
+
+                        // Show Preloader
+                        app.preloader.show();
+
+                        // User ID from request
+                        var userId = routeTo.params.userId;
+
+                        // Simulate Ajax Request
+                        setTimeout(function () {
+                            // We got user data from request
+                            var user = {
+                                firstName: 'Vladimir',
+                                lastName: 'Kharlampidi',
+                                about: 'Hello, i am creator of Framework7! Hope you like it!',
+                                links: [
+                                    {
+                                        title: 'Framework7 Website',
+                                        url: 'http://framework7.io',
+                                    },
+                                    {
+                                        title: 'Framework7 Forum',
+                                        url: 'http://forum.framework7.io',  
+                                    },
+                                ]
+                            };
+                            e_slides=[];
+                            var lat=18.0041225; var long=-76.7926586;
+                            for(var i=1;i<6; i++){
+                                var obj={};
+                                obj.src='e_img/e0'+i+'.png';
+                                obj.index=i;                  
+                                obj.geo={lat:lat+getRandom(.0001,.0009,7),long:(long-getRandom(-.0926586,-.0001,7))};
+                                obj.comments= getRandom(0,157,0);
+                                obj.likes= getRandom(0,15700,0);
+                                //obj.geo={lat:lat,long:long};
+                                e_slides.push(obj);
+                            }
+                            // Hide Preloader
+                            app.preloader.hide();
+
+                            // Resolve route to load page
+                            resolve(
+                                {
+                                    componentUrl: './pages/events.html',
+                                },
+                                {
+                                    context: {
+                                        user: user,
+                                    }
+                                }
+                            );
+                        }, 1000);
+                    },
+                }
+            ],
+            // ... other parameters
+        });
+        // Init/Create main view
+        var mainView = app.views.create('.view-main', {
+            url: '/'
+        });
+    </script>
+    <script>
+        function getRandom(min,max,fix){
+            if (!fix) {var fix=0;}
+                var num=  Math.random() * (+max - +min) + +min;                 
+                var rand=Number(num.toFixed(fix));
+                return rand;
+        }
+    </script>
+
+</body>
+
+</html>
