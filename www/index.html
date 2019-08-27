@@ -5,38 +5,12 @@
   <meta name="viewport" content="width=device-width">
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript">
-    const GOOGLE = { "lat": 37.422476, "lng": -122.08425 };
+  
     document.addEventListener("deviceready", function () {
       var div = document.getElementById("map_canvas");
-      // Initialize the map plugin
-      var map = plugin.google.maps.Map.getMap(mapDiv, {
-        'camera': {
-          'latLng': GOOGLE,
-          'zoom': 17
-        }
-      });
+      var map = plugin.google.maps.Map.getMap(div);
 
-      // You have to wait the MAP_READY event.
-      map.one(plugin.google.maps.event.MAP_READY, onMapInit);
-
-    });
-
-
-    function onMapInit(map) {
-     // map.getMyLocation(onSuccess, onError);
-      // Add a marker
-      map.addMarker({
-        'position': GOOGLE,
-        'title': "Hello GoogleMap for Cordova!"
-      }, function (marker) {
-
-        // Show the infoWindow
-        marker.showInfoWindow();
-
-      });
-    }
-
-    var onSuccess = function (location) {
+      var onSuccess = function (location) {
         var msg = ["Current your location:\n",
           "latitude:" + location.latLng.lat,
           "longitude:" + location.latLng.lng,
@@ -60,6 +34,17 @@
       var onError = function (msg) {
         alert(JSON.stringify(msg));
       };
+
+      var button = div.getElementsByTagName('button')[0];
+      button.addEventListener('click', function () {
+        map.clear();
+        map.getMyLocation(onSuccess, onError);
+      });
+
+
+    });
+
+
   </script>
   <style type="text/css">
     html,
