@@ -1,64 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width">
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript">
-    document.addEventListener("deviceready", function() {
+
+<head>
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript">
+    document.addEventListener("deviceready", function () {
       var div = document.getElementById("map_canvas");
-var map = plugin.google.maps.Map.getMap(div);
+      var map = plugin.google.maps.Map.getMap(div);
 
-  map.clear();
-  map.getMyLocation(onSuccess, onError);
+      map.clear();
+      map.getMyLocation(onSuccess, onError);
 
-var onSuccess = function(location) {
-  var msg = ["Current your location:\n",
-    "latitude:" + location.latLng.lat,
-    "longitude:" + location.latLng.lng,
-    "speed:" + location.speed,
-    "time:" + location.time,
-    "bearing:" + location.bearing].join("\n");
+      var onSuccess = function (location) {
+        var msg = ["Current your location:\n",
+          "latitude:" + location.latLng.lat,
+          "longitude:" + location.latLng.lng,
+          "speed:" + location.speed,
+          "time:" + location.time,
+          "bearing:" + location.bearing].join("\n");
 
 
-  var marker = map.addMarker({
-    'position': location.latLng,
-    'title': msg
-  });
-  map.animateCamera({
-    target: location.latLng,
-    zoom: 16
-  }, function() {
-    marker.showInfoWindow();
-  });
-};
+        var marker = map.addMarker({
+          'position': location.latLng,
+          'title': msg
+        });
+        alert(msg);
+        map.animateCamera({
+          target: location.latLng,
+          zoom: 16
+        }, function () {
+          marker.showInfoWindow();
+        });
+      };
 
-var onError = function(msg) {
-  alert(JSON.stringify(msg));
-};
+      var onError = function (msg) {
+        alert(JSON.stringify(msg));
+      };
 
 
     });
-    
 
-    </script>
-    <style type="text/css">
-    html, body {
+
+  </script>
+  <style type="text/css">
+    html,
+    body {
       height: 100%;
     }
-    #map_canvas { /* Must bigger size than 100x100 pixels */
+
+    #map_canvas {
+      /* Must bigger size than 100x100 pixels */
       width: 100%;
       height: 80%;
     }
+
     button {
       padding: .5em;
       margin: .5em;
     }
-    </style>
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-    <div id="map_canvas">
-      <button id="button">Click me!</button>
-    </div>
-  </body>
+  </style>
+</head>
+
+<body>
+  <h1>Hello, World!</h1>
+  <div id="map_canvas">
+    <button id="button">Click me!</button>
+  </div>
+</body>
+
 </html>
