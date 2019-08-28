@@ -26,15 +26,6 @@
   <plugin name="cordova-plugin-vibration" source="npm" spec="~2.1.5"/>
   <icon src="icon.png" />
   <platform name="android">
-
-   <config-file target="AndroidManifest.xml" parent="/*">
-
-        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    </config-file>
-    
     <icon src="www/res/icon/android/drawable-ldpi-icon.png" density="ldpi"/>
     <icon src="www/res/icon/android/drawable-mdpi-icon.png" density="mdpi"/>
     <icon src="www/res/icon/android/drawable-hdpi-icon.png" density="hdpi"/>
@@ -123,4 +114,12 @@
     <allow-intent href="itms-apps:*"/>
   </platform>
    
+      <config-file target="AndroidManifest.xml" parent="/*">
+
+        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    </config-file>
+    
 </widget>
