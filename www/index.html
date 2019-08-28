@@ -19,8 +19,8 @@
       });
 
       var onSuccess = function (location) {
-        markLocation(location.latLng);        
-
+        markLocation(location.latLng);
+      };
       var onError = function (msg) {
         alert(JSON.stringify(msg));
       };
@@ -34,25 +34,25 @@
 
     });
 
-   function markLocation(latLng){
-    map.clear();
-        var msg = ["Party location:\n",
-          "latitude:" + latLng.lat,
-          "longitude:" + latLng.lng].join("\n");
-        map.addMarker({
-          position: latLng,
-          title: msg,
-          'draggable': true
-        });
-        map.animateCamera({
-          target: location.latLng,
-          zoom: 17,
-          duration: 2000
-        }, function () {
-          marker.showInfoWindow();
-        });
-      };
-   }
+    function markLocation(latLng) {
+      map.clear();
+      var msg = ["Party location:\n",
+        "latitude:" + latLng.lat,
+        "longitude:" + latLng.lng].join("\n");
+      map.addMarker({
+        position: latLng,
+        title: msg,
+        'draggable': true
+      });
+      map.animateCamera({
+        target: location.latLng,
+        zoom: 17,
+        duration: 2000
+      }, function () {
+        marker.showInfoWindow();
+      });
+
+    }
   </script>
   <style type="text/css">
     html,
