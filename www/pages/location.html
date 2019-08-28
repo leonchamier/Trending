@@ -12,19 +12,18 @@
       </div>
     </div>
     <div class="page-content">
-      <div class="card card-outline">
-        <div class="swiper-zoom-container">
-          <div id="map_canvas">
+      <div class="card">
+        <div class="card-header">Card header</div>
+        <div class="card-content card-content-padding">
+          <div id="map_canvas" style="width:300px;height:300px;">
+
           </div>
-          <div id="map" style="width:300px;height:300px;"></div>
-          <input type="text" id="lat" readonly="yes">
-          <input type="text" id="lng" readonly="yes">
           <div class="card-footer">
             <a href="#" class="button button-raised button-fill ">Save Location</a>
           </div>
         </div>
+
       </div>
-    </div>
 </template>
 
 <style>
@@ -61,7 +60,7 @@
         name: 'Jimmy',
         age: 25,
         like: ['Tennis', 'Chess', 'Football'],
-       // map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
+        // map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
       }
     },
     // Component Methods
