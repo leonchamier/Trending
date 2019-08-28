@@ -16,6 +16,9 @@
       });
       map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
         map.clear();
+        var msg = ["Party location:\n",
+          "latitude:" + latLng.lat,
+          "longitude:" + latLng.lng].join("\n");
         map.addMarker({
           position: latLng,
           title: latLng,
