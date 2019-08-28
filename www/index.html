@@ -39,7 +39,7 @@
       var msg = ["Party location:\n",
         "latitude:" + latLng.lat,
         "longitude:" + latLng.lng].join("\n");
-      map.addMarker({
+     var marker= map.addMarker({
         position: latLng,
         title: msg,
         'draggable': true
