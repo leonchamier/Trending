@@ -35,12 +35,9 @@
 
     });
    function markLocation2(location){
-    var msg = ["Current your location:\n",
+    var msg = ["Event location:\n",
           "latitude:" + location.latLng.lat,
-          "longitude:" + location.latLng.lng,
-          "speed:" + location.speed,
-          "time:" + location.time,
-          "bearing:" + location.bearing].join("\n");
+          "longitude:" + location.latLng.lng].join("\n");
 
 
         var marker = map.addMarker({
