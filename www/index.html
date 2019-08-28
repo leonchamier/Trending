@@ -19,7 +19,23 @@
       });
 
       var onSuccess = function (location) {
-        var msg = ["Current your location:\n",
+       markLocation2(location);
+      };
+
+      var onError = function (msg) {
+        alert(JSON.stringify(msg));
+      };
+
+      var button = div.getElementsByTagName('button')[0];
+      button.addEventListener('click', function () {
+        map.clear();
+        map.getMyLocation(onSuccess, onError);
+      });
+
+
+    });
+   function markLocation2(location){
+    var msg = ["Current your location:\n",
           "latitude:" + location.latLng.lat,
           "longitude:" + location.latLng.lng,
           "speed:" + location.speed,
@@ -39,21 +55,7 @@
         }, function () {
           marker.showInfoWindow();
         });
-      };
-
-      var onError = function (msg) {
-        alert(JSON.stringify(msg));
-      };
-
-      var button = div.getElementsByTagName('button')[0];
-      button.addEventListener('click', function () {
-        map.clear();
-        map.getMyLocation(onSuccess, onError);
-      });
-
-
-    });
-
+   }
    function markLocation(latLng){
     map.clear();
         var msg = ["Party location:\n",
