@@ -19,7 +19,7 @@
       });
 
       var onSuccess = function (location) {
-       markLocation2(location);
+       markLocation(location.latLng);
       };
 
       var onError = function (msg) {
@@ -34,25 +34,7 @@
 
 
     });
-   function markLocation2(location){
-    var msg = ["Event location:\n",
-          "latitude:" + location.latLng.lat,
-          "longitude:" + location.latLng.lng].join("\n");
 
-
-        var marker = map.addMarker({
-          'position': location.latLng,
-          'draggable': true,
-          'title': msg
-        });
-        map.animateCamera({
-          target: location.latLng,
-          zoom: 17,
-          duration: 2000
-        }, function () {
-          marker.showInfoWindow();
-        });
-   }
    function markLocation(latLng){
     map.clear();
     var msg = ["Event location:\n",
