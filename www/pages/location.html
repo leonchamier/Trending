@@ -14,8 +14,7 @@
       <div class="page-content">
           <div class="card card-outline">
               <div class="swiper-zoom-container">
-                  <img src="{{src}}" style=" display: block; 
-                                      margin: auto;" />
+                <div id="map_canvas">
                 </div>
             <div id="map" style="width:300px;height:300px;"></div>
             <input type="text" id="lat" readonly="yes">           
@@ -25,7 +24,7 @@
       </div>
     </div>
   </template>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmhafiO8RzbH7gt5HErKgqQTUbg2pKsM4&libraries=places&callback=initAutocomplete"></script>
+  
   <style>
     p {
       margin: 10px 0;
@@ -96,4 +95,52 @@
       }
     }
   </script>
+  <script>
+    function initMap(){
+    var div = document.getElementById("map_canvas");
+      map = plugin.google.maps.Map.getMap(div);
+
+      map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
+        map.clear();
+        map.getMyLocation(onSuccess, onError);
+      });
+      map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
+        markLocation(latLng);
+      });
+
+      var onSuccess = function (location) {
+       markLocation(location.latLng);
+      };
+
+      var onError = function (msg) {
+        alert(JSON.stringify(msg));
+      };
+
+      var button = div.getElementsByTagName('button')[0];
+      button.addEventListener('click', function () {
+        map.clear();
+        map.getMyLocation(onSuccess, onError);
+      });
+      }
+      function markLocation(latLng){
+    map.clear();
+    var msg = ["Event location:\n",
+          "latitude:" + latLng.lat,
+          "longitude:" + latLng.lng].join("\n");
+
+
+        var marker = map.addMarker({
+          'position': latLng,
+          'draggable': true,
+          'title': msg
+        });
+        map.animateCamera({
+          target: latLng,
+          zoom: 17,
+          duration: 2000
+        }, function () {
+          marker.showInfoWindow();
+        });
+   }
+    </script>
   

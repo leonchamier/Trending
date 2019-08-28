@@ -17,7 +17,7 @@
        under the License.
  */
 
-package io.cordova.hellocordova;
+package com.mobile.trending;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

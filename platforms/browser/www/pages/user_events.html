@@ -8,20 +8,34 @@
               <span class="ios-only">Back</span>
             </a>
           </div>
-          <div class="title">Location</div>
+          <div class="title">Events Upload</div>
         </div>
       </div>
       <div class="page-content">
-          <div class="card card-outline">
-              <div class="swiper-zoom-container">
-                  <img src="{{src}}" style=" display: block; 
-                                      margin: auto;" />
-                </div>
-            <div id="map" style="width:300px;height:300px;"></div>
-            <input type="text" id="lat" readonly="yes">           
-            <input type="text" id="lng" readonly="yes">
-            <div class="card-footer"><a href="#" class="button button-raised button-fill " >Save Location</a></div>
+        <div class="card">
+          <div class="card-header">
+            <a href="#" class="link ">
+            <i class="fa fa-plus-circle"></i>
+          </a></div>
+          <div class="card-content">
+            <div class="list media-list">
+              <ul>
+                  {{#each user_events}}
+                <li class="item-content">
+                  <div class="item-media"><img src="{{src}}" width="44"/></div>
+                  <div class="item-inner">
+                    <div class="item-title-row">
+                      <div class="item-title">Party {{index}}</div>
+                    </div>
+                    <div class="item-subtitle">Beatles</div>
+                  </div>
+                </li>
+                {{/each}}
+              </ul>
+            </div>
           </div>
+          <div class="card-footer"> <span>January 20, 2015</span><span>5 comments</span></div>
+        </div>
       </div>
     </div>
   </template>
@@ -57,9 +71,8 @@
       data: function () {
         // Must return an object
         return {
-          name: 'Jimmy',
-          age: 25,
-          like: ['Tennis', 'Chess', 'Football'],
+          user_events: getUserEvents(),
+          age: 25
         }
       },
       // Component Methods
@@ -96,4 +109,12 @@
       }
     }
   </script>
+  <script>
+    function getUserEvents(){
+      user_events=[];
+      user_events.push(e_slides[2]);
+      user_events.push(e_slides[5]);
+                            
+    }
+    </script>
   
