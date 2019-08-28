@@ -1,130 +1,77 @@
 <template>
-    <div class="page">
-      <div class="navbar">
-        <div class="navbar-inner sliding">
-          <div class="left">
-            <a href="#" class="link back">
-              <i class="icon icon-back"></i>
-              <span class="ios-only">Back</span>
-            </a>
-          </div>
-          <div class="title">Location</div>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
         </div>
-      </div>
-      <div class="page-content">
-          <div class="card card-outline">
-              <div class="swiper-zoom-container">
-                <div id="map_canvas">
-                </div>
-            <div id="map" style="width:300px;height:300px;"></div>
-            <input type="text" id="lat" readonly="yes">           
-            <input type="text" id="lng" readonly="yes">
-            <div class="card-footer"><a href="#" class="button button-raised button-fill " >Save Location</a></div>
-          </div>
+        <div class="title">Location</div>
       </div>
     </div>
-  </template>
-  
-  <style>
-    p {
-      margin: 10px 0;
-    }
-  </style>
-   
-  <script>
-    return {
-      // Lifecycle Hooks
-      beforeCreate() {
-        console.log('componentBeforeCreate', this)
-      },
-      created() {
-        console.log('componentCreated', this)
-      },
-      beforeMount() {
-        console.log('componentBeforeMount', this)
-      },
-      mounted() {
-        console.log('componentMounted', this);
-      },
-      beforeDestroy() {
-        console.log('componentBeforeDestroy', this);
-      },
-      destroyed() {
-        console.log('componentDestroyed', this);
-      },
-      // Component Data
-      data: function () {
-        // Must return an object
-        return {
-          name: 'Jimmy',
-          age: 25,
-          like: ['Tennis', 'Chess', 'Football'],
-        }
-      },
-      // Component Methods
-      methods: {
-        openAlert: function () {
-          var self = this;
-          self.$app.dialog.alert('Hello World');
-        },
-      },
-      // Page Events
-      on: {
-        pageMounted: function(e, page) {
-          console.log('pageMounted', page);
-        },
-        pageInit: function(e, page) {
-          initMap();
-          console.log('pageInit', page);
-        },
-        pageBeforeIn: function(e, page) {
-          console.log('pageBeforeIn', page);
-        },
-        pageAfterIn: function(e, page) {
-          console.log('pageAfterIn', page);
-        },
-        pageBeforeOut: function(e, page) {
-          console.log('pageBeforeOut', page);
-        },
-        pageAfterOut: function(e, page) {
-          console.log('pageAfterOut', page);
-        },
-        pageBeforeRemove: function(e, page) {
-          console.log('pageBeforeRemove', page);
-        },
+    <div class="page-content">
+      <div class="card card-outline">
+        <div class="swiper-zoom-container">
+          <div id="map_canvas">
+          </div>
+          <div id="map" style="width:300px;height:300px;"></div>
+          <input type="text" id="lat" readonly="yes">
+          <input type="text" id="lng" readonly="yes">
+          <div class="card-footer">
+            <a href="#" class="button button-raised button-fill ">Save Location</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<style>
+  p {
+    margin: 10px 0;
+  }
+</style>
+
+<script>
+  return {
+    // Lifecycle Hooks
+    beforeCreate() {
+      console.log('componentBeforeCreate', this)
+    },
+    created() {
+      console.log('componentCreated', this)
+    },
+    beforeMount() {
+      console.log('componentBeforeMount', this)
+    },
+    mounted() {
+      console.log('componentMounted', this);
+    },
+    beforeDestroy() {
+      console.log('componentBeforeDestroy', this);
+    },
+    destroyed() {
+      console.log('componentDestroyed', this);
+    },
+    // Component Data
+    data: function () {
+      // Must return an object
+      return {
+        name: 'Jimmy',
+        age: 25,
+        like: ['Tennis', 'Chess', 'Football'],
+        map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
       }
-    }
-  </script>
-  <script>
-    function initMap(){
-    var div = document.getElementById("map_canvas");
-      map = plugin.google.maps.Map.getMap(div);
-
-      map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
+    },
+    // Component Methods
+    methods: {
+      openAlert: function () {
+        var self = this;
+        self.$app.dialog.alert('Hello World');
+      }, markLocation: function (latLng) {
         map.clear();
-        map.getMyLocation(onSuccess, onError);
-      });
-      map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
-        markLocation(latLng);
-      });
-
-      var onSuccess = function (location) {
-       markLocation(location.latLng);
-      };
-
-      var onError = function (msg) {
-        alert(JSON.stringify(msg));
-      };
-
-      var button = div.getElementsByTagName('button')[0];
-      button.addEventListener('click', function () {
-        map.clear();
-        map.getMyLocation(onSuccess, onError);
-      });
-      }
-      function markLocation(latLng){
-    map.clear();
-    var msg = ["Event location:\n",
+        var msg = ["Event location:\n",
           "latitude:" + latLng.lat,
           "longitude:" + latLng.lng].join("\n");
 
@@ -141,6 +88,48 @@
         }, function () {
           marker.showInfoWindow();
         });
-   }
-    </script>
-  
+      }
+    },
+    // Page Events
+    on: {
+      pageMounted: function (e, page) {
+        console.log('pageMounted', page);
+      },
+      pageInit: function (e, page) {
+
+        map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
+          map.clear();
+          map.getMyLocation(onSuccess, onError);
+        });
+        map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
+          markLocation(latLng);
+        });
+
+        var onSuccess = function (location) {
+          markLocation(location.latLng);
+        };
+
+        var onError = function (msg) {
+          alert(JSON.stringify(msg));
+        };
+
+        console.log('pageInit', page);
+      },
+      pageBeforeIn: function (e, page) {
+        console.log('pageBeforeIn', page);
+      },
+      pageAfterIn: function (e, page) {
+        console.log('pageAfterIn', page);
+      },
+      pageBeforeOut: function (e, page) {
+        console.log('pageBeforeOut', page);
+      },
+      pageAfterOut: function (e, page) {
+        console.log('pageAfterOut', page);
+      },
+      pageBeforeRemove: function (e, page) {
+        console.log('pageBeforeRemove', page);
+      },
+    }
+  }
+</script>
