@@ -61,7 +61,7 @@
         name: 'Jimmy',
         age: 25,
         like: ['Tennis', 'Chess', 'Football'],
-        map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
+       // map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
       }
     },
     // Component Methods
@@ -96,6 +96,8 @@
         console.log('pageMounted', page);
       },
       pageInit: function (e, page) {
+        var div = document.getElementById("map_canvas");
+        map = plugin.google.maps.Map.getMap(div);
 
         map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
           map.clear();
