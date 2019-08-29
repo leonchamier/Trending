@@ -181,8 +181,8 @@
 
       },
       pageBeforeIn: function (e, page) {
-        var swiper = app.swiper.get('.swiper-container');
-        swiper.slideNext();
+        //var swiper = app.swiper.get('.swiper-container');
+        //swiper.slideNext();
         console.log('pageBeforeIn', page);
       },
       pageAfterIn: function (e, page) {
@@ -200,42 +200,4 @@
       },
     }
   }
-</script>
-<script type="text/javascript">
-  function initilizeSwiper() {
-    $('.demo-swiper').on('click', function () {
-      $(this).css({
-        height: '100%'
-      });
-    });
-
-    $('.swiper-slide').each(function () {
-
-      var mc = new Hammer(this);
-      //enable all directions
-      mc.get('swipe').set({
-        direction: Hammer.DIRECTION_ALL,
-        threshold: 1,
-        velocity: 0.1
-      });
-
-      // listen to events...
-      mc.on("swipeup swipedown", function (ev) {
-
-        if (ev.type == 'swipeup') {
-          $('.demo-swiper').css({
-            height: '50%'
-          });
-          console.log(" reduce size");
-        }
-        if (ev.type == 'swipedown') {
-          $('.demo-swiper').css({
-            height: '100%'
-          });
-          console.log(" increase size");
-        }
-      });
-    });
-  } 
-
 </script>
