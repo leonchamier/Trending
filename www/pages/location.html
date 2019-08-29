@@ -13,9 +13,9 @@
     </div>
     <div class="page-content">
       <div class="card">
-
+        <div class="card-header">Card header</div>
         <div class="card-content card-content-padding">
-          <div id="map_canvas" style="width:400px;height:400px;">
+          <div id="map_canvas" style="width:300px;height:300px;">
 
           </div>
           <div class="card-footer">
@@ -76,59 +76,13 @@
         console.log('pageMounted', page);
       },
       pageInit: function (e, page) {
-        //console.log(app.data.e_slides);
-        //console.log(this.$route.params);
-        console.log('Onie charles');
-        var latlong = { lat: app.data.e_slides[this.$route.params.index].geo.lat, lng: app.data.e_slides[this.$route.params.index].geo.long };
-        console.log(latlong);
-
-        var markLocation = function (latLng) {
-          try {
-            app.data.e_slides[this.$route.params.index].geo.lat = latLng.lat;
-            app.data.e_slides[this.$route.params.index].geo.long = latLng.lng;
-          } catch (e) { }
-
-          map.clear();
-          var msg = ["Event location:\n",
-            "latitude:" + latLng.lat,
-            "longitude:" + latLng.lng].join("\n");
-
-
-          var marker = map.addMarker({
-            'position': latLng,
-            'draggable': true,
-            'title': msg
-          });
-
-          marker.addEventListener(plugin.google.maps.event.MARKER_DRAG_END, function (position) {
-            marker.setTitle(position.toUrlValue());
-            marker.showInfoWindow();
-            try {
-              app.data.e_slides[this.$route.params.index].geo.lat = latLng.lat;
-              app.data.e_slides[this.$route.params.index].geo.long = latLng.lng;
-            } catch (e) { }
-          });
-
-          map.animateCamera({
-            target: latLng,
-            zoom: 17,
-            duration: 2000
-          }, function () {
-            marker.showInfoWindow();
-          });
-        }
-
-        markLocation(latlong);
-        // console.log(this.$root.e_slides);
         var div = document.getElementById("map_canvas");
         map = plugin.google.maps.Map.getMap(div);
-        /*
-                map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
-                  map.clear();
-                  map.getMyLocation(onSuccess, onError);
-                });
-        */
 
+        map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
+          map.clear();
+          map.getMyLocation(onSuccess, onError);
+        });
         map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
           markLocation(latLng);
         });
@@ -141,7 +95,26 @@
           alert(JSON.stringify(msg));
         };
 
+    var markLocation= function (latLng) {
+        map.clear();
+        var msg = ["Event location:\n",
+          "latitude:" + latLng.lat,
+          "longitude:" + latLng.lng].join("\n");
 
+
+        var marker = map.addMarker({
+          'position': latLng,
+          'draggable': true,
+          'title': msg
+        });
+        map.animateCamera({
+          target: latLng,
+          zoom: 17,
+          duration: 2000
+        }, function () {
+          marker.showInfoWindow();
+        });
+      }
         console.log('pageInit', page);
       },
       pageBeforeIn: function (e, page) {
