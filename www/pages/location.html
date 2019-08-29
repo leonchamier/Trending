@@ -107,6 +107,16 @@
           'draggable': true,
           'title': msg
         });
+
+         marker.addEventListener(plugin.google.maps.event.MARKER_DRAG_END, function (position) {
+            marker.setTitle(position.toUrlValue());
+            marker.showInfoWindow();
+            try {
+              app.data.e_slides[this.$route.params.index].geo.lat = latLng.lat;
+              app.data.e_slides[this.$route.params.index].geo.long = latLng.lng;
+            } catch (e) { }
+          });
+          
         map.animateCamera({
           target: latLng,
           zoom: 17,
