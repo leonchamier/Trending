@@ -15,7 +15,7 @@
       <div class="card">
         <div class="card-header">Card header</div>
         <div class="card-content card-content-padding">
-          <div id="map_canvasx" style="width:300px;height:300px;">
+          <div id="map_canvas" style="width:300px;height:300px;">
 
           </div>
           <div class="card-footer">
@@ -112,8 +112,8 @@
             marker.setTitle(position.toUrlValue());
             marker.showInfoWindow();
             try {
-              app.data.e_slides[this.$route.params.index].geo.lat = latLng.lat;
-              app.data.e_slides[this.$route.params.index].geo.long = latLng.lng;
+            //  app.data.e_slides[this.$route.params.index].geo.lat = latLng.lat;
+            //  app.data.e_slides[this.$route.params.index].geo.long = latLng.lng;
             } catch (e) { }
           });
 
