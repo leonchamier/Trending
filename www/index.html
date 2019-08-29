@@ -180,7 +180,7 @@
                         var app = router.app;
 
                         // Show Preloader
-                        app.preloader.show();
+                        //app.preloader.show();
 
                         // User ID from request
                         var userId = routeTo.params.userId;
@@ -218,7 +218,7 @@
                             app.data.e_slides=e_slides;
                             //console.log(this.$root.e_slides=e_slides);    //.$root.data.e_slides=e_slides;
                             // Hide Preloader
-                            app.preloader.hide();
+                            //app.preloader.hide();
 
                             // Resolve route to load page
                             resolve(
@@ -231,7 +231,7 @@
                                     }
                                 }
                             );
-                        }, 1000);
+                        }, 1);
                     },
                 }
             ],
