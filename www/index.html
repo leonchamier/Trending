@@ -2,9 +2,9 @@
 <html>
 
 <head>
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta http-equiv="Pragma" content="no-cache" />
-        <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -72,7 +72,7 @@
             /*--f7-theme-color: rgba(46,102,119);*/
             /*--f7-theme-color: rgba(50,149,151);  rgb(90, 200, 250) pannel=:#35b7ef*/
             /* dark=#2c3e50 (44, 62, 80) green =#6ebcac  (110,188,172)*/
-            --f7-theme-color:#6ebcac ;
+            --f7-theme-color: #6ebcac;
             --f7-message-sent-bg-color: #cddc39;
         }
 
@@ -124,7 +124,7 @@
     <script src="js/locationx.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    
+
     <script>
         event_location = [];
         testx = "oniel c";
@@ -151,7 +151,7 @@
                         firstName: 'John',
                         lastName: 'Doe',
                     },
-                    e_slides:[{src:'img.png'}]
+                    e_slides: [{ src: 'img.png' }]
                 };
             },
             // App root methods
@@ -161,12 +161,16 @@
                 },
             },
             // Add default routes
-            routes: [ 
-                { 
+            routes: [
+                {
                     path: '/location/:index/',
                     componentUrl: './pages/location.html',
                 },
-                { 
+                {
+                    path: '/about/',
+                    url: './about.html',
+                },
+                {
                     path: '/user_events/',
                     componentUrl: './pages/user_events.html',
                 },
@@ -199,23 +203,23 @@
                                     },
                                     {
                                         title: 'Framework7 Forum',
-                                        url: 'http://forum.framework7.io',  
+                                        url: 'http://forum.framework7.io',
                                     },
                                 ]
                             };
-                            e_slides=[];
-                            var lat=18.0041225; var long=-76.7926586;
-                            for(var i=0;i<5; i++){
-                                var obj={};
-                                obj.src='e_img/e0'+(i+1)+'.png';
-                                obj.index=i;                  
-                                obj.geo={lat:lat+getRandom(.0001,.0009,7),long:(long-getRandom(-.0926586,-.0001,7))};
-                                obj.comments= getRandom(0,157,0);
-                                obj.likes= getRandom(0,15700,0);
+                            e_slides = [];
+                            var lat = 18.0041225; var long = -76.7926586;
+                            for (var i = 0; i < 5; i++) {
+                                var obj = {};
+                                obj.src = 'e_img/e0' + (i + 1) + '.png';
+                                obj.index = i;
+                                obj.geo = { lat: lat + getRandom(.0001, .0009, 7), long: (long - getRandom(-.0926586, -.0001, 7)) };
+                                obj.comments = getRandom(0, 157, 0);
+                                obj.likes = getRandom(0, 15700, 0);
                                 //obj.geo={lat:lat,long:long};
                                 e_slides.push(obj);
                             }
-                            app.data.e_slides=e_slides;
+                            app.data.e_slides = e_slides;
                             //console.log(this.$root.e_slides=e_slides);    //.$root.data.e_slides=e_slides;
                             // Hide Preloader
                             //app.preloader.hide();
@@ -243,11 +247,11 @@
         });
     </script>
     <script>
-        function getRandom(min,max,fix){
-            if (!fix) {var fix=0;}
-                var num=  Math.random() * (+max - +min) + +min;                 
-                var rand=Number(num.toFixed(fix));
-                return rand;
+        function getRandom(min, max, fix) {
+            if (!fix) { var fix = 0; }
+            var num = Math.random() * (+max - +min) + +min;
+            var rand = Number(num.toFixed(fix));
+            return rand;
         }
     </script>
 
