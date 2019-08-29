@@ -181,6 +181,8 @@
 
       },
       pageBeforeIn: function (e, page) {
+        var swiper = app.swiper.get('.swiper-container');
+        swiper.slideNext();
         console.log('pageBeforeIn', page);
       },
       pageAfterIn: function (e, page) {
