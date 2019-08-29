@@ -1,121 +1,208 @@
 <template>
-    <div class="page">
-      <div class="navbar">
-        <div class="navbar-inner sliding">
-          <div class="left">
-            <a href="#" class="link back">
-              <i class="icon icon-back"></i>
-              <span class="ios-only">Back</span>
-            </a>
-          </div>
-          <div class="title">Your Events</div>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
         </div>
-      </div>
-      <div class="page-content">
-          <div class="card">
-              <div class="card-header">
-                <a href="#" class="link ">
-                <i class="fa fa-plus-circle"></i>
-              </a></div>
-              <div class="card-content">
-                <div class="list media-list">
-                  <ul>
-                      {{#each user_events}}
-                    <li class="item-content">
-                      <div class="item-media"><a href="/location/{{index}}/" class="link"><img src="{{src}}" width="44"/></a></div>
-                      <div class="item-inner">
-                        <div class="item-title-row">
-                          <div class="item-title"><a href="/about/" class="link ">
-                               Party {{index}}</a></div>
-                        </div>
-                        <div class="item-subtitle">Beatles</div>
-                      </div>
-                    </li>
-                    {{/each}}
-                  </ul>
-                </div>
-              </div>
-              <div class="card-footer"> <span>January 20, 2015</span><span>5 comments</span></div>
-            </div>
+        <div class="title">Your Events</div>
       </div>
     </div>
-  </template>
-  
-  <style>
-    p {
-      margin: 10px 0;
-    }
-  </style>
-   
-  <script>
-    return {
-      // Lifecycle Hooks
-      beforeCreate() {
-        console.log('componentBeforeCreate', this)
-      },
-      created() {
-        console.log('componentCreated', this)
-      },
-      beforeMount() {
-        console.log('componentBeforeMount', this)
-      },
-      mounted() {
-        console.log('componentMounted', this);
-      },
-      beforeDestroy() {
-        console.log('componentBeforeDestroy', this);
-      },
-      destroyed() {
-        console.log('componentDestroyed', this);
-      },
-      // Component Data
-      data: function () {
-        // Must return an object
-        return {
-          name: 'Jimmy',
-          user_events:getUserEvents(),
-          age: 25,
-          like: ['Tennis', 'Chess', 'Football'],
-        }
-      },
-      // Component Methods
-      methods: {
-        openAlert: function () {
-          var self = this;
-          self.$app.dialog.alert('Hello World');
-        },
-      },
-      // Page Events
-      on: {
-        pageMounted: function(e, page) {
-          console.log('pageMounted', page);
-        },
-        pageInit: function(e, page) {
-          console.log('pageInit', page);
-        },
-        pageBeforeIn: function(e, page) {
-          console.log('pageBeforeIn', page);
-        },
-        pageAfterIn: function(e, page) {
-          console.log('pageAfterIn', page);
-        },
-        pageBeforeOut: function(e, page) {
-          console.log('pageBeforeOut', page);
-        },
-        pageAfterOut: function(e, page) {
-          console.log('pageAfterOut', page);
-        },
-        pageBeforeRemove: function(e, page) {
-          console.log('pageBeforeRemove', page);
-        },
-      }
-    }
-    function getUserEvents(){
-      var obj=[];
-      obj.push(e_slides[2]);
-      obj.push(e_slides[4]);
-      return obj;
-    }
-  </script>
+    <div class="page-content">
+      <div class="card">
+        <div class="card-header">
+          <a href="#" class="link ">
+            <i class="fa fa-plus-circle"></i>
+          </a>
+        </div>
+        <div class="card-content">
+          <div class="list media-list">
+            <ul>
+              {{#each user_events}}
+              <li class="item-content">
+                <div class="item-media">
+                  <a href="/location/{{index}}/" class="link">
+                    <img src="{{src}}" width="44" />
+                  </a>
+                </div>
+                <div class="item-inner">
+                  <div class="item-title-row">
+                    <div class="item-title">
+                      <a href="/about/" class="link ">
+                        Party {{index}}</a>
+                    </div>
+                  </div>
+                  <div class="item-subtitle">
+                    <a href="#" class=" popup-open" data-popup="#my-popup">Beatles</a>
+                  </div>
+                </div>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>January 20, 2015</span>
+          <span>5 comments</span>
+        </div>
+      </div>
+    </div>
 
-  
+    <div class="popup" id="my-popup">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Popup</div>
+              <div class="right">
+                <a href="#" class="link popup-close">Close</a>
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block">
+              <div id="map_canvas" style="width:100%;height:400px;"> </div>
+              <a href="#" class="button button-raised button-fill ">Save Location</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<style>
+  p {
+    margin: 10px 0;
+  }
+</style>
+
+<script>
+  function alertPop() {
+    alert('in it pop');
+  }
+
+  return {
+    // Lifecycle Hooks
+    beforeCreate() {
+      console.log('componentBeforeCreate', this)
+    },
+    created() {
+      console.log('componentCreated', this)
+    },
+    beforeMount() {
+      console.log('componentBeforeMount', this)
+    },
+    mounted() {
+      console.log('componentMounted', this);
+    },
+    beforeDestroy() {
+      console.log('componentBeforeDestroy', this);
+    },
+    destroyed() {
+      console.log('componentDestroyed', this);
+    },
+    // Component Data
+    data: function () {
+      // Must return an object
+      return {
+        name: 'Jimmy',
+        user_events: getUserEvents(),
+        age: 25,
+        like: ['Tennis', 'Chess', 'Football'],
+      }
+    },
+    // Component Methods
+    methods: {
+      openAlert: function () {
+        var self = this;
+        self.$app.dialog.alert('Hello World');
+      },
+    },
+    // Page Events
+    on: {
+      pageMounted: function (e, page) {
+        console.log('pageMounted', page);
+      },
+      pageInit: function (e, page) {
+        $('#my-popup').on('popup:open', function (e, popup) {
+          var div = document.getElementById("map_canvas");
+        map = plugin.google.maps.Map.getMap(div);
+
+        map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
+          map.clear();
+          map.getMyLocation(onSuccess, onError);
+        });
+        map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
+          markLocation(latLng);
+        });
+
+        var onSuccess = function (location) {
+          markLocation(location.latLng);
+        };
+
+        var onError = function (msg) {
+          alert(JSON.stringify(msg));
+        };
+
+    var markLocation= function (latLng) {
+        map.clear();
+        var msg = ["Event location:\n",
+          "latitude:" + latLng.lat,
+          "longitude:" + latLng.lng].join("\n");
+
+
+        var marker = map.addMarker({
+          'position': latLng,
+          'draggable': true,
+          'title': msg
+        });
+
+         marker.addEventListener(plugin.google.maps.event.MARKER_DRAG_END, function (position) {
+            marker.setTitle(position.toUrlValue());
+            marker.showInfoWindow();
+            try {
+            //  app.data.e_slides[this.$route.params.index].geo.lat = latLng.lat;
+            //  app.data.e_slides[this.$route.params.index].geo.long = latLng.lng;
+            } catch (e) { }
+          });
+
+        map.animateCamera({
+          target: latLng,
+          zoom: 17,
+          duration: 1000
+        }, function () {
+          marker.showInfoWindow();
+        });
+      }
+        });
+        console.log('pageInit', page);
+      },
+      pageBeforeIn: function (e, page) {
+        console.log('pageBeforeIn', page);
+      },
+      pageAfterIn: function (e, page) {
+        console.log('pageAfterIn', page);
+      },
+      pageBeforeOut: function (e, page) {
+        console.log('pageBeforeOut', page);
+      },
+      pageAfterOut: function (e, page) {
+        console.log('pageAfterOut', page);
+      },
+      pageBeforeRemove: function (e, page) {
+        console.log('pageBeforeRemove', page);
+      },
+    }
+  }
+  function getUserEvents() {
+    var obj = [];
+    obj.push(e_slides[2]);
+    obj.push(e_slides[4]);
+    return obj;
+  }
+</script>
