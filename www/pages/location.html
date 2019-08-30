@@ -12,15 +12,12 @@
         </div>
       </div>
       <div class="page-content">
-        <div class="card">
-          <div class="card-header">Card header</div>
-          <div class="card-content card-content-padding">
-            <div id="map_canvas" style="width:300px;height:300px;">
+       
+            <div id="map_canvas" style="width:100%;height:400px;">
   
-            </div>
-            <div class="card-footer">
+            
               <a href="#" class="button button-raised button-fill ">Save Location</a>
-            </div>
+           
           </div>
   
         </div>
@@ -76,7 +73,6 @@
           console.log('pageMounted', page);
         },
         pageInit: function (e, page) {
-          
           var div = document.getElementById("map_canvas");
           map = plugin.google.maps.Map.getMap(div);
           map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
@@ -117,7 +113,7 @@
           }, function () {
             marker.showInfoWindow();
           });
-        } 
+        }
           console.log('pageInit', page);
         },
         pageBeforeIn: function (e, page) {
