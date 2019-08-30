@@ -64,8 +64,9 @@
           </div>
           <div class="page-content">
             <div class="block">
-              <div id="map_canvas2" style="width:100%;height:400px;"> </div>
-              <a href="#" class="button button-raised button-fill ">Save Location</a>
+                <a href="#" class="button button-raised button-fill ">Save Location</a>
+              <div id="my_map_canvas" style="width:100%;height:400px;"> </div>
+              
             </div>
           </div>
         </div>
@@ -130,6 +131,47 @@
       },
       pageInit: function (e, page) {
         $('#my-popup').on('popup:open', function (e, popup) {
+          var div = document.getElementById("my_map_canvas");
+          map = plugin.google.maps.Map.getMap(div);
+          map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
+            map.clear();
+            map.getMyLocation(onSuccess, onError);
+          });
+          map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
+            markLocation(latLng);
+          });
+          var onSuccess = function (location) {
+            markLocation(location.latLng);
+          };
+          var onError = function (msg) {
+            alert(JSON.stringify(msg));
+          };
+      var markLocation= function (latLng) {
+          map.clear();
+          var msg = ["Event location:\n",
+            "latitude:" + latLng.lat,
+            "longitude:" + latLng.lng].join("\n");
+          var marker = map.addMarker({
+            'position': latLng,
+            'draggable': true,
+            'title': msg
+          });
+           marker.addEventListener(plugin.google.maps.event.MARKER_DRAG_END, function (position) {
+              marker.setTitle(position.toUrlValue());
+              marker.showInfoWindow();
+              try {
+              //  app.data.e_slides[this.$route.params.index].geo.lat = latLng.lat;
+              //  app.data.e_slides[this.$route.params.index].geo.long = latLng.lng;
+              } catch (e) { }
+            });
+          map.animateCamera({
+            target: latLng,
+            zoom: 17,
+            duration: 1000
+          }, function () {
+            marker.showInfoWindow();
+          });
+        }
           console.log('About popup open');
         });
         console.log('pageInit', page);
