@@ -1,104 +1,275 @@
 <!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
+    />
+
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>My App</title>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2196f3">
+
+
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" href="css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <title>Hello World</title>
+
+    <style>
+        /* A bit of demo styles */
+
+        ;
+        .demo-swiper .swiper-slide {
+            font-size: 25px;
+            font-weight: 300;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            color: #000;
+        }
+
+        .demo-swiper .swiper-slide {
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .demo-swiper {
+            margin: 0px 0 35px;
+            font-size: 18px;
+            height: 100%/*120px;*/
+        }
+
+        .demo-swiper.demo-swiper-auto .swiper-slide {
+            width: 85%;
+        }
+
+        .swiper-zoom-container {
+            background-image: url("img/e_background.jpg");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        /* Custom color theme properties */
+
+        :root {
+            /*--f7-theme-color: rgb(8, 210, 250);*/
+            /*--f7-theme-color: rgba(46,102,119);*/
+            /*--f7-theme-color: rgba(50,149,151);*/
+            --f7-theme-color: rgb(116, 186, 238);
+            --f7-message-sent-bg-color: #cddc39;
+        }
+
+        /* master detail width */
+
+        :root {
+            --f7-page-master-width: 380px;
+        }
+
+        /* fix view-master tab width */
+
+        .tabbar-scrollable a.tab-link {
+            width: 100%;
+            flex-shrink: initial;
+        }
+
+        /* Your app custom styles here */
+
+        .view-master-detail .page-master-detail .link.back,
+        .view-master-detail .navbar-master-detail .link.back {
+            display: none;
+        }
+
+        /* Invert navigation bars to fill style */
+
+        :root,
+        :root.theme-dark,
+        :root .theme-dark {
+            --f7-bars-bg-color: var(--f7-theme-color);
+            --f7-bars-text-color: #fff;
+            --f7-bars-link-color: #fff;
+            --f7-navbar-subtitle-text-color: rgba(255, 255, 255, 0.85);
+            --f7-bars-border-color: transparent;
+            --f7-tabbar-link-active-color: #fff;
+            --f7-tabbar-link-inactive-color: rgba(255, 255, 255, 0.54);
+            --f7-searchbar-input-bg-color: #fff;
+            --f7-sheet-border-color: transparent;
+            --f7-tabbar-link-active-border-color: #fff;
+            --f7-list-margin-vertical: 0;
+        }
+
+        .navbar,
+        .toolbar,
+        .subnavbar,
+        .calendar-header,
+        .calendar-footer {
+            --f7-touch-ripple-color: var(--f7-touch-ripple-white);
+            --f7-link-highlight-color: var(--f7-link-highlight-white);
+            --f7-button-text-color: #fff;
+            --f7-button-pressed-bg-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+
 </head>
 
 <body>
-    <!-- App root element -->
     <div id="app">
-        <!-- Statusbar overlay -->
-        <div class="statusbar"></div>
-
-        <!-- Your main view, should have "view-main" class -->
-        <div class="view view-main">
-            <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="home" class="page">
-
-                <!-- Top Navbar -->
+        <div class="view view-main view-init">
+            <div class="page">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <div class="title">Awesome App</div>
+                        <div class="left">
+                            <a href="#" class="link icon-only panel-open" data-panel="left">
+                                <i class="icon f7-icons if-not-md">menu</i>
+                                <i class="icon material-icons md-only">menu</i>
+                            </a>
+                        </div>
+                        <div class=" title small middle">Trending</div>
+                        <div class="right">
+                            <a class="link icon-only searchbar-enable" data-searchbar=".searchbar-components">
+                                <i class="icon f7-icons if-not-md">search</i>
+                                <i class="icon material-icons md-only">search</i>
+                            </a>
+                        </div>
+                        <form data-search-container=".swiper-wrapper" data-search-in="a" class="searchbar searchbar-expandable searchbar-components searchbar-init">
+                            <div class="searchbar-inner">
+                                <div class="searchbar-input-wrap">
+                                    <input type="search" placeholder="Search components" />
+                                    <i class="searchbar-icon"></i>
+                                    <span class="input-clear-button"></span>
+                                </div>
+                                <span class="searchbar-disable-button if-not-aurora">Cancel</span>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
                 <!-- Bottom Toolbar -->
-                <div class="toolbar toolbar-bottom">
+                <div class="toolbar toolbar-bottom color-theme-red">
                     <div class="toolbar-inner">
-                        <!-- Toolbar links -->
-                        <a href="#" class="link">Link 1</a>
-                        <a href="#" class="link">Link 2</a>
+                        <img height="100%" width="100%" src="e_img/ad01.png" />
                     </div>
                 </div>
-
-                <!-- Scrollable page content -->
                 <div class="page-content">
-                    <p>Page content goes here</p>
-                    <!-- Link to another page -->
-                    <a href="/new_page/">About app</a>
+                    <div data-autoplay=2500 data-zoom='{"enabled": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
+                        class="swiper-container  demo-swiper">
+                        <div class="swiper-wrapper">
+                            <div id="slide1" class="swiper-slide">
+                                <div class="swiper-zoom-container">
+                                    <img src="e_img/e01.png" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-zoom-container">
+                                    <img src="e_img/e02.png" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-zoom-container">
+                                    <img src="e_img/e03.png" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-zoom-container">
+                                    <img src="e_img/e04.png" />
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="swiper-zoom-container">
+                                    <img src="e_img/e05.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <!-- Path to Framework7 Library Bundle JS-->
-    <script type="text/javascript" src="js/framework7.bundle.min.js"></script>
-    <script>
-        event_location = [];
-        testx = "oniel c";
-        event_location[0] = { lat: 18.0041225, long: -76.7926586 };
-        event_location[1] = { lat: 18.0041225, long: -76.7926586 };
+    <script src="js/framework7.bundle.min.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 
 
-        // Dom7
-        var $ = Dom7;
-        var app = new Framework7({
-            // App root element
-            root: '#app',
-            // App Name
-            name: 'My App',
-            // App id
-            id: 'com.myapp.test',
-            // Enable swipe panel
-            panel: {
-                swipe: 'left',
-            },
-            data: function () {
-                return {
-                    user: {
-                        firstName: 'John',
-                        lastName: 'Doe',
-                    },
-                };
-            },
-            // App root methods
-            methods: {
-                helloWorld: function () {
-                    app.dialog.alert('Hello World!');
-                },
-            },
-            // Add default routes
-            routes: [
-                {
-                    path: '/new_pagex/',
-                    url: './tempsubx.html',
-                },
-                {
-                    path: '/new_page/',
-                    componentUrl: './tempsub.html',
-                }
-            ],
-            // ... other parameters
+    <script type="text/javascript">
+        app.initialize();
+        $('.demo-swiper').on('click', function () {
+            $(this).css({
+                height: '100%'
+            });
         });
-        // Init/Create main view
-        var mainView = app.views.create('.view-main', {
-            url: '/'
+
+        var swiper = new Swiper('.demo-swiper', {
+            spaceBetween: 5,
+            centeredSlides: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            on: {
+                slideChange: function () {
+                   if (swiper.slides.length <10 && swiper.realIndex ==(swiper.slides.length-2)){
+                    swiper.appendSlide('<div class="swiper-slide">Slide '+swiper.slides.length+'"</div>')
+                   }
+                    //console.log(swiper.realIndex+'  of  '+swiper.slides.length);
+
+                },
+            }
+
         });
+
+
+
+
+
     </script>
 </body>
 
