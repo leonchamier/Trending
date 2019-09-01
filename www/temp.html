@@ -27,7 +27,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
 
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
+    <meta http-equiv="Content-Security-Policy" content=" 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
     />
 
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -152,7 +152,54 @@
 <body>
     <div id="app">
         <div class="view view-main view-init">
-            <div class="page">
+            <div class="page" data-name="home">
+                <div class="panel panel-left panel-cover panel-resizable opy">
+                    <div class="page opy">
+                        <div class="page-content opy">
+                            <div class="navbar-inner sliding opy">
+                                <div class="row">
+                                    <div class="left col-50">
+                                        <a href="#" class="link back panel-close">
+                                            <i class="icon icon-back color-white"></i>
+                                        </a>
+                                    </div>
+                                    <div class="title-small col-50">
+                                        <div class=" title-mediun-text text-color-white ">Categories</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-title"></div>
+                            <div class="opy list simple-list " style="font-size:12px;">
+                                <ul style="background-color:#2c3e50">
+                                    <li>
+                                        <a href="/accordionx/" class="panel-close color-white">
+                                            <i class="fa fa-music" style="width:20px;font-size:20px;margin-right:10px"></i>
+                                            <b> Events</b>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/action-sheetx/" class="panel-close color-white">
+                                            <i class="f7-icons " style="font-size:20px;;margin-right:10px;">film</i>
+                                            <b>Theatre</b>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/action-sheetx/" class="panel-close color-white">
+                                            <i class="fa fa-building-o " style="font-size:20px;;margin-right:10px;"></i>
+                                            <b>Hotel</b>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/user_events/" class="panel-close color-white">
+                                            <i class="fa fa-user " style="font-size:20px;;margin-right:10px;"></i>
+                                            <b>Profile</b>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div class="left">
@@ -230,7 +277,14 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 
-
+    <script>
+            function getRandom(min, max, fix) {
+                if (!fix) { var fix = 0; }
+                var num = Math.random() * (+max - +min) + +min;
+                var rand = Number(num.toFixed(fix));
+                return rand;
+            }
+        </script>
     <script type="text/javascript">
         app.initialize();
         $('.demo-swiper').on('click', function () {
@@ -238,6 +292,19 @@
                 height: '100%'
             });
         });
+        e_slides = [];
+        var lat = 18.0041225; var long = -76.7926586;
+        for (var i = 0; i < 5; i++) {
+            var obj = {};
+            obj.src = 'e_img/e0' + (i + 1) + '.png';
+            obj.index = i;
+            obj.geo = { lat: lat + getRandom(.0001, .0009, 7), long: (long - getRandom(-.0926586, -.0001, 7)) };
+            obj.comments = getRandom(0, 157, 0);
+            obj.likes = getRandom(0, 15700, 0);
+            //obj.geo={lat:lat,long:long};
+            e_slides.push(obj);
+        }
+       // app.data.e_slides = e_slides;
 
         var swiper = new Swiper('.demo-swiper', {
             spaceBetween: 5,
@@ -256,9 +323,9 @@
             },
             on: {
                 slideChange: function () {
-                   if (swiper.slides.length <10 && swiper.realIndex ==(swiper.slides.length-2)){
-                    swiper.appendSlide('<div class="swiper-slide">Slide '+swiper.slides.length+'"</div>')
-                   }
+                    if (swiper.slides.length < 10 && swiper.realIndex == (swiper.slides.length - 2)) {
+                        swiper.appendSlide('<div class="swiper-slide">Slide ' + swiper.slides.length + '"</div>')
+                    }
                     //console.log(swiper.realIndex+'  of  '+swiper.slides.length);
 
                 },
@@ -267,10 +334,22 @@
         });
 
 
+$(document).on('page:afterin', '.page[data-name="home"]', function (e) {
+    swiper.autoplay.start();
+});
+   
+$(document).on('page:beforeout', '.page[data-name="home"]', function (e) {
+    swiper.autoplay.stop();
+});
 
 
+
+function globalFunction(){
+    alert('inside global'+app.router.currentRoute.url+' ** '+app.router.currentRoute.path);
+}
 
     </script>
+    
 </body>
 
 </html>

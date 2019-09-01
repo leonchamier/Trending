@@ -96,7 +96,8 @@
   return {
     // Lifecycle Hooks
     beforeCreate() {
-      console.log('componentBeforeCreate', this)
+      console.log('componentBeforeCreate', this);
+      console.log(e_slides);
     },
     created() {
       console.log('componentCreated', this)
@@ -118,7 +119,14 @@
       // Must return an object
       return {
         name: 'Jimmy',
-        user_events: getUserEvents(),
+        user_events: function () {
+          var obj = [];
+          if (e_slides.length > 4) {
+            obj.push(e_slides[2]);
+            obj.push(e_slides[4]);
+          }
+          return obj;
+        },
         age: 25,
         like: ['Tennis', 'Chess', 'Football'],
       }
@@ -128,7 +136,7 @@
       openAlert: function () {
         var self = this;
         self.$app.dialog.alert('Hello World');
-      },
+      }
     },
     // Page Events
     on: {
@@ -161,7 +169,7 @@
       },
     }
   }
-  function getUserEvents() {
+  function getUserEventsx() {
     var obj = [];
     obj.push(e_slides[2]);
     obj.push(e_slides[4]);
