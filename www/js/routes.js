@@ -6,22 +6,23 @@ var routes = [
     name: 'home',
     on: {
       pageBeforeOut: function (event, page) {
-        console.log('before out ');
+        console.log('index before out ');
         swiper.autoplay.stop();
       },
         pageBeforeIn: function (event, page) {
-        // do something before page gets into the view        
-        swiper.autoplay.start();
+        // do something before page gets into the view           
       },
       pageAfterIn: function (event, page) {
-        console.log('after in ');
+        console.log('index after in ');
+        console.log(swiper.slides);     
+        swiper.autoplay.start();
       },
       pageInit: function (event, page) {
         // do something when page initialized
-        console.log('init page ');
+        console.log('index init page ');
       },
       pageBeforeRemove: function (event, page) {
-        console.log('page Before remove ');
+        console.log('index page Before remove ');
       },
     }
   },

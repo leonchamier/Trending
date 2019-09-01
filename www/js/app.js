@@ -47,7 +47,8 @@ var app = new Framework7({
 
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
-  url: '/'
+  url: '/',
+  stackPages:true
 });
 
 /************
