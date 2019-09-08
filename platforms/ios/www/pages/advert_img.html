@@ -1,0 +1,256 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <span class="segmented segmented-raised segmented-round " style="width:500px">
+          <button class="button  button-round " id='but_select'>
+            <i class="fa fa-image"></i>
+          </button>
+          <button class="button  button-round" id='but_take'>
+            <i class="fa fa-camera"></i>
+          </button>
+          <button class="button  button-round " id="but_save">
+            <i class="fa fa-save"></i>
+          </button>
+          <button class="button  button-round " id="img_orient">
+            <i class="f7-icons">phone_portrait</i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="upload-event-wrap" style="text-align:center;width:100%;">
+        <div class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
+      </div>
+
+
+    </div>
+</template>
+
+<style>
+  p {
+    margin: 10px 0;
+  }
+</style>
+
+<script>
+  return {
+    // Lifecycle Hooks
+    beforeCreate() {
+      console.log('componentBeforeCreate', this)
+    },
+    created() {
+      console.log('componentCreated', this)
+    },
+    beforeMount() {
+      console.log('componentBeforeMount', this)
+    },
+    mounted() {
+      console.log('componentMounted', this);
+
+    },
+    beforeDestroy() {
+      console.log('componentBeforeDestroy', this);
+    },
+    destroyed() {
+      console.log('componentDestroyed', this);
+    },
+    // Component Data
+    data: function () {
+      // Must return an object
+      return {
+        name: 'Jimmy',
+        age: 25,
+        like: ['Tennis', 'Chess', 'Football'],
+        // map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
+      }
+    },
+    // Component Methods
+    methods: {
+      openAlert: function () {
+        var self = this;
+        self.$app.dialog.alert('Hello World');
+      }
+    },
+    // Page Events
+    on: {
+      pageMounted: function (e, page) {
+        console.log('pageMounted', page);
+
+      },
+      pageInit: function (e, page) {
+
+        /*
+        $('.upload-event').croppie({
+            url: './img.jpg',
+        });
+        */
+
+        var sourceUrl = './img.jpg';
+        orientation = '{320,480}';
+        function setOrientation(lw) {
+          if (lw == 'L') {
+            orientation = '{480,320}';
+          } else {
+            orientation = '{320,480}';
+          }
+        }
+
+        function setCanvas(lw, sourceUrl) {
+          store_size = { width: 320, height: 480 };
+          var width = 240;
+          var height = 350;
+          var type = 'circle';
+          $(".upload-event").css({ "height": "420px", "width": "280px" });
+          if (lw == 'L') {
+            store_size = { width: 480, height: 320 };
+            width = 350; height = 240;
+            $(".upload-event").css({ "height": "280px", "width": "420px" });
+          }
+          try { $('.upload-event').croppie('destroy'); } catch (e) { console.log(e.message) }
+          console.log('attempting to initialize cropie');
+          $uploadCrop = $('.upload-event').croppie({
+            viewport: {
+              width: width,
+              height: height,
+              url: sourceUrl
+              //type: type
+            },
+            enableExif: true,
+            showZoomer: false,
+          });
+          if (sourceUrl) {
+            $uploadCrop.croppie('bind', {
+              url: sourceUrl
+            }).then(function () {
+              console.log('jQuery bind complete');
+            });
+          }
+        }
+        setCanvas('P', sourceUrl);
+
+        $('#img_orient').click(function () {
+          if ($(this).children(".f7-icons").html() == 'phone_portrait') {
+            $(this).html('<i class="f7-icons">phone_landscape</i>');
+            setCanvas('L', sourceUrl);
+          } else {
+            $(this).html('<i class="f7-icons">phone_portrait</i>');
+            setCanvas('P', sourceUrl);
+          }
+
+
+        });
+
+        $("#but_save").click(function () {
+          uploadImage();
+        });
+
+        // take picture from camera
+        $('#but_take').click(function () {
+          navigator.camera.getPicture(onSuccess, onFail, {
+            quality: 20,
+            destinationType: Camera.DestinationType.FILE_URL,
+            allowEdit: true,
+          });
+        });
+
+        // upload select 
+        $("#but_select").click(function () {
+          navigator.camera.getPicture(onSuccess, onFail, {
+            quality: 50,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            allowEdit: true,
+            destinationType: Camera.DestinationType.FILE_URI
+          });
+
+
+
+
+        });
+
+        // Change image source and upload photo to server
+        function onSuccess(imageURI) {
+
+          sourceUrl = imageURI;
+          //setCanvas('P',sourceUrl);
+          $('.upload-event').addClass('ready');
+          $uploadCrop.croppie('bind', {
+            url: imageURI
+          }).then(function () {
+            console.log('jQuery bind complete');
+          });
+
+        }
+        function uploadImage() {
+
+          $uploadCrop.croppie('result', {
+            type: 'canvas',
+            size: store_size,
+            format: 'jpeg'
+          }).then(function (imageURI) {
+            try {
+              var options = new FileUploadOptions();
+              options.fileKey = "file";
+              options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+              options.mimeType = "image/jpeg";
+
+              var params = {};
+              params.value1 = "test";
+              params.value2 = "param";
+
+              options.params = params;
+              options.chunkedMode = false;
+            } catch (e) { alert(e.message) }
+            var ft = new FileTransfer();
+            ft.upload(imageURI, "https://trendingsolutions.000webhostapp.com/event_uploads.php", function (result) {
+              //alert('successfully uploaded ' + result.response);
+              // Create notification with close button
+
+              var notificationWithButton = page.app.notification.create({
+                icon: '<i class="icon demo-icon">7</i>',
+                title: 'Image Upload',
+                subtitle: 'Cropped image uloaded',
+                text: 'Upload was successful',
+                closeTimeout: 3000,
+                closeButton: true,
+              });
+              notificationWithButton.open();
+            }, function (error) {
+              alert('error : ' + JSON.stringify(error));
+            }, options);
+
+          });
+
+        }
+        function onFail(message) {
+          alert('Failed because: ' + message);
+        }
+
+
+
+        console.log('pageInit', page);
+      },
+      pageBeforeIn: function (e, page) {
+        console.log('pageBeforeIn', page);
+      },
+      pageAfterIn: function (e, page) {
+        console.log('pageAfterIn', page);
+      },
+      pageBeforeOut: function (e, page) {
+        console.log('pageBeforeOut', page);
+      },
+      pageAfterOut: function (e, page) {
+        console.log('pageAfterOut', page);
+      },
+      pageBeforeRemove: function (e, page) {
+        console.log('pageBeforeRemove', page);
+      },
+    }
+  }
+</script>

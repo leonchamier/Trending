@@ -43,6 +43,9 @@ var routes = [
   {
     path: '/location/:index/',
     componentUrl: './pages/location.html',
+},{
+  path: '/advert_img/:index/',
+  componentUrl: './pages/advert_img.html',
 },
   // Default route (404 page). MUST BE THE LAST
   {
@@ -50,3 +53,4 @@ var routes = [
     url: './pages/404.html',
   },
 ];
+

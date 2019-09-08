@@ -19,7 +19,7 @@ var app = new Framework7({
         lastName: 'Doe',
       },
       swiper:{},
-      g_slides:[]
+      e_slides:[]
     };
   },
   methods: {
@@ -56,10 +56,11 @@ var mainView = app.views.create('.view-main', {
  */
  e_slides=[];
  var swiper = new Swiper('.demo-swiper', {
+   zoom:true,
   spaceBetween: 5,
   centeredSlides: true,
   autoplay: {
-    delay: 2500,
+    delay: 10000,
     disableOnInteraction: false,
   },
   pagination: {
@@ -175,3 +176,4 @@ function getUserEvents() {
   obj.push(e_slides[4]);
   return obj;
 }
+

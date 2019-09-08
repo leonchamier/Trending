@@ -1,116 +1,188 @@
-<!doctype html>
-<html lang="en">
-   <head>
-        <title>jQuery mobile with Google maps</title>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-        <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmhafiO8RzbH7gt5HErKgqQTUbg2pKsM4&libraries=places&callback=initAutocomplete"></script>
-        <script type="text/javascript">
+<!DOCTYPE html>
+<html>
 
-            var map,
-                currentPosition,
-                directionsDisplay, 
-                directionsService;
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
-            function initialize(lat, lon)
-            {
-                directionsDisplay = new google.maps.DirectionsRenderer(); 
-                directionsService = new google.maps.DirectionsService();
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
 
-                currentPosition = new google.maps.LatLng(lat, lon);
+    <meta http-equiv="Content-Security-Policy" content=" 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
+    />
 
-                map = new google.maps.Map(document.getElementById('map_canvas'), {
-                   zoom: 15,
-                   center: currentPosition,
-                   mapTypeId: google.maps.MapTypeId.ROADMAP
-                 });
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2196f3">
+    <title>Trending</title>
 
-                directionsDisplay.setMap(map);
 
-                 var currentPositionMarker = new google.maps.Marker({
-                    position: currentPosition,
-                    map: map,
-                    title: "Current position"
-                });
+    <link rel="icon" href="icon.png">
 
-                var infowindow = new google.maps.InfoWindow();
-                google.maps.event.addListener(currentPositionMarker, 'click', function() {
-                    infowindow.setContent("Current position: latitude: " + lat +" longitude: " + lon);
-                    infowindow.open(map, currentPositionMarker);
-                });
-            }
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="icon" href="icon.png">
+  
 
-            function locError(error) {
-                // initialize map with a static predefined latitude, longitude
-               initialize(59.3426606750, 18.0736160278);
-            }
+</head>
 
-            function locSuccess(position) {
-                initialize(position.coords.latitude, position.coords.longitude);
-            }
 
-            function calculateRoute() {
-                var targetDestination = $("#target-dest").val();
-                if (currentPosition && currentPosition != '' && targetDestination && targetDestination != '') {
-                    var request = {
-                        origin:currentPosition, 
-                        destination:targetDestination,
-                        travelMode: google.maps.DirectionsTravelMode["DRIVING"]
-                    };
+<body>
 
-                    directionsService.route(request, function(response, status) {
-                        if (status == google.maps.DirectionsStatus.OK) {
-                            directionsDisplay.setPanel(document.getElementById("directions"));
-                            directionsDisplay.setDirections(response); 
+	<div class="actions">
+		<a class="btn file-btn">
+			<span>Upload</span>
+			<input type="file" id="upload" value="Choose a file" accept="image/*" />
+		</a>
+		<button class="upload-result">Result</button>
+		<button onclick="setCanvas('P');">Portrait</button>
+		<button onclick="setCanvas('L');">Landscape</button>
+	</div>
 
-                            /*
-                                var myRoute = response.routes[0].legs[0];
-                                for (var i = 0; i < myRoute.steps.length; i++) {
-                                    alert(myRoute.steps[i].instructions);
-                                }
-                            */
-                            $("#results").show();
-                        }
-                        else {
-                            $("#results").hide();
-                        }
-                    });
-                }
-                else {
-                    $("#results").hide();
-                }
-            }
+	<div class="col-1-2">
+		<div class="upload-msg">
+			Upload a file to start cropping
+		</div>
+		<div class="upload-demo-wrap">
+			<div id="upload-demo" style="width:280px;height:420px"></div>
 
-            $(document).live("pagebeforeshow", "#map_page", function() {
-                navigator.geolocation.getCurrentPosition(locSuccess, locError);
-            });
+		</div>
 
-            $(document).on('click', '#directions-button', function(e){
-                e.preventDefault();
-                calculateRoute();
-            });
+	</div>
+	<div id="result_img" style="width:300px;height:300px"> </div>
+<div id="upload-demo-i"></div>
 
-        </script>
-    </head>
-    <body>
-        <div id="basic-map" data-role="page">
-            <div data-role="header">
-                <h1><a data-ajax="false" href="/">jQuery mobile with Google maps v3</a></h1>
-            </div>
-            <div data-role="content">   
-                <div class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
-                    <div id="map_canvas" style="height:350px;"></div>
-                </div>
-                <div data-role="fieldcontain">
-                    <label for="target-dest">Target Destination:</label>
-                    <input type="text" name="target-dest" id="target-dest" value=""  />
-                </div>
-                <a href="#" id="directions-button" data-role="button" data-inline="true" data-mini="true">Get Directions</a>
-                <div id="results" style="display:none;">
-                    <div id="directions"></div>
-                </div>
-            </div>
-        </div>      
-    </body>
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/framework7.bundle.min.css">
+<link rel="stylesheet" href="css/framework7.icons.css">
+<link rel="stylesheet" type="text/css" href="css/my-styles.css" />
+<link rel="stylesheet" href="css/app.css">
+
+
+<script src="js/framework7.bundle.min.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="croppie.css" />
+<script src="croppie.js"></script>
+
+	<script>
+		orientation = '{320,480}';
+		function setOrientation(lw) {
+			if (lw == 'L') {
+				orientation = '{480,320}';
+			} else {
+				orientation = '{320,480}';
+			}
+		}
+
+		function popupResult(result) {
+			uploadPhoto(result.src);
+
+		}
+
+
+		var $uploadCrop, sourceUrl;
+
+		function readFile(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					sourceUrl = reader.result;
+					$('.upload-demo').addClass('ready');
+					$uploadCrop.croppie('bind', {
+						url: e.target.result
+					}).then(function () {
+						console.log('jQuery bind complete');
+					});
+
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+			else {
+				console.log("Sorry - you're browser doesn't support the FileReader API");
+			}
+		}
+
+
+		$('#upload').on('change', function () { readFile(this); });
+		$('.upload-result').on('click', function (ev) {
+			$uploadCrop.croppie('result', {
+				type: 'canvas',
+				size: store_size,
+				format:'jpeg'
+			}).then(function (resp) {
+				uploadPhoto(resp);
+			});
+
+		});
+
+
+		function setCanvas(lw) {
+			store_size = {width:320,height:480};
+			var width = 240;
+			var height = 350;
+			var type = 'circle';
+			$("#upload-demo").css({ "height": "420px", "width": "280px" });
+			if (lw == 'L') {
+				store_size = {width:480,height:320};
+				width = 350; height = 240;
+				$("#upload-demo").css({ "height": "280px", "width": "420px" });
+			}
+			try { $('#upload-demo').croppie('destroy'); } catch (e) { console.log(e.message) }
+			$uploadCrop = $('#upload-demo').croppie({
+				viewport: {
+					width: width,
+					height: height,
+					//type: type
+				},
+				enableExif: true,
+				showZoomer: false,
+			});
+			if (sourceUrl) {
+				$uploadCrop.croppie('bind', {
+					url: sourceUrl
+				}).then(function () {
+					console.log('jQuery bind complete');
+				});
+			}
+		}
+		setCanvas('P');
+
+		function uploadPhoto(url) {
+			var d = new Date();
+			console.log('uploading...'+d.getTime());
+			$.ajax({
+				url: "./upload.php",
+				type: "POST",
+				data: { "image": url },
+				success: function (data) {
+					//html = '<img src="' + data + '" />';
+					//$("#upload-demo-i").html(html);
+				}
+
+			});
+		}
+
+		sourceUrl = './img.jpg';
+					$('.upload-demo').addClass('ready');
+					$uploadCrop.croppie('bind', {
+						url: 'img.jpg'//e.target.result
+					}).then(function () {
+						console.log('jQuery bind complete');
+					});
+
+	</script>
+
+
+</body>
+
 </html>

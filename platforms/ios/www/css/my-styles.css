@@ -1,0 +1,79 @@
+
+/* A bit of demo styles */
+
+;
+.demo-swiper .swiper-slide {
+    font-size: 25px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    color: #000;
+}
+
+.demo-swiper .swiper-slide {
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.demo-swiper {
+    margin: 0px 0 35px;
+    font-size: 18px;
+    height: 100%/*120px;*/
+}
+
+.demo-swiper.demo-swiper-auto .swiper-slide {
+    width: 85%;
+}
+
+.swiper-zoom-container {
+    /*  background-image: url("img/e_background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%; */
+}
+
+/* Invert navigation bars to fill style */
+
+:root {
+    /*--f7-theme-color: rgb(8, 210, 250);*/
+    /*--f7-theme-color: rgba(46,102,119);*/
+    /*--f7-theme-color: rgba(50,149,151);  rgb(90, 200, 250) pannel=:#35b7ef*/
+    /* dark=#2c3e50 (44, 62, 80) green =#6ebcac  (110,188,172)*/
+    --f7-theme-color: #6ebcac;
+    --f7-message-sent-bg-color: #cddc39;
+}
+
+:root,
+:root.theme-dark,
+:root .theme-dark {
+    --f7-bars-bg-color: var(--f7-theme-color);
+    --f7-bars-text-color: #fff;
+    --f7-bars-link-color: #fff;
+    --f7-navbar-subtitle-text-color: rgba(255, 255, 255, 0.85);
+    --f7-bars-border-color: transparent;
+    --f7-tabbar-link-active-color: #fff;
+    --f7-tabbar-link-inactive-color: rgba(255, 255, 255, 0.54);
+    --f7-searchbar-bg-color: var(--f7-bars-bg-color);
+    --f7-searchbar-input-bg-color: #fff;
+    --f7-searchbar-input-text-color: #000;
+    --f7-sheet-border-color: transparent;
+    --f7-tabbar-link-active-border-color: #fff;
+}
+
+.appbar,
+.navbar,
+.toolbar,
+.subnavbar,
+.calendar-header,
+.calendar-footer {
+    --f7-touch-ripple-color: var(--f7-touch-ripple-white);
+    --f7-link-highlight-color: var(--f7-link-highlight-white);
+    --f7-button-text-color: #fff;
+    --f7-button-pressed-bg-color: rgba(255, 255, 255, 0.1);
+}
+
+.opy {
+    background-color: rgba(44, 62, 80, 0.3);
+}

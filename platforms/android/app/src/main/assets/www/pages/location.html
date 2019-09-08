@@ -12,18 +12,15 @@
         </div>
       </div>
       <div class="page-content">
-          <div class="card card-outline">
-              <div class="swiper-zoom-container">
-                  <img src="{{src}}" style=" display: block; 
-                                      margin: auto;" />
-                </div>
-            <div id="map" style="width:300px;height:300px;"></div>
-            <input type="text" id="lat" readonly="yes">           
-            <input type="text" id="lng" readonly="yes">
-            <div class="card-footer"><a href="#" class="button button-raised button-fill " >Save Location</a></div>
+       
+            <div id="map_canvas" style="width:100%;height:400px;">
+  
+            
+              <a href="#" class="button button-raised button-fill ">Save Location</a>
+           
           </div>
-      </div>
-    </div>
+  
+        </div>
   </template>
   
   <style>
@@ -31,7 +28,7 @@
       margin: 10px 0;
     }
   </style>
-   
+  
   <script>
     return {
       // Lifecycle Hooks
@@ -60,6 +57,7 @@
           name: 'Jimmy',
           age: 25,
           like: ['Tennis', 'Chess', 'Football'],
+          // map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
         }
       },
       // Component Methods
@@ -67,33 +65,72 @@
         openAlert: function () {
           var self = this;
           self.$app.dialog.alert('Hello World');
-        },
+        }
       },
       // Page Events
       on: {
-        pageMounted: function(e, page) {
+        pageMounted: function (e, page) {
           console.log('pageMounted', page);
         },
-        pageInit: function(e, page) {
-          initMap();
+        pageInit: function (e, page) {
+          var div = document.getElementById("map_canvas");
+          map = plugin.google.maps.Map.getMap(div);
+          map.addEventListener(plugin.google.maps.event.MAP_READY, function () {
+            map.clear();
+            map.getMyLocation(onSuccess, onError);
+          });
+          map.on(plugin.google.maps.event.MAP_CLICK, function (latLng) {
+            markLocation(latLng);
+          });
+          var onSuccess = function (location) {
+            markLocation(location.latLng);
+          };
+          var onError = function (msg) {
+            alert(JSON.stringify(msg));
+          };
+      var markLocation= function (latLng) {
+          map.clear();
+          var msg = ["Event location:\n",
+            "latitude:" + latLng.lat,
+            "longitude:" + latLng.lng].join("\n");
+          var marker = map.addMarker({
+            'position': latLng,
+            'draggable': true,
+            'title': msg
+          });
+           marker.addEventListener(plugin.google.maps.event.MARKER_DRAG_END, function (position) {
+              marker.setTitle(position.toUrlValue());
+              marker.showInfoWindow();
+              try {
+              //  app.data.e_slides[this.$route.params.index].geo.lat = latLng.lat;
+              //  app.data.e_slides[this.$route.params.index].geo.long = latLng.lng;
+              } catch (e) { }
+            });
+          map.animateCamera({
+            target: latLng,
+            zoom: 17,
+            duration: 1000
+          }, function () {
+            marker.showInfoWindow();
+          });
+        }
           console.log('pageInit', page);
         },
-        pageBeforeIn: function(e, page) {
+        pageBeforeIn: function (e, page) {
           console.log('pageBeforeIn', page);
         },
-        pageAfterIn: function(e, page) {
+        pageAfterIn: function (e, page) {
           console.log('pageAfterIn', page);
         },
-        pageBeforeOut: function(e, page) {
+        pageBeforeOut: function (e, page) {
           console.log('pageBeforeOut', page);
         },
-        pageAfterOut: function(e, page) {
+        pageAfterOut: function (e, page) {
           console.log('pageAfterOut', page);
         },
-        pageBeforeRemove: function(e, page) {
+        pageBeforeRemove: function (e, page) {
           console.log('pageBeforeRemove', page);
         },
       }
     }
   </script>
-  
