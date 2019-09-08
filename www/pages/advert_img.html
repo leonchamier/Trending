@@ -108,6 +108,7 @@
           }
           try { $('.upload-event').croppie('destroy'); } catch (e) { console.log(e.message) }
           alert('attempting to initialize cropie');
+          try{
           $uploadCrop = $('.upload-event').croppie({
             viewport: {
               width: width,
@@ -118,6 +119,7 @@
             enableExif: true,
             showZoomer: false,
           });
+        }catch(e){alert(e.message)}
           alert('after init croppie');
           if (sourceUrl) {
             $uploadCrop.croppie('bind', {
