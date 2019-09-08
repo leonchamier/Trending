@@ -94,13 +94,6 @@
 
         var sourceUrl = './img.jpg';
         orientation = '{320,480}';
-        function setOrientation(lw) {
-          if (lw == 'L') {
-            orientation = '{480,320}';
-          } else {
-            orientation = '{320,480}';
-          }
-        }
 
         function setCanvas(lw, sourceUrl) {
           store_size = { width: 320, height: 480 };
@@ -114,7 +107,7 @@
             $(".upload-event").css({ "height": "280px", "width": "420px" });
           }
           try { $('.upload-event').croppie('destroy'); } catch (e) { console.log(e.message) }
-          console.log('attempting to initialize cropie');
+          alert('attempting to initialize cropie');
           $uploadCrop = $('.upload-event').croppie({
             viewport: {
               width: width,
@@ -125,6 +118,7 @@
             enableExif: true,
             showZoomer: false,
           });
+          alert('after init croppie');
           if (sourceUrl) {
             $uploadCrop.croppie('bind', {
               url: sourceUrl
