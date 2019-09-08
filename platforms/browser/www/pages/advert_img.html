@@ -25,6 +25,7 @@
       </div>
     </div>
     <div class="page-content">
+        <img class="my-image" src="./img.jpg" />
       <div class="upload-event-wrap" style="text-align:center;width:100%;">
         <div class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
@@ -120,6 +121,10 @@
             showZoomer: false,
           });
         }catch(e){alert(e.message)}
+        
+
+$('.my-image').croppie();
+
           alert('after init croppie');
           if (sourceUrl) {
             $uploadCrop.croppie('bind', {
