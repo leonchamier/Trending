@@ -12,8 +12,8 @@
   <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
-  <gap:plugin name="cordova-plugin-file" source="npm" version="3.0.0"/>
-  <plugin name="cordova-plugin-file-transfer" source="npm"/>
+  
+  <plugin name="cordova-plugin-file-transfer" source="npm" spec="~1.6.1" />
   <plugin name="cordova-plugin-battery-status" source="npm" spec="~1.2.4"/>
   <plugin name="cordova-plugin-camera" source="npm" spec="~2.4.1"/>
   <plugin name="cordova-plugin-media-capture" source="npm" spec="~1.4.3"/>
