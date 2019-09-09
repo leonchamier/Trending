@@ -25,9 +25,8 @@
       </div>
     </div>
     <div class="page-content">
-        <img class="my-image" src="./img.jpg" />
       <div class="upload-event-wrap" style="text-align:center;width:100%;">
-        <div class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
+        <div id="id1" class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
 
 
@@ -92,7 +91,7 @@
             url: './img.jpg',
         });
         */
-
+ 
         var sourceUrl = './img.jpg';
         orientation = '{320,480}';
 
@@ -107,10 +106,12 @@
             width = 350; height = 240;
             $(".upload-event").css({ "height": "280px", "width": "420px" });
           }
-          try { $('.upload-event').croppie('destroy'); } catch (e) { console.log(e.message) }
-          alert('attempting to initialize cropie');
+          try { $uploadCrop.destroy(); } catch (e) { console.log(e.message) }
+          
           try{
-          $uploadCrop = $('.upload-event').croppie({
+            var el = document.getElementById('id1');
+            $uploadCrop = new Croppie(el, {
+          //$uploadCrop = $('.upload-event').croppie({
             viewport: {
               width: width,
               height: height,
@@ -121,21 +122,22 @@
             showZoomer: false,
           });
         }catch(e){alert(e.message)}
-        
-
-$('.my-image').croppie();
 
           alert('after init croppie');
+          try{
+            console.log($uploadCrop);
           if (sourceUrl) {
-            $uploadCrop.croppie('bind', {
+            $uploadCrop.bind({
               url: sourceUrl
             }).then(function () {
               console.log('jQuery bind complete');
             });
           }
+        }catch(e){alert(e.message)}
+          alert('0002');
         }
         setCanvas('P', sourceUrl);
-
+alert('0003');
         $('#img_orient').click(function () {
           if ($(this).children(".f7-icons").html() == 'phone_portrait') {
             $(this).html('<i class="f7-icons">phone_landscape</i>');
@@ -144,10 +146,8 @@ $('.my-image').croppie();
             $(this).html('<i class="f7-icons">phone_portrait</i>');
             setCanvas('P', sourceUrl);
           }
-
-
         });
-
+        alert('0004');
         $("#but_save").click(function () {
           uploadImage();
         });
@@ -181,7 +181,7 @@ $('.my-image').croppie();
           sourceUrl = imageURI;
           //setCanvas('P',sourceUrl);
           $('.upload-event').addClass('ready');
-          $uploadCrop.croppie('bind', {
+          $uploadCrop.bind({
             url: imageURI
           }).then(function () {
             console.log('jQuery bind complete');
@@ -190,7 +190,7 @@ $('.my-image').croppie();
         }
         function uploadImage() {
 
-          $uploadCrop.croppie('result', {
+          $uploadCrop.result({
             type: 'canvas',
             size: store_size,
             format: 'jpeg'
