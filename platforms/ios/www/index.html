@@ -117,6 +117,7 @@
                             </div>
                         </div>
                         <div class="page-content">                            
+                                <img class="my-image" src="./img.jpg" />
                             <div data-autoplay=2500 data-zoom='{"enabled": true}' data-navigation='{"nextEl": ".swiper-button-next", "prevEl": ".swiper-button-prev"}'
                                 class="swiper-container  demo-swiper">
                                 <div class="swiper-wrapper">
@@ -125,9 +126,7 @@
                                 <div class="swiper-button-next"></div>
                                 <div class="swiper-button-prev"></div>
                             </div>
-                            <div class="upload-demo-wrap">
-                                    <div id="upload-demo" style="width:280px;height:420px"></div>
-                                  </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -142,7 +141,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="croppie.css" />
     <script src="croppie.js"></script>
-   
+   <script>
+       try{$('.my-image').croppie();}catch(e){alert(e.message)}
+       </script>
 
 </body>
 
