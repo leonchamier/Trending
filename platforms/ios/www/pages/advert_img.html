@@ -123,7 +123,7 @@
           });
         }catch(e){alert(e.message)}
 
-          alert('after init croppie');
+         
           try{
             console.log($uploadCrop);
           if (sourceUrl) {
@@ -134,10 +134,10 @@
             });
           }
         }catch(e){alert(e.message)}
-          alert('0002');
+          
         }
         setCanvas('P', sourceUrl);
-alert('0003');
+
         $('#img_orient').click(function () {
           if ($(this).children(".f7-icons").html() == 'phone_portrait') {
             $(this).html('<i class="f7-icons">phone_landscape</i>');
@@ -147,7 +147,7 @@ alert('0003');
             setCanvas('P', sourceUrl);
           }
         });
-        alert('0004');
+        
         $("#but_save").click(function () {
           uploadImage();
         });
@@ -189,13 +189,14 @@ alert('0003');
 
         }
         function uploadImage() {
-
+          alert('inside upload'); 
+try{
           $uploadCrop.result({
             type: 'canvas',
             size: store_size,
             format: 'jpeg'
           }).then(function (imageURI) {
-            try {
+          //  try {
               var options = new FileUploadOptions();
               options.fileKey = "file";
               options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
@@ -207,7 +208,7 @@ alert('0003');
 
               options.params = params;
               options.chunkedMode = false;
-            } catch (e) { alert(e.message) }
+            //} catch (e) { alert(e.message) }
             var ft = new FileTransfer();
             ft.upload(imageURI, "https://trendingsolutions.000webhostapp.com/event_uploads.php", function (result) {
               //alert('successfully uploaded ' + result.response);
@@ -227,6 +228,7 @@ alert('0003');
             }, options);
 
           });
+        } catch (e) { alert(e.message) }
 
         }
         function onFail(message) {
