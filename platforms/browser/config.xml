@@ -10,6 +10,7 @@
     <description>Trending app for events</description>
     <author email="onielhcharles@gmail.com" href="http://Onieevents.com">Oniel Charles</author>
     <content src="index.html" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <icon src="icon.png" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

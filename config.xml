@@ -13,6 +13,8 @@
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
  
+ <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+ 
  <plugin name="cordova-plugin-file-chooser" source="npm" /> 
   <plugin name="cordova-plugin-chooser" source="npm" spec="~1.2.5" />
   <plugin name="cordova-plugin-file-transfer" source="npm" spec="~1.6.1" />
