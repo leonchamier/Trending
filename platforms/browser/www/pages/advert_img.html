@@ -91,7 +91,7 @@
             url: './img.jpg',
         });
         */
- 
+
         var sourceUrl = './img.jpg';
         orientation = '{320,480}';
 
@@ -107,38 +107,40 @@
             $(".upload-event").css({ "height": "280px", "width": "420px" });
           }
           try { $uploadCrop.destroy(); } catch (e) { console.log(e.message) }
-          
-          try{
+
+          try {
             var el = document.getElementById('id1');
             $uploadCrop = new Croppie(el, {
-          //$uploadCrop = $('.upload-event').croppie({
-            viewport: {
-              width: width,
-              height: height,
-              url: sourceUrl
-              //type: type
-            },
-            enableExif: true,
-            showZoomer: false,
-          });
-        }catch(e){alert(e.message)}
-
-         
-          try{
-            console.log($uploadCrop);
-          if (sourceUrl) {
-            $uploadCrop.bind({
-              url: sourceUrl
-            }).then(function () {
-              console.log('jQuery bind complete');
+              //$uploadCrop = $('.upload-event').croppie({
+              viewport: {
+                width: width,
+                height: height,
+                url: sourceUrl
+                //type: type
+              },
+              enableExif: true,
+              showZoomer: false,
             });
-          }
-        }catch(e){alert(e.message)}
-          
+          } catch (e) { alert(e.message) }
+
+
+          try {
+            console.log($uploadCrop);
+            if (sourceUrl) {
+              $uploadCrop.bind({
+                url: sourceUrl
+              }).then(function () {
+                console.log('jQuery bind complete');
+              });
+            }
+          } catch (e) { alert(e.message) }
+
         }
         setCanvas('P', sourceUrl);
 
         $('#img_orient').click(function () {
+          try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
+          alert('hello hush');
           if ($(this).children(".f7-icons").html() == 'phone_portrait') {
             $(this).html('<i class="f7-icons">phone_landscape</i>');
             setCanvas('L', sourceUrl);
@@ -146,8 +148,14 @@
             $(this).html('<i class="f7-icons">phone_portrait</i>');
             setCanvas('P', sourceUrl);
           }
+          try{ 
+          (async () => {
+            const file = chooser.getFile();
+            alert(file ? file.name : 'canceled');
+          })();          
+          }catch(e){alert(e.message)}
         });
-        
+
         $("#but_save").click(function () {
           uploadImage();
         });
@@ -194,40 +202,40 @@
             size: store_size,
             format: 'jpeg'
           }).then(function (imageURI) {
-              var options = new FileUploadOptions();
-              options.fileKey = "file";
-              options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-              options.mimeType = "image/jpeg";
+            var options = new FileUploadOptions();
+            options.fileKey = "file";
+            options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+            options.mimeType = "image/jpeg";
 
-              var params = {};
-              params.value1 = "test";
-              params.value2 = "param";
+            var params = {};
+            params.value1 = "test";
+            params.value2 = "param";
 
-              options.params = params;
-              options.chunkedMode = false;
-            try{
-            var ft = new FileTransfer();
-            ft.upload(imageURI, "https://trendingsolutions.000webhostapp.com/event_uploads.php", function (result) {
-              //alert('successfully uploaded ' + result.response);
-              // Create notification with close button
+            options.params = params;
+            options.chunkedMode = false;
+            try {
+              var ft = new FileTransfer();
+              ft.upload(imageURI, "https://trendingsolutions.000webhostapp.com/event_uploads.php", function (result) {
+                //alert('successfully uploaded ' + result.response);
+                // Create notification with close button
 
-              var notificationWithButton = page.app.notification.create({
-                icon: '<i class="icon demo-icon">7</i>',
-                title: 'Image Upload',
-                subtitle: 'Cropped image uloaded',
-                text: 'Upload was successful',
-                closeTimeout: 3000,
-                closeButton: true,
-              });
-              notificationWithButton.open();
-              try{page.router.back();} catch(e){alert(e.message)}
-            }, function (error) {
-              alert('error : ' + JSON.stringify(error));
-            }, options);
-          } catch (e) { alert(e.message) }
+                var notificationWithButton = page.app.notification.create({
+                  icon: '<i class="icon demo-icon">7</i>',
+                  title: 'Image Upload',
+                  subtitle: 'Cropped image uloaded',
+                  text: 'Upload was successful',
+                  closeTimeout: 3000,
+                  closeButton: true,
+                });
+                notificationWithButton.open();
+                try { page.router.back(); } catch (e) { alert(e.message) }
+              }, function (error) {
+                alert('error : ' + JSON.stringify(error));
+              }, options);
+            } catch (e) { alert(e.message) }
 
           });
-        
+
 
         }
         function onFail(message) {
