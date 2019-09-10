@@ -28,7 +28,11 @@
       <div class="upload-event-wrap" style="text-align:center;width:100%;">
         <div id="id1" class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
-
+<div id="player2"></div>
+<audio controls id="player">
+  <source src="/build/audios/jingle_bells.ogg" type="audio/ogg">
+  <source src="/build/audios/audio.mp3" type="audio/mpeg">
+</audio>
 
     </div>
 </template>
@@ -139,6 +143,16 @@
         setCanvas('P', sourceUrl);
 
         $('#img_orient').click(function () {
+          var success = function (data) {
+        alert(data.url);
+        var p = document.getElementById("player");
+        p.src = data.url;
+        p.currentTime = 0;
+        p.play();
+    };
+    var error = function (msg) {
+        alert(msg);
+    };
           try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
           alert('hello hush');
           if ($(this).children(".f7-icons").html() == 'phone_portrait') {
