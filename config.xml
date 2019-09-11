@@ -12,13 +12,9 @@
   <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
- <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest">
-  <manifest xmlns:android="http://schemas.android.com/apk/res/android" />
-  
-</edit-config>
-<config-file parent="/manifest" target="AndroidManifest.xml">
+ <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/uses-permission[@android:name='android.permission.WRITE_EXTERNAL_STORAGE']">
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace" />
-</config-file>
+</edit-config>
 
  <plugin name="cordova-plugin-file-chooser" source="npm" /> 
   <plugin name="cordova-plugin-chooser" source="npm" spec="~1.2.5" />
