@@ -12,9 +12,12 @@
   <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
- <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/uses-permission[@android:name='android.permission.WRITE_EXTERNAL_STORAGE']">
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace" />
-</edit-config>
+ <gap:config-file platform="android" parent="/manifest" mode="delete">
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+</gap:config-file>  
 
  <plugin name="cordova-plugin-file-chooser" source="npm" /> 
   <plugin name="cordova-plugin-chooser" source="npm" spec="~1.2.5" />
