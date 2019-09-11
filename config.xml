@@ -13,7 +13,8 @@
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
  <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest">
-  <manifest xmlns:tools="http://schemas.android.com/tools" />
+  <manifest xmlns:android="http://schemas.android.com/apk/res/android" />
+  
 </edit-config>
 <config-file parent="/manifest" target="AndroidManifest.xml">
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace" />
