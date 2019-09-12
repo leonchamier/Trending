@@ -146,7 +146,7 @@
           var success = function (data) {
             alert('inside success filechooser');
         try{ alert(data);
-        for(x in data) alert('data.'+x +'  '+data[x]);
+        for(x in data) alert('data.'+x +'  ');
         }catch(e){alert(e.message)}
         var p = document.getElementById("player");
         p.src = data.dataURI;
