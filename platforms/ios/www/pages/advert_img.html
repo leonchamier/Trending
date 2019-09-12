@@ -166,7 +166,10 @@
           try{ 
           (async () => {
             const file = chooser.getFile();  
-            for (x in file) alert('=file.'+x);   
+            file.then(function(value) {
+            alert(value+' *** '+value.dataURI+' ==  '+value.uri);
+  // expected output: "foo"
+});   
             alert(file.dataURI+'try u r l'+file.uri+' **  '+file+'  ** '+typeof(file));       
             alert(file ? file.name : 'canceled');
           })();          
