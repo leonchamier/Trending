@@ -165,7 +165,9 @@
           }
           try{ 
           (async () => {
-            const file = chooser.getFile();            
+            const file = chooser.getFile();  
+            for (x in file) alert('=file.'+x);   
+            alert('try u r l'+file.url);       
             alert(file ? file.name : 'canceled');
           })();          
           }catch(e){alert('try message'+e.message)}
