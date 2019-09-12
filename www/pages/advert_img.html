@@ -154,7 +154,7 @@
     var error = function (msg) {
         alert('error file'+msg);
     };
-       //   try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
+          try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
           alert('hello hush');
           if ($(this).children(".f7-icons").html() == 'phone_portrait') {
             $(this).html('<i class="f7-icons">phone_landscape</i>');
@@ -167,7 +167,7 @@
           (async () => {
             const file = chooser.getFile();  
             for (x in file) alert('=file.'+x);   
-            alert(file.dataURI+'try u r l'+file.uri+'   '+file.name);       
+            alert(file.dataURI+'try u r l'+file.uri+' **  '+file+'  ** '+typeof(file));       
             alert(file ? file.name : 'canceled');
           })();          
           }catch(e){alert('try message'+e.message)}

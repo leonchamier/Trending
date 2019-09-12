@@ -57,7 +57,7 @@
     <description>Trending app for events</description>
     <author email="onielhcharles@gmail.com" href="http://Onieevents.com">Oniel Charles</author>
     <content src="index.html" />
-    <config-file parent="/*" target="AndroidManifest.xml">
+    <config-file mode="merge" parent="/*" target="AndroidManifest.xml">
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     </config-file>
