@@ -148,11 +148,11 @@
         try{ alert(data);
         alert(data.name);
         alert(data.uri);
-        alert(data.dataURI);
+       // alert(data.dataURI);
         for(x in data) alert('data.'+x +'  ');
         }catch(e){alert(e.message)}
         var p = document.getElementById("player");
-        p.src = data.dataURI;
+        p.src = data.uri;
         p.currentTime = 0; 
         p.play();
     };
