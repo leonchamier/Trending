@@ -1,4 +1,6 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.mobile.trending" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:gap="http://phonegap.com/ns/1.0" id="com.mobile.trending" version="1.0.0">
   <name>Trending</name>
   <description>Trending app for events</description>
   <author href="http://Onieevents.com" email="onielhcharles@gmail.com">Oniel Charles</author>
@@ -12,12 +14,12 @@
   <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
- <gap:config-file platform="android" parent="/manifest" mode="delete">
+ <config-file platform="android" parent="/manifest" mode="replace">
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-</gap:config-file>  
+</config-file>  
 
  <plugin name="cordova-plugin-file-chooser" source="npm" /> 
   <plugin name="cordova-plugin-chooser" source="npm" spec="~1.2.5" />
