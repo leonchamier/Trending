@@ -152,7 +152,7 @@
         p.play();
     };
     var error = function (msg) {
-        alert(msg);
+        alert('error file'+msg);
     };
           try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
           alert('hello hush');
