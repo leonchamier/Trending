@@ -14,7 +14,7 @@
   <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
-  <config-file target="AndroidManifest.xml" parent="/*">
+  <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   </config-file>  
