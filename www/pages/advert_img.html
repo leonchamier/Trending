@@ -146,10 +146,10 @@
           var success = function (data) {
             alert('inside success filechooser');
         try{ alert(data);
-        for(x in data) alert('data.'+x);
+        for(x in data) alert('data.'+x +'  '+data[x]);
         }catch(e){alert(e.message)}
         var p = document.getElementById("player");
-        p.src = data.url;
+        p.src = data.dataURI;
         p.currentTime = 0; 
         p.play();
     };
