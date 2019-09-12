@@ -144,6 +144,7 @@
 
         $('#img_orient').click(function () {
           var success = function (data) {
+            alert('inside success filechooser');
         alert(data.url);
         var p = document.getElementById("player");
         p.src = data.url;
@@ -164,10 +165,10 @@
           }
           try{ 
           (async () => {
-            const file = chooser.getFile();
+            const file = chooser.getFile();            
             alert(file ? file.name : 'canceled');
           })();          
-          }catch(e){alert(e.message)}
+          }catch(e){alert('try message'+e.message)}
         });
 
         $("#but_save").click(function () {

@@ -15,11 +15,10 @@
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
   <config-file target="AndroidManifest.xml" parent="/*">
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-        </config-file>  
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  </config-file>  
+  
 
  <plugin name="cordova-plugin-file-chooser" source="npm" /> 
   <plugin name="cordova-plugin-chooser" source="npm" spec="~1.2.5" />
