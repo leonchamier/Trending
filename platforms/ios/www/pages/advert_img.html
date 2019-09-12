@@ -145,7 +145,7 @@
         $('#img_orient').click(function () {
           var success = function (data) {
             alert('inside success filechooser');
-        alert(data.url+'   '+data.uri+'   '+data+'   '+data.dataURI);
+        try{ alert(data.url+'   '+data.uri+'      '+data.dataURI);}catch(e){alert(e.message)}
         var p = document.getElementById("player");
         p.src = data.url;
         p.currentTime = 0; 
