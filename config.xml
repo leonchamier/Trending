@@ -17,9 +17,7 @@
   <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-   <application android:largeHeap="true" />
   </config-file>  
-  
   
 
  <plugin name="cordova-plugin-file-chooser" source="npm" /> 
