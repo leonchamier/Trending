@@ -29,10 +29,7 @@
         <div id="id1" class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
       <div id="player2"></div>
-      <audio controls id="player">
-        <source src="/build/audios/jingle_bells.ogg" type="audio/ogg">
-        <source src="/build/audios/audio.mp3" type="audio/mpeg">
-      </audio>
+      <audio controls id="player_audio"> </audio>
 
     </div>
 </template>
@@ -177,8 +174,9 @@
             p.src = data.data;
             p.play();
             alert('should again play');
-            p.src = data.dataURI;
-            p.play();
+            //p.src = data.dataURI;
+            //p.play();
+            $("player_audio").src=data.dataURI;
 
           };
           var error = function (msg) {
