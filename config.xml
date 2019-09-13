@@ -15,8 +15,8 @@
   <plugin name="cordova-plugin-googlemaps" spec="^2.6.2" />
 
   <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
-   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+   <!uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+   <!uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   </config-file>  
   
 
