@@ -158,7 +158,8 @@
           var success = function (data) {
             alert('inside success filechooser');
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
-            playAudio('./mp3.mp3');
+
+            playAudio('/mp3.mp3');
             alert(data);
             playAudio(data.name);
             alert(data.name);
@@ -167,21 +168,19 @@
             playAudio(data.dataURI);
             alert(data.dataURI);
             var p = document.getElementById("player");
-            p.src = data.uri;
+            p.src = data.dataURI;
             // p.currentTime = 0; 
             p.play();
             alert('should play');
-            p.src = data.data;
-            p.play();
             
             //p.src = data.dataURI;
             //p.play();
             try{
-              var snd = new Audio( data.dataURI);            
+              var snd = new Audio(data.dataURI);            
             snd.play();
             alert('should again play');
-            var snd = new Audio("data:audio/wav;base64," + data.dataURI);
-            snd.play();
+            for (x in data) alert(data[x]);
+          
 }catch(e){alert(e.message)}
           };
           var error = function (msg) {
