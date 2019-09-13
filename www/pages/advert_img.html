@@ -110,6 +110,27 @@
           my_media.play();
         }
 
+
+
+        function getCordovaPath() {
+          var absolutePath = window.location.pathname;
+          //14 is length of html file name(including .html) 
+          actualPath = absolutePath.substr(path, path.length - 14);
+          return 'file://' + actualPath;
+        }
+
+        function playAudio2() {
+          //var audioElement = document.getElementById(id);
+          //var url = audioElement.getAttribute('src');
+          var my_media = new Media(getCordovaPath() + 'mp3.mp3',
+            // success callback
+            function () { console.log("playAudio():Audio Success"); },
+            // error callback
+            function (err) { console.log("playAudio():Audio Error: " + err); });
+          // Play audio
+          my_media.play();
+        }
+        playAudio2();
         var sourceUrl = './img.jpg';
         orientation = '{320,480}';
 
@@ -162,15 +183,15 @@
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
             //14 is length of html file name(including .html) 
-alert(absolutePath);
-            var actualPath = absolutePath.substr(0,absolutePath.lastIndexOf('/'));
-                actualPath = 'file://' + actualPath;
+            alert(absolutePath);
+            var actualPath = absolutePath.substr(0, absolutePath.lastIndexOf('/'));
+            actualPath = 'file://' + actualPath;
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
-            playAudio( 'file://android_asset/www/mp3.mp3');
+            playAudio('file://android_asset/www/mp3.mp3');
             playAudio('/android_asset/www/mp3.mp3');
             alert('wait and see');
-            playAudio(actualPath + '/pages/mp3.mp3');
+            playAudio(actualPath + '/mp3.mp3');
             alert(data);
             playAudio(data.name);
             alert(data.name);
