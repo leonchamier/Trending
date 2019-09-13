@@ -30,7 +30,9 @@
       </div>
       <div id="player2"></div>
       <audio controls id="player_audio" src="./mp3.mp3"> </audio>
-      <audio id="ad1" controls><source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" /></audio>
+      <audio id="ad1" controls>
+        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" />
+      </audio>
     </div>
 </template>
 
@@ -158,9 +160,17 @@
           var success = function (data) {
             alert('inside success filechooser');
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
-alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
+            var absolutePath = window.location.pathname;
+            //14 is length of html file name(including .html) 
+alert(absolutePath);
+            var actualPath = absolutePath.substr(0,absolutePath.lastIndexOf('/'));
+                actualPath = 'file://' + actualPath;
+
+            alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
             playAudio(cordova.file.applicationDirectory + 'www/mp3.mp3');
             playAudio(cordova.file.applicationDirectory + '/www/pages/mp3.mp3');
+            alert('wait and see');
+            playAudio(actualPath + '/pages/mp3.mp3');
             alert(data);
             playAudio(data.name);
             alert(data.name);
@@ -169,7 +179,7 @@ alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
             playAudio(data.dataURI);
             alert(data.dataURI);
             $("player2").html('try this <audio controls><source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" /></audio>');
-            
+
             // p.currentTime = 0; 
             p.play();
             alert('should play');
