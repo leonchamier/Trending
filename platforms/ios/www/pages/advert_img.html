@@ -167,7 +167,7 @@
             alert(data.uri);
             playAudio(data.dataURI);
             alert(data.dataURI);
-            var p = document.getElementById("player");
+            var p = document.getElementById("player2");
             p.innerHTML = '<audio autoplay controls src="' + data.dataURI + '"></audio>';
             // p.currentTime = 0; 
             p.play();
@@ -180,7 +180,7 @@
               // snd.play();
               alert('should again play');
               var audio = new Audio();
-              audio.src = "mp3.mp3";
+              audio.src = "./mp3.mp3";
               audio.play();
               alert('should again play');
 
