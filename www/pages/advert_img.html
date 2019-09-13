@@ -176,10 +176,10 @@
             //p.src = data.dataURI;
             //p.play();
             try{
-              var snd = new Audio(data.dataURI);            
-            snd.play();
+           //   var snd = new Audio(data.dataURI);            
+           // snd.play();
             alert('should again play');
-            for (x in data) alert(data[x]);
+            for (x in data) alert(eval('data.'+x));
           
 }catch(e){alert(e.message)}
           };
