@@ -154,7 +154,12 @@
        // p.currentTime = 0; 
         p.play();
         alert('should play');
-        p.src = "data:audio/mpeg;base64,"+data.dataURI;
+        p.src = data.data;
+        p.play();
+        alert('should again play');
+        p.src = data.dataURI;
+        p.play();
+        
     };
     var error = function (msg) {
         alert('error file'+msg);
