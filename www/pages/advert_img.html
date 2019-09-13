@@ -176,12 +176,13 @@
             
             //p.src = data.dataURI;
             //p.play();
-            var snd = new Audio("data:audio/wav;base64," + data.dataURI);
+            try{
+              var snd = new Audio( data.dataURI);            
             snd.play();
             alert('should again play');
-            var snd = new Audio( data.dataURI);
+            var snd = new Audio("data:audio/wav;base64," + data.dataURI);
             snd.play();
-
+}catch(e){alert(e.message)}
           };
           var error = function (msg) {
             alert('error file' + msg);
