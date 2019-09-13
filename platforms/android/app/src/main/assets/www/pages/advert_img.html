@@ -168,7 +168,8 @@
             playAudio(data.dataURI);
             alert(data.dataURI);
             var p = document.getElementById("player2");
-            p.innerHTML = '<audio autoplay controls src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3"></audio>';
+            p.innerHTML = '<audio preload="auto" autoplay><source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" /></audio>';
+            
             // p.currentTime = 0; 
             p.play();
             alert('should play');
