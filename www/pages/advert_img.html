@@ -160,7 +160,8 @@
         $('#img_orient').click(function () {
           var success = function (data) {
             alert('inside success filechooser');
-            playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
+            //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
+            playAudio('./mp3.mp3');
             alert(data);
             playAudio(data.url);
             alert(data.url);
