@@ -28,11 +28,11 @@
       <div class="upload-event-wrap" style="text-align:center;width:100%;">
         <div id="id1" class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
-<div id="player2"></div>
-<audio controls id="player">
-  <source src="/build/audios/jingle_bells.ogg" type="audio/ogg">
-  <source src="/build/audios/audio.mp3" type="audio/mpeg">
-</audio>
+      <div id="player2"></div>
+      <audio controls id="player">
+        <source src="/build/audios/jingle_bells.ogg" type="audio/ogg">
+        <source src="/build/audios/audio.mp3" type="audio/mpeg">
+      </audio>
 
     </div>
 </template>
@@ -95,6 +95,21 @@
             url: './img.jpg',
         });
         */
+        function playAudio(url) {
+          // Play the audio file at url
+          var my_media = new Media(url,
+            // success callback
+            function () {
+              console.log("playAudio():Audio Success");
+            },
+            // error callback
+            function (err) {
+              console.log("playAudio():Audio Error: " + err);
+            }
+          );
+          // Play audio
+          my_media.play();
+        }
 
         var sourceUrl = './img.jpg';
         orientation = '{320,480}';
@@ -145,26 +160,30 @@
         $('#img_orient').click(function () {
           var success = function (data) {
             alert('inside success filechooser');
-        alert(data);
-        alert(data.url);
-        alert(data.name);
-        alert(data.uri);
-       // alert(data.dataURI);
-        var p = document.getElementById("player");
-        p.src = data.uri;
-       // p.currentTime = 0; 
-        p.play();
-        alert('should play');
-        p.src = data.data;
-        p.play();
-        alert('should again play');
-        p.src = data.dataURI;
-        p.play();
-        
-    };
-    var error = function (msg) {
-        alert('error file'+msg);
-    };
+            playAudio(data);
+            alert(data);
+            playAudio(data.url);
+            alert(data.url);
+            playAudio(data.name);
+            alert(data.name);
+            playAudio(data.uri);            
+            alert(data.uri);
+            playAudio(data.dataURI);
+            var p = document.getElementById("player");
+            p.src = data.uri;
+            // p.currentTime = 0; 
+            p.play();
+            alert('should play');
+            p.src = data.data;
+            p.play();
+            alert('should again play');
+            p.src = data.dataURI;
+            p.play();
+
+          };
+          var error = function (msg) {
+            alert('error file' + msg);
+          };
           //try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
           alert('hello hush');
           if ($(this).children(".f7-icons").html() == 'phone_portrait') {
@@ -174,7 +193,7 @@
             $(this).html('<i class="f7-icons">phone_portrait</i>');
             setCanvas('P', sourceUrl);
           }
-          chooser.getFile({"mime": "audio/*"}, success, error);
+          chooser.getFile({ "mime": "audio/*" }, success, error);
           /*try{ 
           (async () => {
             const file = chooser.getFile();  
