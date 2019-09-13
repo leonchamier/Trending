@@ -163,25 +163,28 @@
             alert(data);
             playAudio(data.name);
             alert(data.name);
-            playAudio(data.uri);            
+            playAudio(data.uri);
             alert(data.uri);
             playAudio(data.dataURI);
             alert(data.dataURI);
             var p = document.getElementById("player");
-            p.src = data.dataURI;
+            p.innerHTML = '<audio autoplay controls src="' + data.dataURI + '"></audio>';
             // p.currentTime = 0; 
             p.play();
             alert('should play');
-            
+
             //p.src = data.dataURI;
             //p.play();
-            try{
-           //   var snd = new Audio(data.dataURI);            
-           // snd.play();
-            alert('should again play');
-            for (x in data) alert(eval('data.'+x));
-          
-}catch(e){alert(e.message)}
+            try {
+              //   var snd = new Audio(data.dataURI);            
+              // snd.play();
+              alert('should again play');
+              var audio = new Audio();
+              audio.src = "mp3.mp3";
+              audio.play();
+              alert('should again play');
+
+            } catch (e) { alert(e.message) }
           };
           var error = function (msg) {
             alert('error file' + msg);
