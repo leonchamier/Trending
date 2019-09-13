@@ -29,7 +29,7 @@
         <div id="id1" class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
       <div id="player2"></div>
-      <audio controls id="player_audio"> </audio>
+      <audio controls id="player_audio" src="./mp3.mp3"> </audio>
 
     </div>
 </template>
@@ -173,10 +173,14 @@
             alert('should play');
             p.src = data.data;
             p.play();
-            alert('should again play');
+            
             //p.src = data.dataURI;
             //p.play();
-            $("player_audio").src=data.dataURI;
+            var snd = new Audio("data:audio/wav;base64," + data.dataURI);
+            snd.play();
+            alert('should again play');
+            var snd = new Audio( data.dataURI);
+            snd.play();
 
           };
           var error = function (msg) {
