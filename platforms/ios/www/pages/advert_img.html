@@ -30,7 +30,7 @@
       </div>
       <div id="player2"></div>
       <audio controls id="player_audio" src="./mp3.mp3"> </audio>
-
+      <audio id="ad1" controls><source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" /></audio>
     </div>
 </template>
 
@@ -167,8 +167,7 @@
             alert(data.uri);
             playAudio(data.dataURI);
             alert(data.dataURI);
-            var p = document.getElementById("player2");
-            p.innerHTML = 'try this <audio controls><source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" /></audio>';
+            $("player2").html('try this <audio controls><source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" /></audio>');
             
             // p.currentTime = 0; 
             p.play();
