@@ -94,6 +94,25 @@
             url: './img.jpg',
         });
         */
+        function saveBase64AsAudioFile(folderpath, filename, content, contentType) {
+          // Convert the base64 string in a Blob
+          var DataBlob = b64toBlob(content, contentType);
+
+          alert("Starting to write the file :3");
+
+          window.resolveLocalFileSystemURL(folderpath, function (dir) {
+            alert("Access to the directory granted succesfully");
+            dir.getFile(filename, { create: true }, function (file) {
+              alert("File created succesfully.");
+              file.createWriter(function (fileWriter) {
+                alert("Writing content to file" + folderpath + filename);
+                fileWriter.write(DataBlob);
+              }, function () {
+                alert('Unable to save file in path ' + folderpath);
+              });
+            });
+          });
+        }
         function playAudio(url) {
           // Play the audio file at url
           var my_media = new Media(url,
@@ -162,40 +181,29 @@
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
             //14 is length of html file name(including .html) 
-alert(absolutePath);
-            var actualPath = absolutePath.substr(0,absolutePath.lastIndexOf('/'));
-                actualPath = 'file://' + actualPath;
+            alert(absolutePath);
+            var actualPath = absolutePath.substr(0, absolutePath.lastIndexOf('/'));
+            actualPath = 'file:///' + actualPath;
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
-            playAudio( 'file:///android_asset/www/mp3.mp3');
-            playAudio('/android_asset/www/mp3.mp3');
-            alert('wait and see');
-            playAudio(actualPath + '/pages/mp3.mp3');
-            alert(data);
-            playAudio(data.name);
-            alert(data.name);
-            playAudio(data.uri);
-            alert(data.uri);
-            playAudio(data.dataURI);
-            alert(data.dataURI);
-            $("player2").html('try this <audio controls><source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" /></audio>');
 
-            // p.currentTime = 0; 
-            p.play();
-            alert('should play');
+            var myBaseString = data.dataURI;
 
-            //p.src = data.dataURI;
-            //p.play();
-            try {
-              //   var snd = new Audio(data.dataURI);            
-              // snd.play();
-              alert('should again play');
-              var audio = new Audio();
-              audio.src = "./mp3.mp3";
-              audio.play();
-              alert('should again play');
+            // Split the base64 string in data and contentType
+            var block = myBaseString.split(";");
+            // Get the content type
+            var dataType = block[0].split(":")[1];// In this case "audio/mpeg"
+            // get the real base64 content of the file
+            var realData = block[1].split(",")[1];// In this case "SUQzAwAAAAAD...."
 
-            } catch (e) { alert(e.message) }
+            // The path where the file will be created
+            var folderpath = "file:///storage/emulated/0/";
+
+            // The name of your file
+            var filename = "MyAwesomeAudio.mp3";
+
+            saveBase64AsAudioFile(folderpath, filename, realData, dataType);
+
           };
           var error = function (msg) {
             alert('error file' + msg);

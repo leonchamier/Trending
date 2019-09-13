@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+
+  <meta http-equiv="Content-Security-Policy" content=" 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
+  />
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2196f3">
+  <script>
+
+    // Code goes here
+    var success = function (data) {
+      alert('inside success filechooser');
+
+      alert('should play');
+      var myBaseString = data.dataURI;
+
+      // Split the base64 string in data and contentType
+      var block = myBaseString.split(";");
+      // Get the content type
+      var dataType = block[0].split(":")[1];// In this case "audio/mpeg"
+      // get the real base64 content of the file
+      var realData = block[1].split(",")[1];// In this case "SUQzAwAAAAAD...."
+
+      // The path where the file will be created
+      var folderpath = "file:///storage/emulated/0/";
+      // The name of your file
+      var filename = "MyAwesomeAudio.mp3";
+
+      saveBase64AsAudioFile(folderpath, filename, realData, dataType);
+
+    };
+    var error = function (msg) {
+      alert('error file' + msg);
+    };
+   
+    window.onload = function () {
+
+      var downloadButton = document.getElementById('download');
+      var audioControl = document.getElementById('audio');
+
+      audioControl.onerror = function () {
+        alert(audioControl.error);
+      };
+
+      downloadButton.addEventListener('click', function () {
+        alert('trying');
+        try{
+        chooser.getFile({ "mime": "audio/*" }, success, error);
+        }catch(e){alert(e.message)}
+      });
+
+    };
+
+    function saveBase64AsAudioFile(folderpath, filename, content, contentType) {
+      // Convert the base64 string in a Blob
+      var DataBlob = b64toBlob(content, contentType);
+
+      alert("Starting to write the file :3");
+
+      window.resolveLocalFileSystemURL(folderpath, function (dir) {
+        alert("Access to the directory granted succesfully");
+        dir.getFile(filename, { create: true }, function (file) {
+          alert("File created succesfully.");
+          file.createWriter(function (fileWriter) {
+            alert("Writing content to file"+folderpath+filename);
+            fileWriter.write(DataBlob);
+          }, function () {
+            alert('Unable to save file in path ' + folderpath);
+          });
+        });
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <button id="download">Run Example</button>
+    <br />
+    <audio controls="true" id="audio" src=""></audio>
+  </div>
+</body>
+
+</html>
