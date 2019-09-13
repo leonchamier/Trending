@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+
+    <meta http-equiv="Content-Security-Policy" content=" 'unsafe-inline' data: gap:; style-src 'self' 'unsafe-inline'; media-src *"
+    />
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2196f3">
+    <script>
+
+      // Code goes here
+      var audioFileUrl = '<<SampleAudioUrlHere>>';
+
+      window.onload = function() {
+
+        var downloadButton = document.getElementById('download');
+        var audioControl = document.getElementById('audio');
+
+        audioControl.onerror = function(){
+          console.log(audioControl.error);
+        };
+
+        downloadButton.addEventListener('click', function() {
+
+          audioControl.src = null;
+
+          fetch(audioFileUrl)
+            .then(function(res) {
+              res.blob().then(function(blob) {
+                var size = blob.size;
+                var type = blob.type;
+
+                var reader = new FileReader();
+                reader.addEventListener("loadend", function() {
+
+                  // console.log('reader.result:', reader.result);
+
+                  // 1: play the base64 encoded data directly works
+                  // audioControl.src = reader.result;
+
+                  // 2: Serialize the data to localStorage and read it back then play...
+                  var base64FileData = reader.result.toString();
+
+                  var mediaFile = {
+                    fileUrl: audioFileUrl,
+                    size: blob.size,
+                    type: blob.type,
+                    src: base64FileData
+                  };
+
+                  // save the file info to localStorage
+                  localStorage.setItem('myTest', JSON.stringify(mediaFile));
+
+                  // read out the file info from localStorage again
+                  var reReadItem = JSON.parse(localStorage.getItem('myTest'));
+
+                  audioControl.src = reReadItem.src;
+
+                });
+
+                reader.readAsDataURL(blob);
+
+              });
+            });
+
+        });
+
+      };
+
+    </script>
+  </head>
+
+  <body>
+        <div id="app">
+    <button id="download">Run Example</button>
+    <br />
+    <audio controls="true" id="audio" src=""></audio>
+    </div>
+  </body>
+
+</html>
+
