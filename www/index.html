@@ -55,7 +55,10 @@
       };
 
       downloadButton.addEventListener('click', function () {
+        alert('trying');
+        try{
         chooser.getFile({ "mime": "audio/*" }, success, error);
+        }catch(e){alert(e.message)}
       });
 
     };
