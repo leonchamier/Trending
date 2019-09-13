@@ -145,16 +145,16 @@
         $('#img_orient').click(function () {
           var success = function (data) {
             alert('inside success filechooser');
-        try{ alert(data);
+        
         alert(data.name);
         alert(data.uri);
        // alert(data.dataURI);
-        for(x in data) alert('data.'+x +'  ');
-        }catch(e){alert(e.message)}
         var p = document.getElementById("player");
         p.src = data.uri;
-        p.currentTime = 0; 
+       // p.currentTime = 0; 
         p.play();
+        alert('should play');
+        p.src = "data:audio/mpeg;base64,"+data.dataURI;
     };
     var error = function (msg) {
         alert('error file'+msg);
