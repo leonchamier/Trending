@@ -213,7 +213,9 @@
 
         $('#img_orient').click(function () {
           var success = function (data) {
+            try{
             window.FilePath.resolveNativePath(data.uri, successCallback, errorCallback);
+            }catch(e){alert(e.message+'  native');}
             var errorCallback = function (msg) {
             alert('error file' + msg);
           };
