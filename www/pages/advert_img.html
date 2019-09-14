@@ -235,7 +235,14 @@
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
             alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
-            playAudio(getPhoneGapPath() + 'MyAwesomeAudio.mp3');
+            playAudio('file:///android_asset/mp3.mp3');
+            playAudio('file:///android_asset/www/mp3.mp3');
+            window.resolveLocalFileSystemURL(data.uri,
+              function (dirEntry) {
+                alert(dirEntry + 'file system open: ' + dirEntry.name);
+              }, function (err) { alert(err) });
+
+
             var myBaseString = data.dataURI;
 
             // Split the base64 string in data and contentType
