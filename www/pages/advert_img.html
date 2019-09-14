@@ -231,10 +231,7 @@
             alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
             playAudio(getPhoneGapPath()+'mp3.mp3');
             playAudio('file:///android_asset/www/mp3.mp3');
-            window.resolveLocalFileSystemURL(data.uri,
-              function (dirEntry) {
-                alert(dirEntry + 'file system open: ' + dirEntry.name);
-              }, function (err) { alert(err) });
+            
 
 
             var myBaseString = data.dataURI;
