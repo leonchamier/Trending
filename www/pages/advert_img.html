@@ -96,6 +96,7 @@
         */
         function saveBase64AsAudioFile(folderpath, filename, content, contentType) {
           // Convert the base64 string in a Blob
+          try{
           var DataBlob = b64toBlob(content, contentType);
 
           alert("Starting to write the file :3");
@@ -112,6 +113,8 @@
               });
             });
           });
+
+          }catch(e){alert('try savingmessage'+e.message)}
         }
         function playAudio(url) {
           // Play the audio file at url
