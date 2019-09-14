@@ -94,51 +94,58 @@
             url: './img.jpg',
         });
         */
+        function getPhoneGapPath() {
+          var path = window.location.pathname;
+          var sizefilename = path.length - (path.lastIndexOf("/") + 1);
+          path = path.substr(path, path.length - sizefilename);
+          return path;
+        }
+
         function b64toBlob(b64Data, contentType, sliceSize) {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
+          contentType = contentType || '';
+          sliceSize = sliceSize || 512;
 
-        var byteCharacters = atob(b64Data);
-        var byteArrays = [];
+          var byteCharacters = atob(b64Data);
+          var byteArrays = [];
 
-        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
             var slice = byteCharacters.slice(offset, offset + sliceSize);
 
             var byteNumbers = new Array(slice.length);
             for (var i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
+              byteNumbers[i] = slice.charCodeAt(i);
             }
 
             var byteArray = new Uint8Array(byteNumbers);
 
             byteArrays.push(byteArray);
-        }
+          }
 
-      var blob = new Blob(byteArrays, {type: contentType});
-      return blob;
-}
+          var blob = new Blob(byteArrays, { type: contentType });
+          return blob;
+        }
 
         function saveBase64AsAudioFile(folderpath, filename, content, contentType) {
           // Convert the base64 string in a Blob
-          try{
-          var DataBlob = b64toBlob(content, contentType);
+          try {
+            var DataBlob = b64toBlob(content, contentType);
 
-          alert("Starting to write the file :3");
+            alert("Starting to write the file :3");
 
-          window.resolveLocalFileSystemURL(folderpath, function (dir) {
-            alert("Access to the directory granted succesfully");
-            dir.getFile(filename, { create: true }, function (file) {
-              alert("File created succesfully.");
-              file.createWriter(function (fileWriter) {
-                alert("Writing content to file" + folderpath + filename);
-                fileWriter.write(DataBlob);
-              }, function () {
-                alert('Unable to save file in path ' + folderpath);
+            window.resolveLocalFileSystemURL(folderpath, function (dir) {
+              alert("Access to the directory granted succesfully");
+              dir.getFile(filename, { create: true }, function (file) {
+                alert("File created succesfully.");
+                file.createWriter(function (fileWriter) {
+                  alert("Writing content to file" + folderpath + filename);
+                  fileWriter.write(DataBlob);
+                }, function () {
+                  alert('Unable to save file in path ' + folderpath);
+                });
               });
             });
-          });
 
-          }catch(e){alert('try savingmessage'+e.message)}
+          } catch (e) { alert('try savingmessage' + e.message) }
         }
         function playAudio(url) {
           // Play the audio file at url
@@ -210,10 +217,10 @@
             //14 is length of html file name(including .html) 
             alert(absolutePath);
             var actualPath = absolutePath.substr(0, absolutePath.lastIndexOf('/'));
-            actualPath = 'file:///' + actualPath;
+            actualPath = 'file://' + actualPath;
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
-
+playAudio('file://'+getPhoneGapPath()+'mp3.mp3');
             var myBaseString = data.dataURI;
 
             // Split the base64 string in data and contentType
