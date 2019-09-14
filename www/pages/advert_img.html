@@ -144,8 +144,9 @@
                 });
               });
             });
+            alert('finish saving');
 
-          } catch (e) { alert('try savingmessage' + e.message) }
+          } catch (e) { alert('try savingmessage :' + e.message) }
         }
         function playAudio(url) {
           // Play the audio file at url
@@ -220,7 +221,8 @@
             actualPath = 'file://' + actualPath;
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
-playAudio('file://'+getPhoneGapPath()+'mp3.mp3');
+            alert('charles  file://' + getPhoneGapPath() + 'mp3.mp3');
+            playAudio('file://' + getPhoneGapPath() + 'mp3.mp3');
             var myBaseString = data.dataURI;
 
             // Split the base64 string in data and contentType
