@@ -29,8 +29,10 @@
         <div id="id1" class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
       <div id="player2"></div>
-      <audio controls id="player_audio" src="./mp3.mp3"> </audio>
-      <audio id="ad1" controls>
+      <audio controls id="player_audio" src="/android_asset/www/mp3.mp3"> </audio>
+      <audio controls  src="/android_asset/mp3.mp3"> </audio>
+      <audio preload='none'   src="/android_asset/www/mp3.mp3"> </audio>
+      <audio id="ad1" preload='none'>
         <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" />
       </audio>
     </div>
@@ -264,7 +266,7 @@
           var error = function (msg) {
             alert('error file' + msg);
           };
-          try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
+          //try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
           alert('hello hush');
           if ($(this).children(".f7-icons").html() == 'phone_portrait') {
             $(this).html('<i class="f7-icons">phone_landscape</i>');
@@ -273,7 +275,7 @@
             $(this).html('<i class="f7-icons">phone_portrait</i>');
             setCanvas('P', sourceUrl);
           }
-          //chooser.getFile({ "mime": "audio/*" }, success, error);
+          chooser.getFile({ "mime": "audio/*" }, success, error);
           /*try{ 
           (async () => {
             const file = chooser.getFile();  
