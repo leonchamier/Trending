@@ -210,7 +210,8 @@
               window.resolveLocalFileSystemURI(data.uri, 
         function(fileEntry) {
             fileEntry.file(function(fileObj) {
-                alert("Size = " + fileObj.size);
+              for(var x in fileObj){alert('resolve ur '+x)}
+                alert(fileObj.fullPath+"Size = " + fileObj.size);
             },
             function (error) {});
         }, function (error) {}
