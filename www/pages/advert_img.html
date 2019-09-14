@@ -96,7 +96,7 @@
         */
         function getPhoneGapPath() {
           var path = cordova.file.dataDirectory;//window.location.pathname;
-          alert('path='+path);
+          alert('path=' + path);
           var sizefilename = path.length - (path.lastIndexOf("/") + 1);
           path = path.substr(path, path.length - sizefilename);
           return path;
@@ -213,18 +213,19 @@
 
         $('#img_orient').click(function () {
           var success = function (data) {
-            try{
-            window.FilePath.resolveNativePath(data.uri, successCallback, errorCallback);
-            }catch(e){alert(e.message+'  native');}
+            try {
+              alert('trying native');
+              window.FilePath.resolveNativePath(data.uri, successCallback, errorCallback);
+            } catch (e) { alert(e.message + '  native'); }
             var errorCallback = function (msg) {
-            alert('error file' + msg);
-          };
-          var successCallback = function (path) {
-            alert('resolved path');
-            playAudio(path);
-          };
-            
-            alert('inside success filechooser '+'file://'+data.uri +'/'+data.name);
+              alert('error file native ' + msg);
+            };
+            var successCallback = function (path) {
+              alert('resolved path native ');
+              playAudio(path);
+            };
+
+            alert('inside success filechooser ' + data.uri);
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
             //14 is length of html file name(including .html) 
@@ -234,7 +235,7 @@
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
             alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
-            playAudio( getPhoneGapPath() + 'MyAwesomeAudio.mp3');
+            playAudio(getPhoneGapPath() + 'MyAwesomeAudio.mp3');
             var myBaseString = data.dataURI;
 
             // Split the base64 string in data and contentType
