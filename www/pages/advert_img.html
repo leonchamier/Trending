@@ -206,12 +206,16 @@
             alert(data.dataURI.size);
             try {
               
-              window.FilePath.resolveNativePath(data.uri, function (data) {alert('native path= '+data);playAudio(data);},function (data) {alert('error native path= '+data)});
+              window.FilePath.resolveNativePath(data.uri, function (data) {alert('native path= '+data);
+              //playAudio(data);
+              $("player_audio").src=data;
+              },function (data) {alert('error native path= '+data)});
               window.resolveLocalFileSystemURI(data.uri, 
         function(fileEntry) {
             fileEntry.file(function(fileObj) {
-              for(var x in fileObj){alert('resolve ur '+x)}
                 alert(fileObj.localURL+" Size = " + fileObj.size);
+                playAudio(fileObj.localURL);
+                $("ad1").src=fileObj.localURL;
             },
             function (error) {});
         }, function (error) {}
