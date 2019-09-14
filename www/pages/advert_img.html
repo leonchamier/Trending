@@ -205,12 +205,12 @@
           var success = function (data) {
             try {
               alert('trying native');
-              window.FilePath.resolveNativePath(data.uri, function (data) {alert(data)},function (data) {alert(data)});
+              window.FilePath.resolveNativePath(data.uri, function (data) {alert('native path= '+data);playAudio(data);},function (data) {alert('error native path= '+data)});
             } catch (e) { alert(e.message + '  native'); }
             
 
             alert('inside success filechooser ' + data.uri);
-            playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
+            //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
             //14 is length of html file name(including .html) 
             alert(absolutePath);
