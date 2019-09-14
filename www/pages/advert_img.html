@@ -97,7 +97,7 @@
         });
         */
         function getPhoneGapPath() {
-          var path = cordova.file.dataDirectory;//window.location.pathname;
+          var path = window.location.pathname; //cordova.file.dataDirectory;
           alert('path=' + path);
           var sizefilename = path.length - (path.lastIndexOf("/") + 1);
           path = path.substr(path, path.length - sizefilename);
@@ -219,7 +219,7 @@
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
             alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
-            playAudio('file:///android_asset/mp3.mp3');
+            playAudio(getPhoneGapPath()+'mp3.mp3');
             playAudio('file:///android_asset/www/mp3.mp3');
             window.resolveLocalFileSystemURL(data.uri,
               function (dirEntry) {
