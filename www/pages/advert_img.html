@@ -203,9 +203,18 @@
 
         $('#img_orient').click(function () {
           var success = function (data) {
+            alert(data.dataURI.size);
             try {
               alert('trying native');
               window.FilePath.resolveNativePath(data.uri, function (data) {alert('native path= '+data);playAudio(data);},function (data) {alert('error native path= '+data)});
+              window.resolveLocalFileSystemURI(data.uri, 
+        function(fileEntry) {
+            fileEntry.file(function(fileObj) {
+                alert("Size = " + fileObj.size);
+            },
+            function (error) {});
+        }, function (error) {}
+    );
             } catch (e) { alert(e.message + '  native'); }
             
 
