@@ -213,7 +213,15 @@
 
         $('#img_orient').click(function () {
           var success = function (data) {
-            playAudio(data.uri);
+            window.FilePath.resolveNativePath(data.uri, successCallback, errorCallback);
+            var errorCallback = function (msg) {
+            alert('error file' + msg);
+          };
+          var successCallback = function (path) {
+            alert('resolved path');
+            playAudio(path);
+          };
+            
             alert('inside success filechooser '+'file://'+data.uri +'/'+data.name);
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
