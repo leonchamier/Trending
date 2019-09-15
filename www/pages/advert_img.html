@@ -29,6 +29,14 @@
         <div id="id1" class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
       <div id="player2"></div>
+      
+
+<audio id="stream" preload='none'>
+  <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<a href="#" id="audioControl">play!</a>
+
       <audio controls id="player_audio" src="/android_asset/www/mp3.mp3"> </audio>
       <audio controls  src="mp3.mp3"> </audio>
       <audio   src="/android_asset/www/mp3.mp3"> </audio>
@@ -99,6 +107,23 @@
 
       },
       pageInit: function (e, page) {
+
+var stream = document.getElementById('stream'),
+ctrl = document.getElementById('audioControl');
+
+ctrl.onclick = function () {
+
+// Update the Button
+var pause = ctrl.innerHTML === 'pause!';
+ctrl.innerHTML = pause ? 'play!' : 'pause!';
+
+// Update the Audio
+var method = pause ? 'pause' : 'play';
+stream[method]();
+
+// Prevent Default Action
+return false;
+};
 
         /*
         $('.upload-event').croppie({
