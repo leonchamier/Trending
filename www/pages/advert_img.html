@@ -252,7 +252,7 @@ return false;
             try {
               
               window.FilePath.resolveNativePath(data.uri, function (data) {alert('native path= '+data);
-              //playAudio(data);
+              playAudio(data);
               changeAudio("a1","s1",data);
               },function (data) {alert('error native path= '+data)});
               window.resolveLocalFileSystemURI(data.uri, 
@@ -274,12 +274,24 @@ return false;
             alert(absolutePath);
             var actualPath = absolutePath.substr(0, absolutePath.lastIndexOf('/'));
             actualPath = 'file://' + actualPath;
+            alert(actualPath+'mp3.mp3');
+            playAudio(actualPath+'mp3.mp3');
+            alert('file:///android_asset/www/mp3.mp3');
+            playAudio('file:///android_asset/www/mp3.mp3');
+            alert('/www/mp3.mp3');
+            playAudio('/www/mp3.mp3');
+            alert('./www/mp3.mp3');
+            playAudio('./www/mp3.mp3');
+            alert('mp3.mp3');
+            playAudio('mp3.mp3');
+            alert('./mp3.mp3');
+            playAudio('./mp3.mp3');
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
+
             changeAudio("a2","s2",cordova.file.applicationDirectory + 'mp3.mp3');
             alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
-            playAudio(getPhoneGapPath()+'mp3.mp3');
-            playAudio('file:///android_asset/www/mp3.mp3');
+           
             
 
 
