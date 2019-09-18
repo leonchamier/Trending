@@ -283,19 +283,53 @@
               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
                 alert('file system open: ' + fs.name);
-                fs.root.getFile("mp3.mp3", {  }, function (fileEntry) {
+                fs.root.getFile("mp3.mp3", {}, function (fileEntry) {
 
-                  alert(fileEntry.fullPath+" \n fileEntry is file?" + fileEntry.isFile.toString());
+                  alert(fileEntry.fullPath + " \n fileEntry is file?" + fileEntry.isFile.toString());
                   // fileEntry.name == 'someFile.txt'
                   // fileEntry.fullPath == '/someFile.txt'
-                  
 
-                }, function(e){alert(' request file err'+e.message)});
 
-              }, function(e){alert(' request file load err'+e.message)});
+                }, function (e) { alert(' request file err' + e.message) });
 
-              /*
-                  changeAudio("a1","s1",actualPath+'mp3.mp3');
+              }, function (e) { alert(' request file load err' + e.message) });
+
+              window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory ,
+                function (dir) {
+                  var reader = dir.createReader();
+                  //read it
+                  reader.readEntries(function (entries) {
+                    alert("readEntries");
+                   // console.dir(entries);
+
+                    entries.forEach(function (entry) {
+
+                      var name = entry.name;
+                      alert(name);
+
+                      entry.file(function (file) {
+
+                        ID3.loadTags(name, function () {
+                          var tags = ID3.getAllTags(name);
+                          alert("got tags for " + name, tags);
+                        }, {
+                            dataReader: FileAPIReader(file)
+                          });
+
+                      });
+
+
+                    });
+
+                  });
+
+                }, function (err) {
+
+                });
+
+          
+
+              /*  changeAudio("a1","s1",actualPath+'mp3.mp3');
                   alert('file:///android_asset/www/mp3.mp3 0002');
                   changeAudio("a1","s1",'file:///android_asset/www/mp3.mp3');
                   alert('/android_asset/www/mp3.mp3');
@@ -318,155 +352,155 @@
 
 
 
-            var myBaseString = data.dataURI;
+          var myBaseString = data.dataURI;
 
-            // Split the base64 string in data and contentType
-            var block = myBaseString.split(";");
-            // Get the content type
-            var dataType = block[0].split(":")[1];// In this case "audio/mpeg"
-            // get the real base64 content of the file
-            var realData = block[1].split(",")[1];// In this case "SUQzAwAAAAAD...."
+          // Split the base64 string in data and contentType
+          var block = myBaseString.split(";");
+          // Get the content type
+          var dataType = block[0].split(":")[1];// In this case "audio/mpeg"
+          // get the real base64 content of the file
+          var realData = block[1].split(",")[1];// In this case "SUQzAwAAAAAD...."
 
-            // The path where the file will be created
-            var folderpath = "file:///storage/emulated/0/";
+          // The path where the file will be created
+          var folderpath = "file:///storage/emulated/0/";
 
-            // The name of your file
-            var filename = "MyAwesomeAudio.mp3";
+          // The name of your file
+          var filename = "MyAwesomeAudio.mp3";
 
-            saveBase64AsAudioFile(folderpath, filename, realData, dataType);
+          saveBase64AsAudioFile(folderpath, filename, realData, dataType);
 
-          };
-          var error = function (msg) {
-            alert('error file' + msg);
-          };
-          //try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
-          alert('hello hush');
-          if ($(this).children(".f7-icons").html() == 'phone_portrait') {
-            $(this).html('<i class="f7-icons">phone_landscape</i>');
-            setCanvas('L', sourceUrl);
-          } else {
-            $(this).html('<i class="f7-icons">phone_portrait</i>');
-            setCanvas('P', sourceUrl);
-          }
-          chooser.getFile({ "mime": "audio/*" }, success, error);
-          /*try{ 
-          (async () => {
-            const file = chooser.getFile();  
-            file.then(function(value) {
-           alert(value+' *** '+value.dataURI+' ==  '+value.uri);
-  // expected output: "foo"
+        };
+        var error = function (msg) {
+          alert('error file' + msg);
+        };
+        //try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
+        alert('hello hush');
+        if ($(this).children(".f7-icons").html() == 'phone_portrait') {
+          $(this).html('<i class="f7-icons">phone_landscape</i>');
+          setCanvas('L', sourceUrl);
+        } else {
+          $(this).html('<i class="f7-icons">phone_portrait</i>');
+          setCanvas('P', sourceUrl);
+        }
+        chooser.getFile({ "mime": "audio/*" }, success, error);
+        /*try{ 
+        (async () => {
+          const file = chooser.getFile();  
+          file.then(function(value) {
+         alert(value+' *** '+value.dataURI+' ==  '+value.uri);
+// expected output: "foo"
 });   
-            alert(file.dataURI+'try u r l'+file.uri+' **  '+file+'  ** '+typeof(file));       
-            alert(file ? file.name : 'canceled');
-          })();          
-          }catch(e){alert('try message'+e.message)}*/
+          alert(file.dataURI+'try u r l'+file.uri+' **  '+file+'  ** '+typeof(file));       
+          alert(file ? file.name : 'canceled');
+        })();          
+        }catch(e){alert('try message'+e.message)}*/
+      });
+
+      $("#but_save").click(function() {
+        uploadImage();
+      });
+
+      // take picture from camera
+      $('#but_take').click(function() {
+        navigator.camera.getPicture(onSuccess, onFail, {
+          quality: 20,
+          destinationType: Camera.DestinationType.FILE_URL,
+          allowEdit: true,
+        });
+      });
+
+      // upload select 
+      $("#but_select").click(function() {
+        navigator.camera.getPicture(onSuccess, onFail, {
+          quality: 50,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+          allowEdit: true,
+          destinationType: Camera.DestinationType.FILE_URI
         });
 
-        $("#but_save").click(function () {
-          uploadImage();
-        });
 
-        // take picture from camera
-        $('#but_take').click(function () {
-          navigator.camera.getPicture(onSuccess, onFail, {
-            quality: 20,
-            destinationType: Camera.DestinationType.FILE_URL,
-            allowEdit: true,
+
+
+      });
+
+      // Change image source and upload photo to server
+      function onSuccess(imageURI) {
+
+    sourceUrl = imageURI;
+    //setCanvas('P',sourceUrl);
+    $('.upload-event').addClass('ready');
+    $uploadCrop.bind({
+      url: imageURI
+    }).then(function () {
+      console.log('jQuery bind complete');
+    });
+
+  }
+  function uploadImage() {
+    $uploadCrop.result({
+      type: 'canvas',
+      size: store_size,
+      format: 'jpeg'
+    }).then(function (imageURI) {
+      var options = new FileUploadOptions();
+      options.fileKey = "file";
+      options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+      options.mimeType = "image/jpeg";
+
+      var params = {};
+      params.value1 = "test";
+      params.value2 = "param";
+
+      options.params = params;
+      options.chunkedMode = false;
+      try {
+        var ft = new FileTransfer();
+        ft.upload(imageURI, "https://trendingsolutions.000webhostapp.com/event_uploads.php", function (result) {
+          //alert('successfully uploaded ' + result.response);
+          // Create notification with close button
+
+          var notificationWithButton = page.app.notification.create({
+            icon: '<i class="icon demo-icon">7</i>',
+            title: 'Image Upload',
+            subtitle: 'Cropped image uloaded',
+            text: 'Upload was successful',
+            closeTimeout: 3000,
+            closeButton: true,
           });
-        });
+          notificationWithButton.open();
+          try { page.router.back(); } catch (e) { alert(e.message) }
+        }, function (error) {
+          alert('error : ' + JSON.stringify(error));
+        }, options);
+      } catch (e) { alert(e.message) }
 
-        // upload select 
-        $("#but_select").click(function () {
-          navigator.camera.getPicture(onSuccess, onFail, {
-            quality: 50,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            allowEdit: true,
-            destinationType: Camera.DestinationType.FILE_URI
-          });
+    });
 
 
-
-
-        });
-
-        // Change image source and upload photo to server
-        function onSuccess(imageURI) {
-
-          sourceUrl = imageURI;
-          //setCanvas('P',sourceUrl);
-          $('.upload-event').addClass('ready');
-          $uploadCrop.bind({
-            url: imageURI
-          }).then(function () {
-            console.log('jQuery bind complete');
-          });
-
-        }
-        function uploadImage() {
-          $uploadCrop.result({
-            type: 'canvas',
-            size: store_size,
-            format: 'jpeg'
-          }).then(function (imageURI) {
-            var options = new FileUploadOptions();
-            options.fileKey = "file";
-            options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-            options.mimeType = "image/jpeg";
-
-            var params = {};
-            params.value1 = "test";
-            params.value2 = "param";
-
-            options.params = params;
-            options.chunkedMode = false;
-            try {
-              var ft = new FileTransfer();
-              ft.upload(imageURI, "https://trendingsolutions.000webhostapp.com/event_uploads.php", function (result) {
-                //alert('successfully uploaded ' + result.response);
-                // Create notification with close button
-
-                var notificationWithButton = page.app.notification.create({
-                  icon: '<i class="icon demo-icon">7</i>',
-                  title: 'Image Upload',
-                  subtitle: 'Cropped image uloaded',
-                  text: 'Upload was successful',
-                  closeTimeout: 3000,
-                  closeButton: true,
-                });
-                notificationWithButton.open();
-                try { page.router.back(); } catch (e) { alert(e.message) }
-              }, function (error) {
-                alert('error : ' + JSON.stringify(error));
-              }, options);
-            } catch (e) { alert(e.message) }
-
-          });
-
-
-        }
-        function onFail(message) {
-          alert('Failed because: ' + message);
-        }
+  }
+  function onFail(message) {
+    alert('Failed because: ' + message);
+  }
 
 
 
-        console.log('pageInit', page);
+  console.log('pageInit', page);
       },
-      pageBeforeIn: function (e, page) {
-        console.log('pageBeforeIn', page);
-      },
-      pageAfterIn: function (e, page) {
-        console.log('pageAfterIn', page);
-      },
-      pageBeforeOut: function (e, page) {
-        console.log('pageBeforeOut', page);
-      },
-      pageAfterOut: function (e, page) {
-        console.log('pageAfterOut', page);
-      },
-      pageBeforeRemove: function (e, page) {
-        console.log('pageBeforeRemove', page);
-      },
+  pageBeforeIn: function (e, page) {
+    console.log('pageBeforeIn', page);
+  },
+  pageAfterIn: function (e, page) {
+    console.log('pageAfterIn', page);
+  },
+  pageBeforeOut: function (e, page) {
+    console.log('pageBeforeOut', page);
+  },
+  pageAfterOut: function (e, page) {
+    console.log('pageAfterOut', page);
+  },
+  pageBeforeRemove: function (e, page) {
+    console.log('pageBeforeRemove', page);
+  },
     }
   }
 </script>
