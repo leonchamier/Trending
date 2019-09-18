@@ -29,29 +29,28 @@
         <div id="id1" class="upload-event" style="display: inline-block;width:280px;height:420px"></div>
       </div>
       <div id="player2"></div>
-      
 
-<audio id="stream" preload='none'>
-  <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-<a href="#" id="audioControl">play!</a>
+
+      <audio id="stream" preload='none'>
+        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+      </audio>
+      <a href="#" id="audioControl">play!</a>
 
       <audio controls id="player_audio" src="/android_asset/www/mp3.mp3"> </audio>
-      <audio controls  src="mp3.mp3"> </audio>
-      <audio   src="/android_asset/www/mp3.mp3"> </audio>
-      <audio id="a1" controls="controls">        
-        <source id="s1" src="/android_asset/www/mp3.mp3" type="audio/mp3" />        
+      <audio controls src="mp3.mp3"> </audio>
+      <audio src="/android_asset/www/mp3.mp3"> </audio>
+      <audio id="a1" controls="controls">
+        <source id="s1" src="/android_asset/www/mp3.mp3" type="audio/mp3" />
       </audio>
-      <audio id="a2" controls="controls">        
-        <source id="s2" src="/android_asset/www/mp3.mp3" type="audio/mpeg" />        
+      <audio id="a2" controls="controls">
+        <source id="s2" src="/android_asset/www/mp3.mp3" type="audio/mpeg" />
       </audio>
-      <audio id="a3" controls="controls">        
-        <source id="s3" src="/android_asset/www/mp3.mp3" type="audio/mp3" />        
+      <audio id="a3" controls="controls">
+        <source id="s3" src="/android_asset/www/mp3.mp3" type="audio/mp3" />
       </audio>
       <audio id="ad1" controls>
-        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mp3" >
-             </audio>
+        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mp3">
+      </audio>
     </div>
 </template>
 
@@ -108,22 +107,22 @@
       },
       pageInit: function (e, page) {
 
-var stream = document.getElementById('stream'),
-ctrl = document.getElementById('audioControl');
+        var stream = document.getElementById('stream'),
+          ctrl = document.getElementById('audioControl');
 
-ctrl.onclick = function () {
+        ctrl.onclick = function () {
 
-// Update the Button
-var pause = ctrl.innerHTML === 'pause!';
-ctrl.innerHTML = pause ? 'play!' : 'pause!';
+          // Update the Button
+          var pause = ctrl.innerHTML === 'pause!';
+          ctrl.innerHTML = pause ? 'play!' : 'pause!';
 
-// Update the Audio
-var method = pause ? 'pause' : 'play';
-stream[method]();
+          // Update the Audio
+          var method = pause ? 'pause' : 'play';
+          stream[method]();
 
-// Prevent Default Action
-return false;
-};
+          // Prevent Default Action
+          return false;
+        };
 
         /*
         $('.upload-event').croppie({
@@ -173,20 +172,20 @@ return false;
 
           } catch (e) { alert('try savingmessage :' + e.message) }
         }
-        function changeAudio(aid,sid,sourceUrl) {
-          alert('changinf audio'+sourceUrl);
-    var audio = $('#'+aid);      
-    $('#'+sid).attr("src", sourceUrl);
-    alert('id initialized');
-    /****************/
-    audio[0].pause();
-    audio[0].load();//suspends and restores all audio element
+        function changeAudio(aid, sid, sourceUrl) {
+          alert('changinf audio' + sourceUrl);
+          var audio = $('#' + aid);
+          $('#' + sid).attr("src", sourceUrl);
+          alert('id initialized');
+          /****************/
+          audio[0].pause();
+          audio[0].load();//suspends and restores all audio element
 
-    //audio[0].play(); changed based on Sprachprofi's comment below
-    audio[0].oncanplaythrough = audio[0].play();
-    /****************/
-    playAudio(sourceUrl);
-}
+          //audio[0].play(); changed based on Sprachprofi's comment below
+          audio[0].oncanplaythrough = audio[0].play();
+          /****************/
+          playAudio(sourceUrl);
+        }
         function playAudio(url) {
           // Play the audio file at url
           var my_media = new Media(url,
@@ -253,22 +252,24 @@ return false;
           var success = function (data) {
             alert(data.dataURI.size);
             try {
-              
-              window.FilePath.resolveNativePath(data.uri, function (data) {alert('native path= '+data);
-              playAudio(data);
-              changeAudio("a1","s1",data);
-              },function (data) {alert('error native path= '+data)});
-              window.resolveLocalFileSystemURI(data.uri, 
-        function(fileEntry) {
-            fileEntry.file(function(fileObj) {
-                alert(fileObj.localURL+" Size = " + fileObj.size);
-               // playAudio(fileObj.localURL);
-            },
-            function (error) {});
-        }, function (error) {}
-    );
+
+
+              window.FilePath.resolveNativePath(data.uri, function (data) {
+                alert('native path= ' + data);
+                //playAudio(data);
+                changeAudio("a1", "s1", data);
+              }, function (data) { alert('error native path= ' + data) });
+              window.resolveLocalFileSystemURI(data.uri,
+                function (fileEntry) {
+                  fileEntry.file(function (fileObj) {
+                    alert(fileObj.localURL + " Size = " + fileObj.size);
+                    // playAudio(fileObj.localURL);
+                  },
+                    function (error) { });
+                }, function (error) { }
+              );
             } catch (e) { alert(e.message + '  native'); }
-            
+
 
             alert('inside success filechooser ' + data.uri);
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
@@ -277,28 +278,36 @@ return false;
             alert(absolutePath);
             var actualPath = absolutePath.substr(0, absolutePath.lastIndexOf('/'));
             actualPath = 'file://' + actualPath;
-            alert(actualPath+'mp3.mp3  00001');
-            try{
-            changeAudio("a1","s1",actualPath+'mp3.mp3');
-            alert('file:///android_asset/www/mp3.mp3 0002');
-            changeAudio("a1","s1",'file:///android_asset/www/mp3.mp3');
-            alert('/android_asset/www/mp3.mp3');
-            changeAudio("a1","s1",'/android_asset/www/mp3.mp3');
-            alert('/www/mp3.mp3');
-            changeAudio("a1","s1",'/www/mp3.mp3');
-            alert('./www/mp3.mp3');
-            changeAudio("a1","s1",'./www/mp3.mp3');
-            alert('mp3.mp3');
-            changeAudio("a1","s1",'mp3.mp3');
-            alert('./mp3.mp3 00099');
-            changeAudio("a1","s1",'./mp3.mp3');
+            alert(actualPath + 'mp3.mp3  00001');
+            try {
+              window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "mp3.mp3",
+                function (fileEntry) {
+                  alert('fileEntry =' + fileEntry.fullPath);
+                  changeAudio("a2", "s2", fileEntry.fullPath);
+                }
+                , function () { });
+              /*
+                  changeAudio("a1","s1",actualPath+'mp3.mp3');
+                  alert('file:///android_asset/www/mp3.mp3 0002');
+                  changeAudio("a1","s1",'file:///android_asset/www/mp3.mp3');
+                  alert('/android_asset/www/mp3.mp3');
+                  changeAudio("a1","s1",'/android_asset/www/mp3.mp3');
+                  alert('/www/mp3.mp3');
+                  changeAudio("a1","s1",'/www/mp3.mp3');
+                  alert('./www/mp3.mp3');
+                  changeAudio("a1","s1",'./www/mp3.mp3');
+                  alert('mp3.mp3');
+                  changeAudio("a1","s1",'mp3.mp3');
+                  alert('./mp3.mp3 00099');
+                  changeAudio("a1","s1",'./mp3.mp3');
+      
+                  alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
+      
+                  changeAudio("a2","s2",cordova.file.applicationDirectory + 'mp3.mp3');
+                  alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
+                  */
+            } catch (e) { alert(e.message) }
 
-            alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
-
-            changeAudio("a2","s2",cordova.file.applicationDirectory + 'mp3.mp3');
-            alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
-            }catch(e){alert(e.message)}
-            
 
 
             var myBaseString = data.dataURI;
