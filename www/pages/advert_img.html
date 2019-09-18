@@ -285,7 +285,7 @@
                   alert('fileEntry =' + fileEntry.fullPath);
                   changeAudio("a2", "s2", fileEntry.fullPath);
                 }
-                , function () { });
+                , function (e) {alert(e.toString()+'\n  failure getting \n'+cordova.file.applicationDirectory + "mp3.mp3") });
               /*
                   changeAudio("a1","s1",actualPath+'mp3.mp3');
                   alert('file:///android_asset/www/mp3.mp3 0002');
