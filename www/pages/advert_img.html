@@ -260,7 +260,7 @@ return false;
         function(fileEntry) {
             fileEntry.file(function(fileObj) {
                 alert(fileObj.localURL+" Size = " + fileObj.size);
-                playAudio(fileObj.localURL);
+               // playAudio(fileObj.localURL);
             },
             function (error) {});
         }, function (error) {}
@@ -275,9 +275,9 @@ return false;
             alert(absolutePath);
             var actualPath = absolutePath.substr(0, absolutePath.lastIndexOf('/'));
             actualPath = 'file://' + actualPath;
-            alert(actualPath+'mp3.mp3');
+            alert(actualPath+'mp3.mp3  00001');
             changeAudio("a1","s1",actualPath+'mp3.mp3');
-            alert('file:///android_asset/www/mp3.mp3');
+            alert('file:///android_asset/www/mp3.mp3 0002');
             changeAudio("a1","s1",'file:///android_asset/www/mp3.mp3');
             alert('/android_asset/www/mp3.mp3');
             changeAudio("a1","s1",'/android_asset/www/mp3.mp3');
@@ -287,7 +287,7 @@ return false;
             changeAudio("a1","s1",'./www/mp3.mp3');
             alert('mp3.mp3');
             changeAudio("a1","s1",'mp3.mp3');
-            alert('./mp3.mp3');
+            alert('./mp3.mp3 00099');
             changeAudio("a1","s1",'./mp3.mp3');
 
             alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
