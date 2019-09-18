@@ -308,10 +308,10 @@
               }
 
               function gotFile(fileEntry) {
-alert(fileEntry.fullPath);
+alert(fileEntry.fullPath+"  $$$$ \n  "+fileEntry.toURL());
                 fileEntry.file(function (file) {
                   var reader = new FileReader();
-
+alert(file);
                   reader.onloadend = function (e) {
                     alert("Text is: " + this.result);
                    
