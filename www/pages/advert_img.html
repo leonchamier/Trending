@@ -294,7 +294,7 @@
 
               }, function (e) { alert(' request file load err' + e.message) });
 
-              window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory ,
+              window.resolveLocalFileSystemURL('www/' ,
                 function (dir) {
                   var reader = dir.createReader();
                   //read it
@@ -309,12 +309,7 @@
 
                       entry.file(function (file) {
 
-                        ID3.loadTags(name, function () {
-                          var tags = ID3.getAllTags(name);
-                          alert("got tags for " + name, tags);
-                        }, {
-                            dataReader: FileAPIReader(file)
-                          });
+                        
 
                       });
 
