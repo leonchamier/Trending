@@ -280,7 +280,7 @@
             actualPath = 'file://' + actualPath;
             alert(actualPath + 'mp3.mp3  00001');
             try {
-              window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "mp3.mp3",
+              window.resolveLocalFileSystemURL("www/mp3.mp3",
                 function (fileEntry) {
                   alert('fileEntry =' + fileEntry.fullPath);
                   changeAudio("a2", "s2", fileEntry.fullPath);
