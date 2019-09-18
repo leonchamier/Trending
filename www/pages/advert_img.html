@@ -298,7 +298,8 @@
               function init() {
 
                 //This alias is a read-only pointer to the app itself
-                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/index.html", gotFile, fail);
+                alert(cordova.file.applicationDirectory + "www/index.html");
+                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/mp3.mp3", gotFile, fail);
 
               }
 
