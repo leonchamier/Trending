@@ -36,9 +36,7 @@
       </audio>
       <a href="#" id="audioControl">play!</a>
 
-      <audio controls id="player_audio" src="/android_asset/www/mp3.mp3"> </audio>
-      <audio controls src="mp3.mp3"> </audio>
-      <audio src="/android_asset/www/mp3.mp3"> </audio>
+     
       <audio id="a1" controls="controls">
         <source id="s1" src="/android_asset/www/mp3.mp3" type="audio/mp3" />
       </audio>
@@ -299,7 +297,7 @@
 
                 //This alias is a read-only pointer to the app itself
                 alert(cordova.file.applicationDirectory + "www/index.html");
-                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/index.html", gotFile, fail);
+                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/test.txt", gotFile, fail);
 
               }
 
