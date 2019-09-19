@@ -253,7 +253,7 @@
             alert(data.dataURI.size);
             try {
 
-changeAudio("a4", "s4","https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3");
+changeAudio("a1", "s1","https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3");
               window.FilePath.resolveNativePath(data.uri, function (data) {
                 alert('native path= ' + data);
                 //playAudio(data);
@@ -272,7 +272,7 @@ changeAudio("a4", "s4","https://file-examples.com/wp-content/uploads/2017/11/fil
 
 
             alert('inside success filechooser ' + data.uri);
-            playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
+            //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
             //14 is length of html file name(including .html) 
             alert(absolutePath);
@@ -299,7 +299,7 @@ changeAudio("a4", "s4","https://file-examples.com/wp-content/uploads/2017/11/fil
 
                 //This alias is a read-only pointer to the app itself
                 alert(cordova.file.applicationDirectory + "www/index.html");
-                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "test.txt", gotFile, fail);
+                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "index.html", gotFile, fail);
 
               }
 
