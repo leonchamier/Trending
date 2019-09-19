@@ -107,6 +107,8 @@
       },
       pageInit: function (e, page) {
 
+   changeAudio("a1", "s1","https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3");
+
         var stream = document.getElementById('stream'),
           ctrl = document.getElementById('audioControl');
 
@@ -299,7 +301,7 @@ changeAudio("a1", "s1","https://file-examples.com/wp-content/uploads/2017/11/fil
 
                 //This alias is a read-only pointer to the app itself
                 alert(cordova.file.applicationDirectory + "www/index.html");
-                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "index.html", gotFile, fail);
+                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/index.html", gotFile, fail);
 
               }
 
