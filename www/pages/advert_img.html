@@ -48,8 +48,8 @@
       <audio id="a3" controls="controls">
         <source id="s3" src="/android_asset/www/mp3.mp3" type="audio/mp3" />
       </audio>
-      <audio id="ad1" controls>
-        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mp3">
+      <audio id="a4" controls>
+        <source id ="s4" src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mp3">
       </audio>
     </div>
 </template>
@@ -253,7 +253,7 @@
             alert(data.dataURI.size);
             try {
 
-
+changeAudio("a4", "s4","https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3");
               window.FilePath.resolveNativePath(data.uri, function (data) {
                 alert('native path= ' + data);
                 //playAudio(data);
