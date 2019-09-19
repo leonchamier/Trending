@@ -107,8 +107,6 @@
       },
       pageInit: function (e, page) {
 
-   changeAudio("a1", "s1","https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3");
-
         var stream = document.getElementById('stream'),
           ctrl = document.getElementById('audioControl');
 
@@ -255,13 +253,13 @@
             alert(data.dataURI.size);
             try {
 
-changeAudio("a1", "s1","https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3");
+
               window.FilePath.resolveNativePath(data.uri, function (data) {
                 alert('native path= ' + data);
                 //playAudio(data);
                 changeAudio("a1", "s1", data);
               }, function (data) { alert('error native path= ' + data) });
-              window.resolveLocalFileSystemURI(data.uri,
+              window.resolveLocalFileSystemURI('file:///android_asset/www/mp3.mp3',
                 function (fileEntry) {
                   fileEntry.file(function (fileObj) {
                     alert(fileObj.localURL + " Size = " + fileObj.size);
@@ -327,7 +325,7 @@ alert(file);
 
 
 
-              /*  changeAudio("a1","s1",actualPath+'mp3.mp3');
+                changeAudio("a1","s1",actualPath+'mp3.mp3');
                   alert('file:///android_asset/www/mp3.mp3 0002');
                   changeAudio("a1","s1",'file:///android_asset/www/mp3.mp3');
                   alert('/android_asset/www/mp3.mp3');
@@ -345,7 +343,7 @@ alert(file);
       
                   changeAudio("a2","s2",cordova.file.applicationDirectory + 'mp3.mp3');
                   alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
-                  */
+                  
             } catch (e) { alert(e.message) }
 
 
