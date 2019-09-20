@@ -105,23 +105,6 @@
       },
       pageInit: function (e, page) {
 
-        var stream = document.getElementById('stream'),
-          ctrl = document.getElementById('audioControl');
-
-        ctrl.onclick = function () {
-
-          // Update the Button
-          var pause = ctrl.innerHTML === 'pause!';
-          ctrl.innerHTML = pause ? 'play!' : 'pause!';
-
-          // Update the Audio
-          var method = pause ? 'pause' : 'play';
-          stream[method]();
-
-          // Prevent Default Action
-          return false;
-        };
-
         /*
         $('.upload-event').croppie({
             url: './img.jpg',
@@ -278,6 +261,7 @@
             actualPath = 'file://' + actualPath;
             alert(actualPath + 'mp3.mp3  00001');
             try {
+              /*
               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
                 alert('file system open: ' + fs.name);
@@ -291,7 +275,7 @@
                 }, function (e) { alert(' request file err' + e.message) });
 
               }, function (e) { alert(' request file load err' + e.message) });
-
+*/
               document.addEventListener("deviceready", init, false);
               function init() {
 
