@@ -278,14 +278,26 @@
             actualPath = 'file://' + actualPath;
             alert(actualPath + 'mp3.mp3  00001');
             try {
-             
+              window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+
+                alert('file system open: ' + fs.name);
+                fs.root.getFile("test.txt", {}, function (fileEntry) {
+
+                  alert(fileEntry.fullPath + " \n fileEntry is file?" + fileEntry.isFile.toString());
+                  // fileEntry.name == 'someFile.txt'
+                  // fileEntry.fullPath == '/someFile.txt'
+
+
+                }, function (e) { alert(' request file err' + e.message) });
+
+              }, function (e) { alert(' request file load err' + e.message) });
 
               document.addEventListener("deviceready", init, false);
               function init() {
 
                 //This alias is a read-only pointer to the app itself
                 alert(cordova.file.applicationDirectory + "www/index.html");
-                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/mp3.mp3", gotFile, fail);
+                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/test.txt", gotFile, fail);
 
               }
 
