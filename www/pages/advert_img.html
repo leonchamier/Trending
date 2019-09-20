@@ -31,9 +31,7 @@
       <div id="player2"></div>
 
 
-      <audio id="stream" preload='none'>
-        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg"> Your browser does not support the audio element.
-      </audio>
+      <audio id="successSound"  controls src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg" ></audio>
       <a href="#" id="audioControl">play!</a>
 
      
@@ -249,7 +247,7 @@
         $('#img_orient').click(function () {
           var success = function (data) {
             alert(data.dataURI.size);
-    /*        try {
+            try {
 
 
               window.FilePath.resolveNativePath(data.uri, function (data) {
@@ -268,7 +266,7 @@
               );
             } catch (e) { alert(e.message + '  native'); }
 
-*/
+
             alert('inside success filechooser ' + data.uri);
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
@@ -340,6 +338,16 @@ alert(file);
       
                   alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
       */
+      var url = audioElement.getAttribute('src');
+      url='mp3.mp3';
+var my_media = new Media('/android_asset/www/' + url,
+        // success callback
+         function () { alert("playAudio():Audio Success"); },
+        // error callback
+         function (err) { alert("playAudio():Audio Error: " + err); }
+);
+       // Play audio
+my_media.play();
                   changeAudio("a2","s2",cordova.file.applicationDirectory + 'mp3.mp3');
                   alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
                   
