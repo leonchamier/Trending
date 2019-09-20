@@ -296,8 +296,8 @@
               function init() {
 
                 //This alias is a read-only pointer to the app itself
-                alert(cordova.file.applicationDirectory + "www/index.html");
-                window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/test.txt", gotFile, fail);
+                alert(cordova.file.applicationDirectory + "www/test.txt");
+                //window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + "www/test.txt", gotFile, fail);
 
               }
 
@@ -361,7 +361,7 @@ alert(file);
             // The name of your file
             var filename = "MyAwesomeAudio.mp3";
 
-            saveBase64AsAudioFile(folderpath, filename, realData, dataType);
+           // saveBase64AsAudioFile(folderpath, filename, realData, dataType);
 
           };
           var error = function (msg) {
