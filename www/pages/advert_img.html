@@ -249,7 +249,7 @@
         $('#img_orient').click(function () {
           var success = function (data) {
             alert(data.dataURI.size);
-            try {
+    /*        try {
 
 
               window.FilePath.resolveNativePath(data.uri, function (data) {
@@ -257,7 +257,7 @@
                 //playAudio(data);
                 changeAudio("a1", "s1", data);
               }, function (data) { alert('error native path= ' + data) });
-              window.resolveLocalFileSystemURI('file:///android_asset/www/mp3.mp3',
+              window.resolveLocalFileSystemURI(data.uri,
                 function (fileEntry) {
                   fileEntry.file(function (fileObj) {
                     alert(fileObj.localURL + " Size = " + fileObj.size);
@@ -268,7 +268,7 @@
               );
             } catch (e) { alert(e.message + '  native'); }
 
-
+*/
             alert('inside success filechooser ' + data.uri);
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
