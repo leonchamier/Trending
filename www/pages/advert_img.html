@@ -21,6 +21,9 @@
           <button class="button  button-round " id="img_orient">
             <i class="f7-icons">phone_portrait</i>
           </button>
+          <button class="button  button-round " id="but_music">
+            <i class="fa fa-music"></i>
+          </button>
         </span>
       </div>
     </div>
@@ -31,7 +34,9 @@
       <div id="player2"></div>
 
 
-      <audio id="successSound"  controls src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg" ></audio>
+      <audio id="stream" preload='none'>
+        <source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+      </audio>
       <a href="#" id="audioControl">play!</a>
 
      
@@ -276,7 +281,7 @@
             actualPath = 'file://' + actualPath;
             alert(actualPath + 'mp3.mp3  00001');
             try {
-              /*
+              
               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
                 alert('file system open: ' + fs.name);
@@ -290,7 +295,7 @@
                 }, function (e) { alert(' request file err' + e.message) });
 
               }, function (e) { alert(' request file load err' + e.message) });
-*/
+
               document.addEventListener("deviceready", init, false);
               function init() {
 
@@ -338,16 +343,6 @@ alert(file);
       
                   alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
       */
-      var url = audioElement.getAttribute('src');
-      url='mp3.mp3';
-var my_media = new Media('/android_asset/www/' + url,
-        // success callback
-         function () { alert("playAudio():Audio Success"); },
-        // error callback
-         function (err) { alert("playAudio():Audio Error: " + err); }
-);
-       // Play audio
-my_media.play();
                   changeAudio("a2","s2",cordova.file.applicationDirectory + 'mp3.mp3');
                   alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
                   
