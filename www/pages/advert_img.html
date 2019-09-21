@@ -108,7 +108,9 @@
       },
       pageInit: function (e, page) {
         $('#but_music').click(function () {
-
+          var absolutePath = window.location.pathname;
+          var actualPath = absolutePath.substr(0, absolutePath.lastIndexOf('/'));
+            actualPath = 'file://' + actualPath;
           changeAudio("a1", "s1", actualPath + 'mp3.mp3');
           alert('file:///android_asset/www/mp3.mp3 0002');
           changeAudio("a1", "s1", 'file:///android_asset/www/mp3.mp3');
