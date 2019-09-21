@@ -39,7 +39,7 @@
       </audio>
       <a href="#" id="audioControl">play!</a>
 
-     
+
       <audio id="a1" controls="controls">
         <source id="s1" src="/android_asset/www/mp3.mp3" type="audio/mp3" />
       </audio>
@@ -50,7 +50,7 @@
         <source id="s3" src="/android_asset/www/mp3.mp3" type="audio/mp3" />
       </audio>
       <audio id="a4" controls>
-        <source id ="s4" src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mp3">
+        <source id="s4" src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mp3">
       </audio>
     </div>
 </template>
@@ -107,6 +107,26 @@
 
       },
       pageInit: function (e, page) {
+        $('#img_orient').click(function () {
+
+          changeAudio("a1", "s1", actualPath + 'mp3.mp3');
+          alert('file:///android_asset/www/mp3.mp3 0002');
+          changeAudio("a1", "s1", 'file:///android_asset/www/mp3.mp3');
+          alert('/android_asset/www/mp3.mp3');
+          changeAudio("a1", "s1", '/android_asset/www/mp3.mp3');
+          alert('/www/mp3.mp3');
+          changeAudio("a1", "s1", '/www/mp3.mp3');
+          alert('./www/mp3.mp3');
+          changeAudio("a1", "s1", './www/mp3.mp3');
+          alert('mp3.mp3');
+          changeAudio("a1", "s1", 'mp3.mp3');
+          alert('./mp3.mp3 00099');
+          changeAudio("a1", "s1", './mp3.mp3');
+
+          alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
+
+          changeAudio("a2", "s2", cordova.file.applicationDirectory + 'mp3.mp3');
+        });
 
         var stream = document.getElementById('stream'),
           ctrl = document.getElementById('audioControl');
@@ -185,7 +205,7 @@
           //audio[0].play(); changed based on Sprachprofi's comment below
           audio[0].oncanplaythrough = audio[0].play();
           /****************/
-          playAudio(sourceUrl);
+          // playAudio(sourceUrl);
         }
         function playAudio(url) {
           // Play the audio file at url
@@ -267,7 +287,7 @@
                     // playAudio(fileObj.localURL);
                   },
                     function (error) { });
-                }, function (error) {alert('error resolveds'); }
+                }, function (error) { alert('error resolveds'); }
               );
             } catch (e) { alert(e.message + '  native'); }
 
@@ -281,7 +301,7 @@
             actualPath = 'file://' + actualPath;
             alert(actualPath + 'mp3.mp3  00001');
             try {
-              
+
               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
 
                 alert('file system open: ' + fs.name);
@@ -311,13 +331,13 @@
               }
 
               function gotFile(fileEntry) {
-alert(fileEntry.fullPath+"  $$$$ \n  "+fileEntry.toURL());
+                alert(fileEntry.fullPath + "  $$$$ \n  " + fileEntry.toURL());
                 fileEntry.file(function (file) {
                   var reader = new FileReader();
-alert(file);
+                  alert(file);
                   reader.onloadend = function (e) {
                     alert("Text is: " + this.result);
-                   
+
                   }
 
                   reader.readAsText(file);
@@ -326,26 +346,26 @@ alert(file);
               }
 
 
-/*
-                changeAudio("a1","s1",actualPath+'mp3.mp3');
-                  alert('file:///android_asset/www/mp3.mp3 0002');
-                  changeAudio("a1","s1",'file:///android_asset/www/mp3.mp3');
-                  alert('/android_asset/www/mp3.mp3');
-                  changeAudio("a1","s1",'/android_asset/www/mp3.mp3');
-                  alert('/www/mp3.mp3');
-                  changeAudio("a1","s1",'/www/mp3.mp3');
-                  alert('./www/mp3.mp3');
-                  changeAudio("a1","s1",'./www/mp3.mp3');
-                  alert('mp3.mp3');
-                  changeAudio("a1","s1",'mp3.mp3');
-                  alert('./mp3.mp3 00099');
-                  changeAudio("a1","s1",'./mp3.mp3');
-      
-                  alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
-      */
-                  changeAudio("a2","s2",cordova.file.applicationDirectory + 'mp3.mp3');
-                  alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
-                  
+              /*
+                              changeAudio("a1","s1",actualPath+'mp3.mp3');
+                                alert('file:///android_asset/www/mp3.mp3 0002');
+                                changeAudio("a1","s1",'file:///android_asset/www/mp3.mp3');
+                                alert('/android_asset/www/mp3.mp3');
+                                changeAudio("a1","s1",'/android_asset/www/mp3.mp3');
+                                alert('/www/mp3.mp3');
+                                changeAudio("a1","s1",'/www/mp3.mp3');
+                                alert('./www/mp3.mp3');
+                                changeAudio("a1","s1",'./www/mp3.mp3');
+                                alert('mp3.mp3');
+                                changeAudio("a1","s1",'mp3.mp3');
+                                alert('./mp3.mp3 00099');
+                                changeAudio("a1","s1",'./mp3.mp3');
+                    
+                                alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
+                    */
+              changeAudio("a2", "s2", cordova.file.applicationDirectory + 'mp3.mp3');
+              alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
+
             } catch (e) { alert(e.message) }
 
 
@@ -365,7 +385,7 @@ alert(file);
             // The name of your file
             var filename = "MyAwesomeAudio.mp3";
 
-           // saveBase64AsAudioFile(folderpath, filename, realData, dataType);
+            // saveBase64AsAudioFile(folderpath, filename, realData, dataType);
 
           };
           var error = function (msg) {
