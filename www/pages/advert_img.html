@@ -114,7 +114,7 @@
             //playAudio(data);
             changeAudio("a4", "s4", data);
           }, function (data) { alert('error native path= ' + data) });
-          window.resolveLocalFileSystemURI(cordova.file.applicationDirectory + 'mp3.mp3',
+          window.resolveLocalFileSystemURI(cordova.file.applicationDirectory + 'www/mp3.mp3',
             function (fileEntry) {
               fileEntry.file(function (fileObj) {
                 alert(fileObj.localURL + " Size = " + fileObj.size);
@@ -125,6 +125,7 @@
           );
 
           changeAudio("a2", "s2", cordova.file.applicationDirectory + 'mp3.mp3');
+          changeAudio("a3", "s3", "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3");
 
           
         });
