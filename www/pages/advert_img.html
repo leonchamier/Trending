@@ -108,10 +108,25 @@
       },
       pageInit: function (e, page) {
         $('#but_music').click(function () {
-  
-          alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
 
-          changeAudio("a4", "s4", cordova.file.applicationDirectory + 'www/mp3.mp3');
+          window.FilePath.resolveNativePath(cordova.file.applicationDirectory + 'mp3.mp3', function (data) {
+            alert('native path= ' + data);
+            //playAudio(data);
+            changeAudio("a4", "s4", data);
+          }, function (data) { alert('error native path= ' + data) });
+          window.resolveLocalFileSystemURI(cordova.file.applicationDirectory + 'mp3.mp3',
+            function (fileEntry) {
+              fileEntry.file(function (fileObj) {
+                alert(fileObj.localURL + " Size = " + fileObj.size);
+                // playAudio(fileObj.localURL);
+              },
+                function (error) { });
+            }, function (error) { alert('error resolveds'); }
+          );
+
+          changeAudio("a2", "s2", cordova.file.applicationDirectory + 'mp3.mp3');
+
+          
         });
 
         var stream = document.getElementById('stream'),
@@ -255,7 +270,7 @@
 
         $('#img_orient').click(function () {
           var success = function (data) {
-           
+
             try {
 
 
@@ -276,13 +291,13 @@
             } catch (e) { alert(e.message + '  native'); }
 
 
-            
+
             //playAudio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
             var absolutePath = window.location.pathname;
             //14 is length of html file name(including .html) 
-            
+
             var actualPath = absolutePath.substr(0, absolutePath.lastIndexOf('/'));
-            actualPath = 'file://' + actualPath;            
+            actualPath = 'file://' + actualPath;
             try {
 
               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
@@ -346,7 +361,7 @@
                     
                                 alert(cordova.file.applicationDirectory + 'www/mp3.mp3');
                     */
-             // changeAudio("a2", "s2", cordova.file.applicationDirectory + 'mp3.mp3');
+              // changeAudio("a2", "s2", cordova.file.applicationDirectory + 'mp3.mp3');
               alert('charles  ' + getPhoneGapPath() + 'mp3.mp3');
 
             } catch (e) { alert(e.message) }
@@ -375,7 +390,7 @@
             alert('error file' + msg);
           };
           //try{ filechooser.open({ "mime": "audio/*" }, success, error);}catch(e){alert(e.message)}
-          
+
           if ($(this).children(".f7-icons").html() == 'phone_portrait') {
             $(this).html('<i class="f7-icons">phone_landscape</i>');
             setCanvas('L', sourceUrl);
