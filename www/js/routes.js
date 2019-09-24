@@ -44,6 +44,9 @@ var routes = [
     path: '/location/:index/',
     componentUrl: './pages/location.html',
 },{
+  path: '/login/',
+  componentUrl: './pages/login.html',
+},{
   path: '/advert_img/:index/',
   componentUrl: './pages/advert_img.html',
 },

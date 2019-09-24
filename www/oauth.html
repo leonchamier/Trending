@@ -13,6 +13,12 @@
 <body>
 
     <script>
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+            if (cookies[i].split("=")[0].indexOf("fblo_") != -1)
+                delete_cookie(cookies[i].split("=")[0]);
+        }
+
         window.fbAsyncInit = function () {
             FB.init({
                 appId: '539265886819362',
@@ -23,9 +29,10 @@
 
             FB.AppEvents.logPageView();
 
+
         };
 
-        (function (d, s, id) {            
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }
             js = d.createElement(s); js.id = id;
@@ -49,22 +56,66 @@
                 statusChangeCallback(response);
             });
         }
-        function statusChangeCallback(response){
+        function statusChangeCallback(response) {
             console.log(response);
+            if (response.status === 'connected') {
+            fetchUserProfile();
+            }else{
+                login();
+            }
         }
+        function logout() {
+            window.location.href = "http://m.facebook.com/logout.php?confirm=1&next=http://localhost/mobile/Trending/www";
+        }
+
+        function fetchUserProfile() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me?fields=id,name,email,gender,birthday', function (response) {
+                console.log(response);
+                console.log('Successful login for: ' + response.name);
+                var profile = `<h1>Welcome {response.name}<h1>
+      <h2>Your email is ${response.email}</h2>
+      <h2>Your email is ${response.user_gender}</h2>
+      <h3>Your Birthday is ${response.user_birthday}</h3>`;
+      document.getElementById("status").innerHTML=profile;
+            });
+        }
+
+              //login the user
+      function login() {
+          FB.login(function(response) {
+            if (response.authResponse) {
+
+                // If user is accepted the permission call the callAPI() function
+              //  callAPI();
+              console.log(response);
+          fetchUserProfile();
+
+            } else {
+
+                  // If the user declined the permission do something, in this case lets refresh the page.
+                  window.parent.location = "http://localhost/mobile/Trending/www/oauth.html";
+
+            }
+          },
+ {
+    scope: 'user_age_range,user_gender,user_birthday',
+    auth_type: 'rerequest'
+  }
+  ); // in some cases you need to specify the permissions, a nice list is here: http://developers.facebook.com/docs/reference/login/#permissions
+
+      }
     </script>
 
 
     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
     </fb:login-button>
 
-    <com.facebook.login.widget.LoginButton
-    android:id="@+id/login_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="30dp"
-    android:layout_marginBottom="30dp" /> 
+    <button onclick="logout()">logout</button>
+    <button id="login">Login with Facebook</button>
+    <button style="display:none;" id="logout">Logout</button>           
+    <div id="status">
+    </div>
 </body>
 
 </html>
