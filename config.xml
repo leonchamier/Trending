@@ -28,9 +28,9 @@
   </plugin> 
 
   <config-file   mode="merge" parent="/resources" target="./res/values/strings.xml">
-			<string name="fb_app_id">539265886819362</string>
-			<string name="fb_app_name">Trending</string>
-		</config-file>
+			<string translatable="false" name="fb_app_id">539265886819362</string>
+			<string translatable="false" name="fb_app_name">Trending</string>
+	</config-file>
   
 
  <plugin name="cordova-plugin-file-chooser" source="npm" /> 
