@@ -20,7 +20,12 @@
   <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  </config-file>  
+  </config-file> 
+
+  <plugin name="cordova-plugin-facebook4" spec="1.7.4" source="npm">
+    <param name="APP_ID" value="XXXXXXXXXXXXXXX" />
+    <param name="APP_NAME" value="MyProg" />
+  </plugin> 
   
 
  <plugin name="cordova-plugin-file-chooser" source="npm" /> 
