@@ -7,7 +7,7 @@
   <content src="index.html"/>
   <preference name="DisallowOverscroll" value="true"/>
   
-  
+  <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
   <preference name="phonegap-version" value="cli-8.1.1" />
   <preference name="android-minSdkVersion" value="19" />
   <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
@@ -28,8 +28,8 @@
   </plugin> 
 
   <config-file   mode="merge" parent="/resources" target="./res/values/strings.xml">
-  <string name="show_all_apps" tools:ignore="MissingTranslation">All</string>
-
+      <string name="show_all_apps" tools:ignore="MissingTranslation">All</string>
+      <resources xmlns:tools="http://schemas.android.com/tools"   tools:locale="es">
 			<string name="fb_app_id">539265886819362</string>
 			<string name="fb_app_name">Trending</string>
 	</config-file>
