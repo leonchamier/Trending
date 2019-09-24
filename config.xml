@@ -22,12 +22,14 @@
    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   </config-file> 
 
-  <plugin name="cordova-plugin-facebook4"  source="npm">
+  <plugin name="cordova-plugin-facebook4" spec="1.7.4" source="npm">
     <param name="APP_ID" value="539265886819362" />
     <param name="APP_NAME" value="Trending" />
   </plugin> 
 
   <config-file   mode="merge" parent="/resources" target="./res/values/strings.xml">
+  <string name="show_all_apps" tools:ignore="MissingTranslation">All</string>
+
 			<string name="fb_app_id">539265886819362</string>
 			<string name="fb_app_name">Trending</string>
 	</config-file>
