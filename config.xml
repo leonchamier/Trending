@@ -27,7 +27,7 @@
     <param name="APP_NAME" value="Trending" />
   </plugin> 
 
-  <config-file  translatable="false" parent="/resources" target="./res/values/strings.xml">
+  <config-file   mode="merge" parent="/resources" target="./res/values/strings.xml">
 			<string name="fb_app_id">539265886819362</string>
 			<string name="fb_app_name">Trending</string>
 		</config-file>

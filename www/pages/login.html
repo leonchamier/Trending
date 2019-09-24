@@ -96,6 +96,7 @@
         }
         $('#but_login').click(function () {
           FB.getLoginStatus(function (response) {
+            alert()
                 statusChangeCallback(response);
             });
         });
