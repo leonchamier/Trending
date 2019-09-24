@@ -23,8 +23,8 @@
   </config-file> 
 
   <plugin name="cordova-plugin-facebook4" spec="1.7.4" source="npm">
-    <param name="APP_ID" value="XXXXXXXXXXXXXXX" />
-    <param name="APP_NAME" value="MyProg" />
+    <param name="APP_ID" value="539265886819362" />
+    <param name="APP_NAME" value="Trending" />
   </plugin> 
   
 
