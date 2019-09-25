@@ -7,7 +7,7 @@
   <content src="index.html"/>
   <preference name="DisallowOverscroll" value="true"/>
   
-  <preference name="android-build-tool" value="ant" />
+  
   <preference name="phonegap-version" value="cli-8.1.1" />
   <preference name="android-minSdkVersion" value="19" />
   <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyAQb8UXtwwrW-R3zzOWgEDqvMNuA6IVkxs" />
