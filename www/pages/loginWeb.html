@@ -13,9 +13,10 @@
       </div>
       <div class="page-content">
        
-        <button class="button  button-round " id='but_login'>
-          <i class="fa fa-facebook-square"></i>
-        </button>
+        <fb:login-button scope="public_profile,email" id="but_login" >
+        </fb:login-button>
+  <button >other button</button>
+        </div>
   </template>
   
   <style>
@@ -68,18 +69,40 @@
           console.log('pageMounted', page);
         },
         pageInit: function (e, page) {
-          
+          window.fbAsyncInit = function () {
+            FB.init({
+                appId: '539265886819362',
+                cookie: true,
+                xfbml: true,
+                version: 'v4.0'
+            });
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function (d, s, id) {            
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
         function checkLoginState() {
             FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
             });
         }
         $('#but_login').click(function () {
-          facebookConnectPlugin.login(['public_profile,user_age_range,user_gender,user_birthday'], function (data) { 
-            alert(data.userID+'= sucess =' + data.status) 
-            }, function (error){})
+          FB.getLoginStatus(function (response) {
+            alert()
+                statusChangeCallback(response);
+            });
         });
-        
+        function statusChangeCallback(response){
+            console.log(response);
+        }
           console.log('pageInit', page);
         },
         pageBeforeIn: function (e, page) {
