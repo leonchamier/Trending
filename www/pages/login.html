@@ -1,102 +1,122 @@
 <template>
-    <div class="page">
-      <div class="navbar">
-        <div class="navbar-inner sliding">
-          <div class="left">
-            <a href="#" class="link back">
-              <i class="icon icon-back"></i>
-              <span class="ios-only">Back</span>
-            </a>
-          </div>
-          <div class="title">Location</div>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
         </div>
+        <div class="title">Location</div>
       </div>
-      <div class="page-content">
-       
-        <button class="button  button-round " id='but_login'>
-          <i class="fa fa-facebook-square"></i>
-        </button>
-  </template>
-  
-  <style>
-    p {
-      margin: 10px 0;
-    }
-  </style>
-  
-  <script>
-    return {
-      // Lifecycle Hooks
-      beforeCreate() {
-        console.log('componentBeforeCreate', this)
-      },
-      created() {
-        console.log('componentCreated', this)
-      },
-      beforeMount() {
-        console.log('componentBeforeMount', this)
-      },
-      mounted() {
-        console.log('componentMounted', this);
-      },
-      beforeDestroy() {
-        console.log('componentBeforeDestroy', this);
-      },
-      destroyed() {
-        console.log('componentDestroyed', this);
-      },
-      // Component Data
-      data: function () {
-        // Must return an object
-        return {
-          name: 'Jimmy',
-          age: 25,
-          like: ['Tennis', 'Chess', 'Football'],
-          // map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
-        }
-      },
-      // Component Methods
-      methods: {
-        openAlert: function () {
-          var self = this;
-          self.$app.dialog.alert('Hello World');
-        }
-      },
-      // Page Events
-      on: {
-        pageMounted: function (e, page) {
-          console.log('pageMounted', page);
-        },
-        pageInit: function (e, page) {
-          
-        function checkLoginState() {
-            FB.getLoginStatus(function (response) {
-                statusChangeCallback(response);
-            });
-        }
-        $('#but_login').click(function () {
-          facebookConnectPlugin.login(['public_profile,user_age_range,user_gender,user_birthday'], function (data) { 
-            alert(data.userID+'= sucess =' + data.status) 
-            }, function (error){})
-        });
-        
-          console.log('pageInit', page);
-        },
-        pageBeforeIn: function (e, page) {
-          console.log('pageBeforeIn', page);
-        },
-        pageAfterIn: function (e, page) {
-          console.log('pageAfterIn', page);
-        },
-        pageBeforeOut: function (e, page) {
-          console.log('pageBeforeOut', page);
-        },
-        pageAfterOut: function (e, page) {
-          console.log('pageAfterOut', page);
-        },
-        pageBeforeRemove: function (e, page) {
-          console.log('pageBeforeRemove', page);
-        },
+    </div>
+    <div class="page-content">
+
+      <button class="button  button-round " id='but_login'>
+        <i class="fa fa-facebook-square"></i>
+      </button>
+      <button class="button  button-round " id='but_google_login'>
+        <i class="fa fa-google"></i>
+      </button>
+
+</template>
+
+<style>
+  p {
+    margin: 10px 0;
+  }
+</style>
+
+<script>
+  return {
+    // Lifecycle Hooks
+    beforeCreate() {
+      console.log('componentBeforeCreate', this)
+    },
+    created() {
+      console.log('componentCreated', this)
+    },
+    beforeMount() {
+      console.log('componentBeforeMount', this)
+    },
+    mounted() {
+      console.log('componentMounted', this);
+    },
+    beforeDestroy() {
+      console.log('componentBeforeDestroy', this);
+    },
+    destroyed() {
+      console.log('componentDestroyed', this);
+    },
+    // Component Data
+    data: function () {
+      // Must return an object
+      return {
+        name: 'Jimmy',
+        age: 25,
+        like: ['Tennis', 'Chess', 'Football'],
+        // map: plugin.google.maps.Map.getMap(document.getElementById("map_canvas"))
       }
+    },
+    // Component Methods
+    methods: {
+      openAlert: function () {
+        var self = this;
+        self.$app.dialog.alert('Hello World');
+      }
+    },
+    // Page Events
+    on: {
+      pageMounted: function (e, page) {
+        console.log('pageMounted', page);
+      },
+      pageInit: function (e, page) {
+
+        function checkLoginState() {
+          FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+          });
+        }
+        $('#but_google_login').click(function () {
+          window.plugins.googleplus.login(
+            {
+              'scopes': '... ', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+              'webClientId': 'client id of the web app/server side', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+              'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+            },
+            function (obj) {
+              alert(JSON.stringify(obj)); // do something useful instead of alerting
+            },
+            function (msg) {
+              alert('error: ' + msg);
+            }
+          );
+        });
+
+        $('#but_login').click(function () {
+          facebookConnectPlugin.login(['public_profile,user_age_range,user_gender,user_birthday'], function (data) {
+            alert(data.userID + '= sucess =' + data.status)
+          }, function (error) { })
+        });
+
+        console.log('pageInit', page);
+      },
+      pageBeforeIn: function (e, page) {
+        console.log('pageBeforeIn', page);
+      },
+      pageAfterIn: function (e, page) {
+        console.log('pageAfterIn', page);
+      },
+      pageBeforeOut: function (e, page) {
+        console.log('pageBeforeOut', page);
+      },
+      pageAfterOut: function (e, page) {
+        console.log('pageAfterOut', page);
+      },
+      pageBeforeRemove: function (e, page) {
+        console.log('pageBeforeRemove', page);
+      },
     }
-  </script>
+  }
+</script>
