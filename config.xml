@@ -18,7 +18,7 @@
   <plugin name="cordova-filepath-resolver" spec="^1.0.5" />
 
   <plugin name="cordova-plugin-googleplus" source="npm">
-    <param name="REVERSED_CLIENT_ID" value="409259879353-brep3n5mh4ce0rrohrf546enoiejbj9h.apps.googleusercontent.com" />
+    <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.409259879353-brep3n5mh4ce0rrohrf546enoiejbj9h" />
     <param name="WEB_APPLICATION_CLIENT_ID" value="409259879353-ht57tnp6scjfeba5cbgvab85h9gg74a9.apps.googleusercontent.com" /> 
   </plugin>
   
